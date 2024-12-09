@@ -8,4 +8,14 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="img\8-bit-graphics-pixels-scene-with-castle.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="img\8-bit-graphics-pixels-scene-with-castle.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
 </Project>
