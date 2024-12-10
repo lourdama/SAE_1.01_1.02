@@ -151,9 +151,12 @@ namespace JeuxPlateformeBille
         }
         private void SautEnCours()
         {
-            Canvas.SetTop(joueur, Canvas.GetTop(joueur) + vitesseSaut);
-            vitesseSaut = vitesseSaut + gravite;
-
+            if (vitesseSaut < 0)
+            {
+                Canvas.SetTop(joueur, Canvas.GetTop(joueur) + vitesseSaut);
+                vitesseSaut = vitesseSaut + gravite;
+            }
+            
         }
 
         private void billeLance()
