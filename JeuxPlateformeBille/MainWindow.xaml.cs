@@ -21,7 +21,7 @@ namespace JeuxPlateformeBille
     {
         private DispatcherTimer minuterie;
         private bool gauche, droite, saut, enSaut, billeBouge = false;
-        private int vitesseJoueur = 8, gravite = 8, toleranceColision = 8, nbtouche = 0;
+        private int vitesseJoueur = 8, gravite = 8, toleranceColision = 8, nbtouche = 0, nbStockBille = 10;
         System.Drawing.Rectangle hitBoxSol, hitBoxJoueur,hitBoxBille, hitBoxEnnemi;
         private static Point clickPosition;
         private static double vitesseBilleX, vitesseBilleY, vitesseSaut, graviteBille = 4;
@@ -85,13 +85,18 @@ namespace JeuxPlateformeBille
         }
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            clickPosition = e.GetPosition(this);
-            Canvas.SetTop(bille, Canvas.GetTop(joueur));
-            Canvas.SetLeft(bille, Canvas.GetLeft(joueur));
-            vitesseBilleX = (clickPosition.X - Canvas.GetLeft(bille));
-            vitesseBilleY = (clickPosition.Y - Canvas.GetTop(bille));
-            bille.Visibility = Visibility.Visible;
-            billeBouge = true;
+            if (nbStockBille > 0)
+            {
+                clickPosition = e.GetPosition(this);
+                Canvas.SetTop(bille, Canvas.GetTop(joueur));
+                Canvas.SetLeft(bille, Canvas.GetLeft(joueur));
+                vitesseBilleX = (clickPosition.X - Canvas.GetLeft(bille));
+                vitesseBilleY = (clickPosition.Y - Canvas.GetTop(bille));
+                bille.Visibility = Visibility.Visible;
+                billeBouge = true;
+                nbStockBille = nbStockBille - 1;
+                StockBille.Content = "Stock De Billes : " + nbStockBille;
+            }
         }
 
         private void Jeu(object? sender, EventArgs e)
@@ -182,7 +187,8 @@ namespace JeuxPlateformeBille
 
         private void billeLance()
         {
-            if (Canvas.GetLeft(bille) < 0 || Canvas.GetLeft(bille) > this.ActualWidth || Canvas.GetTop(bille) < 0 || Canvas.GetTop(bille) > this.ActualHeight)
+            
+            if (Canvas.GetLeft(bille) < 0 || Canvas.GetLeft(bille) > this.ActualWidth || Canvas.GetTop(bille) > this.ActualHeight)
             {
                 billeBouge = false;
                 bille.Visibility = Visibility.Hidden;
@@ -200,22 +206,24 @@ namespace JeuxPlateformeBille
             if (hitBoxBille.IntersectsWith(hitBoxSol))
             {
                 Canvas.SetLeft(joueur, Canvas.GetLeft(bille));
-                Canvas.SetTop(joueur, Canvas.GetTop(bille)-joueur.Height);
+                Canvas.SetTop(joueur, Canvas.GetTop(bille) - joueur.Height);
                 bille.Visibility = Visibility.Hidden;
                 billeBouge = false;
             }
+            
+            
             
         }
 
         private void deplacementEnnemi()
         {
-            Canvas.SetLeft(ennemi, Canvas.GetLeft(ennemi) + Math.Sign(Canvas.GetLeft(joueur) - Canvas.GetLeft(ennemi)) * 2);
+            /*Canvas.SetLeft(ennemi, Canvas.GetLeft(ennemi) + Math.Sign(Canvas.GetLeft(joueur) - Canvas.GetLeft(ennemi)) * 2);
             Canvas.SetTop(ennemi, Canvas.GetTop(ennemi) + Math.Sign(Canvas.GetTop(joueur) - Canvas.GetTop(ennemi)) );
             hitBoxEnnemi = new System.Drawing.Rectangle((int)Canvas.GetLeft(ennemi), (int)Canvas.GetTop(ennemi), (int)ennemi.Width, (int)ennemi.Height);
             Canvas.SetLeft(EnnemiVie, Canvas.GetLeft(ennemi) + 15);
             Canvas.SetLeft(EnnemiVie2, Canvas.GetLeft(ennemi) + 30);
             Canvas.SetTop(EnnemiVie, Canvas.GetTop(ennemi) - 10);
-            Canvas.SetTop(EnnemiVie2, Canvas.GetTop(ennemi) - 10);
+            Canvas.SetTop(EnnemiVie2, Canvas.GetTop(ennemi) - 10);*/
         }
 
         private void colisionEnnemi()
@@ -226,15 +234,15 @@ namespace JeuxPlateformeBille
                 Canvas.SetLeft(bille, -10);
                 if (nbtouche == 1)
                 {
-                    ennemi.Visibility = Visibility.Hidden;
-                    EnnemiVie.Visibility = Visibility.Hidden;
-                    EnnemiVie2.Visibility = Visibility.Hidden;
+                    //ennemi.Visibility = Visibility.Hidden;
+                    //EnnemiVie.Visibility = Visibility.Hidden;
+                    //EnnemiVie2.Visibility = Visibility.Hidden;
                     ReinitialisationSaut();
                 }
                 else
                 {
                     nbtouche = nbtouche + 1;
-                    EnnemiVie2.Fill = new SolidColorBrush(System.Windows.Media.Colors.Red);
+                    //EnnemiVie2.Fill = new SolidColorBrush(System.Windows.Media.Colors.Red);
                 }
             }
         }
@@ -244,13 +252,13 @@ namespace JeuxPlateformeBille
         }
         private bool VerifTouche()
         {
-            if (ennemi.Visibility == Visibility.Visible)
+            /*if (ennemi.Visibility == Visibility.Visible)
             {
                 hitBoxJoueur = new System.Drawing.Rectangle((int)Canvas.GetLeft(joueur), (int)Canvas.GetTop(joueur), (int)joueur.Width - 2, (int)joueur.Height - 2);
                 hitBoxEnnemi = new System.Drawing.Rectangle((int)Canvas.GetLeft(ennemi), (int)Canvas.GetTop(ennemi), (int)ennemi.Width - 2, (int)ennemi.Height - 2);
                 bool ennemiTouche = hitBoxEnnemi.IntersectsWith(hitBoxJoueur);
                 return ennemiTouche;
-            }
+            }*/
             return false;
             
         }
