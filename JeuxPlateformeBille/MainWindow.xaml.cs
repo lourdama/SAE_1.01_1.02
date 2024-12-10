@@ -21,17 +21,15 @@ namespace JeuxPlateformeBille
     {
         private DispatcherTimer minuterie;
         private bool gauche, droite, saut = false, enSaut;
-        private int vitesseJoueur = 8, sautJoueur = 8, gravite = 3;
+        private int vitesseJoueur = 8, sautJoueur = 8, gravite = 0;
         System.Drawing.Rectangle hitBoxSol, hitBoxJoueur;
         public MainWindow()
         {
-
-            
             InitializeComponent();
-            InitTimer();
             hitBoxSol = new System.Drawing.Rectangle((int)Canvas.GetLeft(sol), (int)Canvas.GetTop(sol), (int)sol.Width, (int)sol.Height);
             this.KeyDown += new KeyEventHandler(Window_KeyDown);
             this.KeyUp += new KeyEventHandler(Window_KeyUp);
+            InitTimer();   
             
         }
 
@@ -88,6 +86,10 @@ namespace JeuxPlateformeBille
             if (hitBoxJoueur.IntersectsWith(hitBoxSol))
             {
                 gravite = 0;
+            }
+            else
+            {
+                gravite = 3;
             }
             Canvas.SetTop(joueur, Canvas.GetTop(joueur) + gravite);
             
