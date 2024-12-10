@@ -10,27 +10,25 @@
     Width="800"
     Height="450"
     mc:Ignorable="d">
-    <Canvas x:Name="canvasMainWindow">
+    <Canvas x:Name="canvasMainWindow" MouseDown="Window_MouseDown">
         <Image
-            x:Name="bille1"
+            x:Name="ImageFond"
             Canvas.Top="14"
             Width="790"
             Height="414"
             HorizontalAlignment="Left"
             VerticalAlignment="Center"
-            MouseDown="Window_MouseDown"
             Source="/img/8-bit-graphics-pixels-scene-with-castle.jpg"
             Stretch="Fill" />
         <Rectangle
             x:Name="sol"
-            Canvas.Left="64"
             Canvas.Top="347"
-            Width="662"
+            Width="810"
             Height="36"
             HorizontalAlignment="Left"
-            VerticalAlignment="Top"
+            VerticalAlignment="Center"
             Fill="White"
-            Stroke="White" />
+            Stroke="White" Canvas.Left="-20" />
         <Rectangle
             x:Name="joueur"
             Canvas.Left="339"
@@ -49,7 +47,7 @@
             Height="10"
             Fill="#FFFDFF00"
             RenderTransformOrigin="-7.733,3.404"
-            Stroke="#FFFDFF00" />
+            Stroke="#FFFDFF00" Visibility="Hidden" />
         <Rectangle
             x:Name="barreSaut"
             Canvas.Left="0"
