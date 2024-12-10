@@ -21,7 +21,7 @@ namespace JeuxPlateformeBille
     {
         private DispatcherTimer minuterie;
         private bool gauche, droite, saut, enSaut, billeBouge = false;
-        private int vitesseJoueur = 8, sautJoueur = 100, gravite = 3, toleranceColision, vitesseSaut;
+        private int vitesseJoueur = 8, sautJoueur = 100, gravite = 3, vitesseSaut, toleranceColision = 4;
         System.Drawing.Rectangle hitBoxSol, hitBoxJoueur;
         private static Point clickPosition;
         private static double chrono, chronoSaut = 0, vitessteBilleX, vitesseBilleY, graviteBille = 4;
@@ -45,12 +45,12 @@ namespace JeuxPlateformeBille
         }
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Left)
+            if (e.Key == Key.Q)
             {
                 gauche = true;
             }
 
-            else if (e.Key == Key.Right)
+            else if (e.Key == Key.D)
             {
                 droite = true;
             }
@@ -63,11 +63,11 @@ namespace JeuxPlateformeBille
 
         private void Window_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Left)
+            if (e.Key == Key.Q)
             {
                 gauche = false;
             }
-            else if (e.Key == Key.Right) 
+            else if (e.Key == Key.D) 
             {
                 droite = false;
             }
@@ -106,13 +106,14 @@ namespace JeuxPlateformeBille
              
             if (auSol())
             {
-                gravite = 0;
-                enSaut = false;
-                vitesseSaut = -32;
-                if (Canvas.GetTop(joueur) > hitBoxSol.Top - joueur.Height +4)
+
+                if (Canvas.GetTop(joueur) > hitBoxSol.Top - joueur.Height + gravite + toleranceColision)
                 {
                     Canvas.SetTop(joueur, hitBoxSol.Top - joueur.Height);
                 }
+                gravite = 0;
+                enSaut = false;
+                vitesseSaut = -32;
             }
              
             else
