@@ -44,16 +44,6 @@
             Fill="Red"
             Stroke="Red" />
         <Rectangle
-            x:Name="bille"
-            Canvas.Left="368"
-            Canvas.Top="207"
-            Width="10"
-            Height="10"
-            Fill="#FFFDFF00"
-            RenderTransformOrigin="-7.733,3.404"
-            Stroke="#FFFDFF00"
-            Visibility="Hidden" />
-        <Rectangle
             x:Name="barreSaut"
             Canvas.Left="0"
             Canvas.Top="14"
