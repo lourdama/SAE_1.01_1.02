@@ -22,7 +22,7 @@
             MouseDown="Window_MouseDown"/>
         <Rectangle x:Name="sol" Height="36" Stroke="White" Canvas.Top="349" Width="172" Fill="White" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Left="368"/>
         <Rectangle x:Name="joueur" Height="56" Stroke="Red" Canvas.Top="232" Width="16" Fill="Red" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="418"/>
-        <Rectangle x:Name="bille" Height="10" Stroke="#FFFDFF00" Width="10" Canvas.Left="365" Canvas.Top="232" Fill="#FFFDFF00"/>
+        <Rectangle x:Name="bille" Height="10" Stroke="#FFFDFF00" Width="10" Canvas.Left="368" Canvas.Top="207" Fill="#FFFDFF00" RenderTransformOrigin="-7.733,3.404"/>
 
     </Canvas>
 
