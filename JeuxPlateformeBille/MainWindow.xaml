@@ -11,33 +11,18 @@
     Height="450"
     mc:Ignorable="d">
     <Canvas x:Name="canvasMainWindow">
-        <Image
-            Canvas.Top="10"
+        <Image x:Name="bille1"
+            Canvas.Top="14"
             Width="790"
             Height="414"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
             Source="/img/8-bit-graphics-pixels-scene-with-castle.jpg"
-            Stretch="Fill" />
-        <Rectangle
-            x:Name="sol"
-            Canvas.Top="359"
-            Width="282"
-            Height="36"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Fill="White"
-            Stroke="White" Canvas.Left="285" />
-        <Rectangle
-            x:Name="joueur"
-            Canvas.Left="418"
-            Canvas.Top="232"
-            Width="16"
-            Height="56"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Fill="Red"
-            Stroke="Red" />
+            Stretch="Fill" Canvas.Left="5" 
+            MouseDown="Window_MouseDown"/>
+        <Rectangle x:Name="sol" Height="36" Stroke="White" Canvas.Top="349" Width="172" Fill="White" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Left="368"/>
+        <Rectangle x:Name="joueur" Height="56" Stroke="Red" Canvas.Top="232" Width="16" Fill="Red" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="418"/>
+        <Rectangle x:Name="bille" Height="10" Stroke="#FFFDFF00" Width="10" Canvas.Left="365" Canvas.Top="232" Fill="#FFFDFF00"/>
 
     </Canvas>
 

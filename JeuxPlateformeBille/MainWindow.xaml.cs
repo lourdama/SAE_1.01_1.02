@@ -20,9 +20,11 @@ namespace JeuxPlateformeBille
     public partial class MainWindow : Window
     {
         private DispatcherTimer minuterie;
-        private bool gauche, droite, saut = false, enSaut;
-        private int vitesseJoueur = 4, sautJoueur = 8, gravite = 0;
+        private bool gauche, droite, saut, enSaut, billeBouge = false;
+        private int vitesseJoueur = 8, sautJoueur = 8, gravite = 3;
         System.Drawing.Rectangle hitBoxSol, hitBoxJoueur;
+        private static Point clickPosition;
+        private static double positionBilleY, positionBilleX, chrono;
         public MainWindow()
         {
             InitializeComponent();
@@ -74,9 +76,23 @@ namespace JeuxPlateformeBille
                 saut = false;
             }
         }
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            clickPosition = e.GetPosition(this);
+            positionBilleX = Canvas.GetLeft(bille);
+            positionBilleY = Canvas.GetTop(bille);
+
+            billeBouge = true;
+            chrono = 0;
+        }
+
         private void Jeu(object? sender, EventArgs e)
         {
             deplacement();
+            if (billeBouge)
+            {
+                billeLance();
+            }
 
         }
         private void deplacement()
@@ -131,7 +147,16 @@ namespace JeuxPlateformeBille
             bool estAuSol = hitBoxSol.IntersectsWith(hitBoxJoueur);
             return estAuSol;
         }
-        
+
+        private void billeLance()
+        {
+            chrono = chrono + 0.017;
+            Canvas.SetLeft(bille, Canvas.GetLeft(bille) + ((clickPosition.X - positionBilleX)) / (50 - chrono * 2));
+            Canvas.SetTop(bille, Canvas.GetTop(bille) + (clickPosition.Y - positionBilleY) / (250 * chrono));
+            Canvas.SetTop(bille, Canvas.GetTop(bille) + (gravite * chrono * 2));
+
+        }
+
 
     }
 }
