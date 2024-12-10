@@ -113,7 +113,7 @@ namespace JeuxPlateformeBille
                 }
                 gravite = 0;
                 enSaut = false;
-                vitesseSaut = -32;
+                vitesseSaut = -20;
             }
              
             else
@@ -160,7 +160,7 @@ namespace JeuxPlateformeBille
             if (vitesseSaut < 0)
             {
                 Canvas.SetTop(joueur, Canvas.GetTop(joueur) + vitesseSaut);
-                vitesseSaut = vitesseSaut + gravite/2;
+                vitesseSaut = vitesseSaut + gravite/5;
             }
             
         }
