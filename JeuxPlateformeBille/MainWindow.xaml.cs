@@ -24,7 +24,7 @@ namespace JeuxPlateformeBille
         private int vitesseJoueur = 8, sautJoueur = 8, gravite = 3;
         System.Drawing.Rectangle hitBoxSol, hitBoxJoueur;
         private static Point clickPosition;
-        private static double positionBilleY, positionBilleX, chrono, vitessteBilleX, vitesseBilleY,  graviteBille = 4;
+        private static double positionJoueurSautX, positionJoueurX, chrono, chronoSaut = 0, vitessteBilleX, vitesseBilleY, graviteBille = 4;
         public MainWindow()
         {
             InitializeComponent();
