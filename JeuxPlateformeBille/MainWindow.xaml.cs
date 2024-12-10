@@ -25,8 +25,12 @@ namespace JeuxPlateformeBille
         System.Drawing.Rectangle hitBoxSol, hitBoxJoueur,hitBoxBille, hitBoxEnnemi;
         private static Point clickPosition;
         private static double vitesseBilleX, vitesseBilleY, vitesseSaut, graviteBille = 4;
-        private static int[,,] billes;
-        private static int[,,] ennemis;
+        private static int[,,] billes = { { },
+                                          { },
+                                          { } };
+        private static int[,,] ennemis = { { },
+                                           { },
+                                           { } };
 
         public MainWindow()
         {
@@ -44,7 +48,9 @@ namespace JeuxPlateformeBille
             minuterie.Interval = TimeSpan.FromMilliseconds(17);
             minuterie.Tick += Jeu;
             minuterie.Start();
+            
         }
+
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Q)
