@@ -19,8 +19,25 @@
             VerticalAlignment="Center"
             Source="/img/8-bit-graphics-pixels-scene-with-castle.jpg"
             Stretch="Fill" />
-        <Rectangle x:Name="sol" Height="36" Stroke="White" Canvas.Top="349" Width="790" Fill="White" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-        <Rectangle x:Name="joueur" Height="56" Stroke="Red" Canvas.Top="232" Width="16" Fill="Red" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="418"/>
+        <Rectangle
+            x:Name="sol"
+            Canvas.Top="359"
+            Width="282"
+            Height="36"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Fill="White"
+            Stroke="White" Canvas.Left="285" />
+        <Rectangle
+            x:Name="joueur"
+            Canvas.Left="418"
+            Canvas.Top="232"
+            Width="16"
+            Height="56"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Fill="Red"
+            Stroke="Red" />
 
     </Canvas>
 

@@ -82,8 +82,7 @@ namespace JeuxPlateformeBille
         private void deplacement()
         {
 
-            hitBoxJoueur = new System.Drawing.Rectangle((int)Canvas.GetLeft(joueur), (int)Canvas.GetTop(joueur), (int)joueur.Width, (int)joueur.Height);
-            if (hitBoxJoueur.IntersectsWith(hitBoxSol))
+             if (auSol())
             {
                 gravite = 0;
             }
@@ -109,6 +108,13 @@ namespace JeuxPlateformeBille
                     Canvas.SetLeft(joueur, Canvas.GetLeft(joueur) - sautJoueur);
                 }
                     
+            }
+            if (saut)
+            {
+                if ((Canvas.GetTop(joueur) - sautJoueur) > 0)
+                {
+                    Canvas.SetTop(joueur, Canvas.GetTop(joueur) - sautJoueur);
+                }
             }
 
 
