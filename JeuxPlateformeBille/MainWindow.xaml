@@ -11,18 +11,55 @@
     Height="450"
     mc:Ignorable="d">
     <Canvas x:Name="canvasMainWindow">
-        <Image x:Name="bille1"
+        <Image
+            x:Name="bille1"
             Canvas.Top="14"
             Width="790"
             Height="414"
             HorizontalAlignment="Left"
-            VerticalAlignment="Top"
+            VerticalAlignment="Center"
+            MouseDown="Window_MouseDown"
             Source="/img/8-bit-graphics-pixels-scene-with-castle.jpg"
-            Stretch="Fill" Canvas.Left="5" 
-            MouseDown="Window_MouseDown"/>
-        <Rectangle x:Name="sol" Height="36" Stroke="White" Canvas.Top="349" Width="172" Fill="White" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Left="368"/>
-        <Rectangle x:Name="joueur" Height="56" Stroke="Red" Canvas.Top="232" Width="16" Fill="Red" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="418"/>
-        <Rectangle x:Name="bille" Height="10" Stroke="#FFFDFF00" Width="10" Canvas.Left="368" Canvas.Top="207" Fill="#FFFDFF00" RenderTransformOrigin="-7.733,3.404"/>
+            Stretch="Fill" />
+        <Rectangle
+            x:Name="sol"
+            Canvas.Left="287"
+            Canvas.Top="346"
+            Width="172"
+            Height="36"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Fill="White"
+            Stroke="White" />
+        <Rectangle
+            x:Name="joueur"
+            Canvas.Left="339"
+            Canvas.Top="254"
+            Width="16"
+            Height="56"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Fill="Red"
+            Stroke="Red" />
+        <Rectangle
+            x:Name="bille"
+            Canvas.Left="368"
+            Canvas.Top="207"
+            Width="10"
+            Height="10"
+            Fill="#FFFDFF00"
+            RenderTransformOrigin="-7.733,3.404"
+            Stroke="#FFFDFF00" />
+        <Rectangle
+            x:Name="barreSaut"
+            Canvas.Left="0"
+            Canvas.Top="14"
+            Width="100"
+            Height="16"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            OpacityMask="White"
+            Stroke="White" Fill="White" />
 
     </Canvas>
 

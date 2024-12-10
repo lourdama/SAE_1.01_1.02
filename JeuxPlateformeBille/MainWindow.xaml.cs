@@ -21,10 +21,10 @@ namespace JeuxPlateformeBille
     {
         private DispatcherTimer minuterie;
         private bool gauche, droite, saut, enSaut, billeBouge = false;
-        private int vitesseJoueur = 8, sautJoueur = 100, gravite = 3, vitesseSaut, toleranceColision = 8;
+        private int vitesseJoueur = 8, gravite = 3, vitesseSaut, toleranceColision = 8;
         System.Drawing.Rectangle hitBoxSol, hitBoxJoueur;
         private static Point clickPosition;
-        private static double chrono, chronoSaut = 0, vitessteBilleX, vitesseBilleY, graviteBille = 4;
+        private static double chrono, vitessteBilleX, vitesseBilleY, graviteBille = 4;
 
         public MainWindow()
         {
@@ -76,6 +76,10 @@ namespace JeuxPlateformeBille
             {
                 saut = false;
             }
+            else if (e.Key == Key.Space)
+            {
+                saut = false;
+            }
         }
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -114,6 +118,7 @@ namespace JeuxPlateformeBille
                 gravite = 0;
                 enSaut = false;
                 vitesseSaut = -20;
+                Canvas.SetLeft(barreSaut, 0);
             }
              
             else
@@ -144,7 +149,6 @@ namespace JeuxPlateformeBille
             if (saut && enSaut == false)
             {
                 enSaut = true;
-                chronoSaut = 0;
             }
 
         }
@@ -159,8 +163,13 @@ namespace JeuxPlateformeBille
         {
             if (vitesseSaut < 0)
             {
-                Canvas.SetTop(joueur, Canvas.GetTop(joueur) + vitesseSaut);
-                vitesseSaut = vitesseSaut + gravite/5;
+                if (saut)
+                {
+                    Canvas.SetTop(joueur, Canvas.GetTop(joueur) + vitesseSaut);
+                    vitesseSaut = vitesseSaut + gravite / 5;
+                    Canvas.SetLeft(barreSaut, Canvas.GetLeft(barreSaut) - 5);
+                }
+                
             }
             
         }
