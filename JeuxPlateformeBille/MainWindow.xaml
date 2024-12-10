@@ -64,7 +64,7 @@
             Fill="White"
             OpacityMask="White"
             Stroke="White" />
-        <Rectangle
+        <!--<Rectangle
             x:Name="ennemi"
             Canvas.Left="582"
             Canvas.Top="325"
@@ -73,25 +73,9 @@
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Fill="#FFB700FF"
-            Stroke="#FFB700FF" />
-        <Rectangle
-            x:Name="EnnemiVie"
-            Canvas.Left="576"
-            Canvas.Top="287"
-            Width="15"
-            Height="6"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Center"
-            Fill="#FF0A7D00" />
-        <Rectangle
-            x:Name="EnnemiVie2"
-            Canvas.Left="591"
-            Canvas.Top="287"
-            Width="15"
-            Height="6"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Center"
-            Fill="#FF0A7D00" />
+            Stroke="#FFB700FF-->
+        <Label x:Name="StockBille" Content="Stock De Billes : 10" Height="51" Canvas.Left="1184" Canvas.Top="22" Width="232" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="24" Background="Transparent"/>
+
 
     </Canvas>
 
