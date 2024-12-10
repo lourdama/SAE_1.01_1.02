@@ -25,11 +25,11 @@
         <Rectangle
             x:Name="sol"
             Canvas.Left="-53"
-            Canvas.Top="761"
+            Canvas.Top="747"
             Width="1606"
-            Height="37"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Center"
+            Height="38"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
             Fill="White"
             RenderTransformOrigin="0.647,4.584"
             Stroke="White" />
