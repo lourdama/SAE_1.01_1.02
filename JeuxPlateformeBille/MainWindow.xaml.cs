@@ -21,10 +21,11 @@ namespace JeuxPlateformeBille
     {
         private DispatcherTimer minuterie;
         private bool gauche, droite, saut, enSaut, billeBouge = false;
-        private int vitesseJoueur = 8, sautJoueur = 8, gravite = 3;
+        private int vitesseJoueur = 8, sautJoueur = 100, gravite = 3, toleranceColision;
         System.Drawing.Rectangle hitBoxSol, hitBoxJoueur;
         private static Point clickPosition;
         private static double positionJoueurSautX, positionJoueurX, chrono, chronoSaut = 0, vitessteBilleX, vitesseBilleY, graviteBille = 4;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -92,6 +93,10 @@ namespace JeuxPlateformeBille
             {
                 billeLance();
             }
+            if (enSaut)
+            {
+                SautEnCours();
+            }
 
         }
         private void deplacement()
@@ -100,10 +105,10 @@ namespace JeuxPlateformeBille
              if (auSol())
             {
                 gravite = 0;
-                if (Canvas.GetTop(joueur) > hitBoxSol.Top - joueur.Height)
+                enSaut = false;
+                if (Canvas.GetTop(joueur) > hitBoxSol.Top - joueur.Height +4)
                 {
                     Canvas.SetTop(joueur, hitBoxSol.Top - joueur.Height);
-                    enSaut = false;
                 }
             }
             else
@@ -114,7 +119,7 @@ namespace JeuxPlateformeBille
             
             if (droite)
             {
-                if ((Canvas.GetLeft(joueur) + sautJoueur) + joueur.Width < this.ActualWidth)
+                if ((Canvas.GetLeft(joueur) + vitesseJoueur) + joueur.Width < this.ActualWidth)
                 {
                     Canvas.SetLeft(joueur, Canvas.GetLeft(joueur) + vitesseJoueur);
                 }
@@ -123,19 +128,17 @@ namespace JeuxPlateformeBille
 
             if (gauche)
             {
-                if ((Canvas.GetLeft(joueur) - sautJoueur) > 0)
+                if ((Canvas.GetLeft(joueur) - vitesseJoueur) > 0)
                 {
                     Canvas.SetLeft(joueur, Canvas.GetLeft(joueur) - vitesseJoueur);
                 }
                     
             }
-            if (saut)
+            if (saut && enSaut == false)
             {
+                positionJoueurSautX = Canvas.GetTop(joueur) + sautJoueur;
+                positionJoueurX = Canvas.GetLeft(joueur);
                 enSaut = true;
-                if ((Canvas.GetTop(joueur) - sautJoueur) > 0)
-                {
-                    Canvas.SetTop(joueur, Canvas.GetTop(joueur) - sautJoueur);
-                }
             }
 
         }
@@ -145,6 +148,12 @@ namespace JeuxPlateformeBille
             hitBoxJoueur = new System.Drawing.Rectangle((int)Canvas.GetLeft(joueur), (int)Canvas.GetTop(joueur), (int)joueur.Width, (int)joueur.Height);
             bool estAuSol = hitBoxSol.IntersectsWith(hitBoxJoueur);
             return estAuSol;
+        }
+        private void SautEnCours()
+        {
+            chronoSaut = chronoSaut + 0.017;
+            Canvas.SetTop(joueur, Canvas.GetTop(bille) - (gravite * chrono * 100) + (positionJoueurSautX - positionJoueurX) / (50 - chronoSaut * 2));
+
         }
 
         private void billeLance()
