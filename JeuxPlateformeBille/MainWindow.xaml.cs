@@ -21,7 +21,7 @@ namespace JeuxPlateformeBille
     {
         private DispatcherTimer minuterie;
         private bool gauche, droite, saut, enSaut, billeBouge = false;
-        private int vitesseJoueur = 8, gravite = 3, toleranceColision = 8, nbtouche = 0;
+        private int vitesseJoueur = 8, gravite = 8, toleranceColision = 8, nbtouche = 0;
         System.Drawing.Rectangle hitBoxSol, hitBoxJoueur,hitBoxBille, hitBoxEnnemi;
         private static Point clickPosition;
         private static double vitesseBilleX, vitesseBilleY, vitesseSaut, graviteBille = 4;
@@ -125,14 +125,12 @@ namespace JeuxPlateformeBille
                     Canvas.SetTop(joueur, hitBoxSol.Top - joueur.Height);
                 }
                 gravite = 0;
-                enSaut = false;
-                vitesseSaut = -20;
-                Canvas.SetLeft(barreSaut, 0);
+                ReinitialisationSaut();
             }
              
             else
             {
-                gravite = 5;
+                gravite = 8;
             }
             
 
@@ -223,7 +221,7 @@ namespace JeuxPlateformeBille
 
         private void colisionEnnemi()
         {
-            if (hitBoxBille.IntersectsWith(hitBoxEnnemi))
+            if (hitBoxBille.IntersectsWith(hitBoxEnnemi) )
             {
                 bille.Visibility = Visibility.Hidden;
                 Canvas.SetLeft(bille, -10);
@@ -232,6 +230,7 @@ namespace JeuxPlateformeBille
                     ennemi.Visibility = Visibility.Hidden;
                     EnnemiVie.Visibility = Visibility.Hidden;
                     EnnemiVie2.Visibility = Visibility.Hidden;
+                    ReinitialisationSaut();
                 }
                 else
                 {
@@ -246,15 +245,29 @@ namespace JeuxPlateformeBille
         }
         private bool VerifTouche()
         {
-            hitBoxJoueur = new System.Drawing.Rectangle((int)Canvas.GetLeft(joueur), (int)Canvas.GetTop(joueur), (int)joueur.Width - 2, (int)joueur.Height - 2);
-            hitBoxEnnemi = new System.Drawing.Rectangle((int)Canvas.GetLeft(ennemi), (int)Canvas.GetTop(ennemi), (int)ennemi.Width - 2, (int)ennemi.Height - 2);
-            bool ennemiTouche = hitBoxEnnemi.IntersectsWith(hitBoxJoueur);
-            return ennemiTouche;
+            if (ennemi.Visibility == Visibility.Visible)
+            {
+                hitBoxJoueur = new System.Drawing.Rectangle((int)Canvas.GetLeft(joueur), (int)Canvas.GetTop(joueur), (int)joueur.Width - 2, (int)joueur.Height - 2);
+                hitBoxEnnemi = new System.Drawing.Rectangle((int)Canvas.GetLeft(ennemi), (int)Canvas.GetTop(ennemi), (int)ennemi.Width - 2, (int)ennemi.Height - 2);
+                bool ennemiTouche = hitBoxEnnemi.IntersectsWith(hitBoxJoueur);
+                return ennemiTouche;
+            }
+            return false;
+            
+        }
+
+        private void ReinitialisationSaut()
+        {
+            enSaut = false;
+            vitesseSaut = -25;
+            Canvas.SetLeft(barreSaut, 0);
         }
         private void FinJeu()
         {
             minuterie.Stop();
         }
+
+        
         
     }
 }
