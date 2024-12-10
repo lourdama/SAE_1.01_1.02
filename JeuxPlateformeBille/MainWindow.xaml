@@ -7,28 +7,29 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="JEU"
     Title="MainWindow"
-    Width="800"
-    Height="450"
+    Width="1920"
+    Height="1080"
     mc:Ignorable="d">
     <Canvas x:Name="canvasMainWindow" MouseDown="Window_MouseDown">
         <Image
             x:Name="ImageFond"
             Canvas.Top="14"
-            Width="790"
-            Height="414"
+            Width="1920"
+            Height="1080"
             HorizontalAlignment="Left"
-            VerticalAlignment="Center"
+            VerticalAlignment="Top"
             Source="/img/8-bit-graphics-pixels-scene-with-castle.jpg"
             Stretch="Fill" />
         <Rectangle
             x:Name="sol"
-            Canvas.Left="-20"
-            Canvas.Top="347"
-            Width="810"
-            Height="36"
+            Canvas.Left="-201"
+            Canvas.Top="944"
+            Width="2322"
+            Height="75"
             HorizontalAlignment="Left"
-            VerticalAlignment="Center"
+            VerticalAlignment="Top"
             Fill="White"
+            RenderTransformOrigin="0.647,4.584"
             Stroke="White" />
         <Rectangle
             x:Name="joueur"
@@ -63,16 +64,32 @@
             Stroke="White" />
         <Rectangle
             x:Name="ennemi"
-            Canvas.Left="554"
-            Canvas.Top="310"
+            Canvas.Left="582"
+            Canvas.Top="325"
             Width="24"
             Height="37"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Fill="#FFB700FF"
             Stroke="#FFB700FF" />
-        <Rectangle x:Name="EnnemiVie" Height="6" Width="15"    Canvas.Left="576" Canvas.Top="287" HorizontalAlignment="Left" VerticalAlignment="Center" Fill="#FF0A7D00" />
-        <Rectangle x:Name="EnnemiVie2" Height="6" Width="15"   Canvas.Left="591" Canvas.Top="287"  HorizontalAlignment="Left" VerticalAlignment="Center" Fill="#FF0A7D00"/>
+        <Rectangle
+            x:Name="EnnemiVie"
+            Canvas.Left="576"
+            Canvas.Top="287"
+            Width="15"
+            Height="6"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            Fill="#FF0A7D00" />
+        <Rectangle
+            x:Name="EnnemiVie2"
+            Canvas.Left="591"
+            Canvas.Top="287"
+            Width="15"
+            Height="6"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            Fill="#FF0A7D00" />
 
     </Canvas>
 
