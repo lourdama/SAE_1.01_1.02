@@ -97,12 +97,14 @@ namespace JeuxPlateformeBille
             {
                 SautEnCours();
             }
+            
 
         }
         private void deplacement()
         {
 
-             if (auSol())
+             
+            if (auSol())
             {
                 gravite = 0;
                 enSaut = false;
@@ -112,10 +114,13 @@ namespace JeuxPlateformeBille
                     Canvas.SetTop(joueur, hitBoxSol.Top - joueur.Height);
                 }
             }
+             
             else
             {
-                gravite = 3;
+                gravite = 5;
             }
+            
+
             Canvas.SetTop(joueur, Canvas.GetTop(joueur) + gravite);
             
             if (droite)
@@ -154,7 +159,7 @@ namespace JeuxPlateformeBille
             if (vitesseSaut < 0)
             {
                 Canvas.SetTop(joueur, Canvas.GetTop(joueur) + vitesseSaut);
-                vitesseSaut = vitesseSaut + gravite;
+                vitesseSaut = vitesseSaut + gravite/2;
             }
             
         }
