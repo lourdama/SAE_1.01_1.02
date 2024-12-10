@@ -24,7 +24,7 @@ namespace JeuxPlateformeBille
         private int vitesseJoueur = 8, sautJoueur = 100, gravite = 3, toleranceColision;
         System.Drawing.Rectangle hitBoxSol, hitBoxJoueur;
         private static Point clickPosition;
-        private static double positionJoueurSautX, positionJoueurX, chrono, chronoSaut = 0, vitessteBilleX, vitesseBilleY, graviteBille = 4;
+        private static double positionJoueurSautX = 5, positionJoueurX, chrono, chronoSaut = 0, vitessteBilleX, vitesseBilleY, graviteBille = 4;
 
         public MainWindow()
         {
@@ -95,7 +95,7 @@ namespace JeuxPlateformeBille
             }
             if (enSaut)
             {
-                SautEnCours();
+                SAUT();
             }
 
         }
