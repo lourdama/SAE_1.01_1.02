@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:JeuxPlateformeBille"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="JEU"
     Title="MainWindow"
     Width="800"
     Height="450"
@@ -18,6 +19,9 @@
             VerticalAlignment="Center"
             Source="/img/8-bit-graphics-pixels-scene-with-castle.jpg"
             Stretch="Fill" />
+        <Rectangle x:Name="sol" Height="36" Stroke="White" Canvas.Top="349" Width="790" Fill="White" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Rectangle x:Name="joueur" Height="56" Stroke="Red" Canvas.Top="232" Width="16" Fill="Red" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="418"/>
+
     </Canvas>
 
 </Window>
