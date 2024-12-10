@@ -24,11 +24,11 @@
             Stretch="Fill" />
         <Rectangle
             x:Name="sol"
-            Canvas.Left="-45"
-            Canvas.Top="607"
+            Canvas.Left="-53"
+            Canvas.Top="761"
             Width="1606"
             Height="37"
-            HorizontalAlignment="Center"
+            HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Fill="White"
             RenderTransformOrigin="0.647,4.584"
