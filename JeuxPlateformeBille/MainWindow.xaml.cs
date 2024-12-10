@@ -81,7 +81,6 @@ namespace JeuxPlateformeBille
             clickPosition = e.GetPosition(this);
             vitessteBilleX = (clickPosition.X - Canvas.GetLeft(bille));
             vitesseBilleY = (clickPosition.Y - Canvas.GetTop(bille));
-
             billeBouge = true;
             chrono = 0;
         }
@@ -150,18 +149,10 @@ namespace JeuxPlateformeBille
 
         private void billeLance()
         {
-            /*chrono = chrono + 0.017;
-            Canvas.SetLeft(bille, Canvas.GetLeft(bille) + ((clickPosition.X - positionBilleX)) / (50 - chrono * 2));
-            Canvas.SetTop(bille, Canvas.GetTop(bille) + (clickPosition.Y - positionBilleY) / (250 * chrono));
-            Canvas.SetTop(bille, Canvas.GetTop(bille) + (gravite * chrono * 2));*/
             Canvas.SetLeft(bille, Canvas.GetLeft(bille) + (vitessteBilleX / 25));
-            Canvas.SetTop(bille, Canvas.GetTop(bille) + vitesseBilleY /25);
+            Canvas.SetTop(bille, Canvas.GetTop(bille) + vitesseBilleY / 25);
             vitesseBilleY = vitesseBilleY + graviteBille;
             vitessteBilleX = vitessteBilleX * 0.985;
-
-
         }
-
-
     }
 }
