@@ -21,10 +21,10 @@ namespace JeuxPlateformeBille
     {
         private DispatcherTimer minuterie;
         private bool gauche, droite, saut, enSaut, billeBouge = false;
-        private int vitesseJoueur = 8, gravite = 3, vitesseSaut, toleranceColision = 8;
+        private int vitesseJoueur = 8, gravite = 3, toleranceColision = 8;
         System.Drawing.Rectangle hitBoxSol, hitBoxJoueur;
         private static Point clickPosition;
-        private static double chrono, vitessteBilleX, vitesseBilleY, graviteBille = 4;
+        private static double chrono, vitessteBilleX, vitesseBilleY, graviteBille = 4, vitesseSaut;
 
         public MainWindow()
         {
