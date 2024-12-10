@@ -15,18 +15,13 @@ using System.Windows.Shapes;
 namespace JeuxPlateformeBille
 {
     /// <summary>
-    /// Logique d'interaction pour Parametres.xaml
+    /// Logique d'interaction pour SelectionNiveau.xaml
     /// </summary>
-    public partial class Parametres : Window
+    public partial class SelectionNiveau : Window
     {
-        public Parametres()
+        public SelectionNiveau()
         {
             InitializeComponent();
-        }
-
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
         }
     }
 }

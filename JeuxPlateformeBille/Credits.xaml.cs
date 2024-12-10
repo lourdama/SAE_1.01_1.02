@@ -15,18 +15,13 @@ using System.Windows.Shapes;
 namespace JeuxPlateformeBille
 {
     /// <summary>
-    /// Logique d'interaction pour Parametres.xaml
+    /// Logique d'interaction pour Credits.xaml
     /// </summary>
-    public partial class Parametres : Window
+    public partial class Credits : Window
     {
-        public Parametres()
+        public Credits()
         {
             InitializeComponent();
-        }
-
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
         }
     }
 }
