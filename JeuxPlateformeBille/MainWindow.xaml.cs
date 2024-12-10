@@ -212,7 +212,7 @@ namespace JeuxPlateformeBille
         }
         private void FinJeu()
         {
-
+            minuterie.Stop();
         }
     }
 }
