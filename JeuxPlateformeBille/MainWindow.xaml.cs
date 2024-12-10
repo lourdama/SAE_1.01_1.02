@@ -115,7 +115,6 @@ namespace JeuxPlateformeBille
         }
         private void deplacement()
         {
-
              
             if (auSol())
             {
