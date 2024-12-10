@@ -120,10 +120,10 @@ namespace JeuxPlateformeBille
             if (auSol())
             {
 
-                if (Canvas.GetTop(joueur) > hitBoxSol.Top - joueur.Height + gravite + toleranceColision)
+               /* if (Canvas.GetTop(joueur) > hitBoxSol.Top - joueur.Height + gravite + toleranceColision)
                 {
                     Canvas.SetTop(joueur, hitBoxSol.Top - joueur.Height);
-                }
+                } Remonter automatiquement sur plateforme si touché*/
                 gravite = 0;
                 enSaut = false;
                 vitesseSaut = -20;
