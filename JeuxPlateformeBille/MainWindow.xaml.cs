@@ -93,6 +93,7 @@ namespace JeuxPlateformeBille
         private void Jeu(object? sender, EventArgs e)
         {
             deplacement();
+            deplacementEnnemi();
             if (billeBouge)
             {
                 billeLance();
@@ -184,7 +185,7 @@ namespace JeuxPlateformeBille
 
         private void deplacementEnnemi()
         {
-
+            Canvas.SetLeft(ennemi, Canvas.GetLeft(ennemi) + ((Canvas.GetLeft(joueur) - Canvas.GetLeft(ennemi)))/200);
         }
     }
 }
