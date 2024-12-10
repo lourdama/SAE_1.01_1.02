@@ -118,7 +118,7 @@ namespace JeuxPlateformeBille
                 Canvas.SetTop(joueur, Canvas.GetTop(joueur) - sautJoueur);
             }
 
-            /*if (!auSol())
+            if (!auSol())
             {
                 gravite = 3;
             }
@@ -131,7 +131,7 @@ namespace JeuxPlateformeBille
                     enSaut = false; 
                 }
 
-            }*/
+            }
         }
         private bool auSol()
         {
