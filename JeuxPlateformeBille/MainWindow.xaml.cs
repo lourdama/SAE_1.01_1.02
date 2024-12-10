@@ -204,6 +204,8 @@ namespace JeuxPlateformeBille
             {
                 Canvas.SetLeft(joueur, Canvas.GetLeft(bille));
                 Canvas.SetTop(joueur, Canvas.GetTop(bille)-joueur.Height);
+                bille.Visibility = Visibility.Hidden;
+                billeBouge = false;
             }
             
         }
