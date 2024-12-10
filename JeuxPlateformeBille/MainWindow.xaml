@@ -22,13 +22,14 @@
             Stretch="Fill" />
         <Rectangle
             x:Name="sol"
+            Canvas.Left="-20"
             Canvas.Top="347"
             Width="810"
             Height="36"
             HorizontalAlignment="Left"
             VerticalAlignment="Center"
             Fill="White"
-            Stroke="White" Canvas.Left="-20" />
+            Stroke="White" />
         <Rectangle
             x:Name="joueur"
             Canvas.Left="339"
@@ -47,7 +48,8 @@
             Height="10"
             Fill="#FFFDFF00"
             RenderTransformOrigin="-7.733,3.404"
-            Stroke="#FFFDFF00" Visibility="Hidden" />
+            Stroke="#FFFDFF00"
+            Visibility="Hidden" />
         <Rectangle
             x:Name="barreSaut"
             Canvas.Left="0"
@@ -59,7 +61,16 @@
             Fill="White"
             OpacityMask="White"
             Stroke="White" />
-        <Rectangle x:Name="ennemi" Height="50" Canvas.Left="561" Stroke="#FFB700FF" Canvas.Top="297" Width="60" HorizontalAlignment="Left" VerticalAlignment="Top" Fill="#FFB700FF"/>
+        <Rectangle
+            x:Name="ennemi"
+            Canvas.Left="561"
+            Canvas.Top="297"
+            Width="60"
+            Height="51"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Fill="#FFB700FF"
+            Stroke="#FFB700FF" />
 
     </Canvas>
 
