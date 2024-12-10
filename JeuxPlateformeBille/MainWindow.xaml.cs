@@ -22,7 +22,7 @@ namespace JeuxPlateformeBille
         private DispatcherTimer minuterie;
         private bool gauche, droite, saut, enSaut, billeBouge = false;
         private int vitesseJoueur = 8, gravite = 3, toleranceColision = 8;
-        System.Drawing.Rectangle hitBoxSol, hitBoxJoueur;
+        System.Drawing.Rectangle hitBoxSol, hitBoxJoueur, hitBoxEnnemi;
         private static Point clickPosition;
         private static double vitesseBilleX, vitesseBilleY, vitesseSaut, graviteBille = 4;
 
@@ -96,6 +96,10 @@ namespace JeuxPlateformeBille
         {
             deplacement();
             deplacementEnnemi();
+            if (VerifTouche())
+            {
+                FinJeu();
+            }
             if (billeBouge)
             {
                 billeLance();
@@ -196,8 +200,19 @@ namespace JeuxPlateformeBille
 
         private void deplacementEnnemi()
         {
-            Canvas.SetLeft(ennemi, Canvas.GetLeft(ennemi) + Math.Sign(Canvas.GetLeft(joueur) - Canvas.GetLeft(ennemi)) * 3);
-            Canvas.SetTop(ennemi, Canvas.GetTop(ennemi) + Math.Sign(Canvas.GetTop(joueur) - Canvas.GetTop(ennemi)) *3);
+            Canvas.SetLeft(ennemi, Canvas.GetLeft(ennemi) + Math.Sign(Canvas.GetLeft(joueur) - Canvas.GetLeft(ennemi)) * 2);
+            Canvas.SetTop(ennemi, Canvas.GetTop(ennemi) + Math.Sign(Canvas.GetTop(joueur) - Canvas.GetTop(ennemi)));
+        }
+        private bool VerifTouche()
+        {
+            hitBoxJoueur = new System.Drawing.Rectangle((int)Canvas.GetLeft(joueur), (int)Canvas.GetTop(joueur), (int)joueur.Width, (int)joueur.Height);
+            hitBoxEnnemi = new System.Drawing.Rectangle((int)Canvas.GetLeft(ennemi), (int)Canvas.GetTop(ennemi), (int)ennemi.Width, (int)ennemi.Height);
+            bool ennemiTouche = hitBoxEnnemi.IntersectsWith(hitBoxJoueur);
+            return ennemiTouche;
+        }
+        private void FinJeu()
+        {
+
         }
     }
 }
