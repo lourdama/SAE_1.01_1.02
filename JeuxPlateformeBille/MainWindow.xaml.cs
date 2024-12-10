@@ -45,12 +45,12 @@ namespace JeuxPlateformeBille
         }
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Left)
+            if (e.Key == Key.Q)
             {
                 gauche = true;
             }
 
-            else if (e.Key == Key.Right)
+            else if (e.Key == Key.D)
             {
                 droite = true;
             }
