@@ -21,7 +21,7 @@ namespace JeuxPlateformeBille
     {
         private DispatcherTimer minuterie;
         private bool gauche, droite, saut = false, enSaut;
-        private int vitesseJoueur = 8, sautJoueur = 8, gravite = 0;
+        private int vitesseJoueur = 4, sautJoueur = 8, gravite = 0;
         System.Drawing.Rectangle hitBoxSol, hitBoxJoueur;
         public MainWindow()
         {
@@ -85,6 +85,11 @@ namespace JeuxPlateformeBille
              if (auSol())
             {
                 gravite = 0;
+                if (Canvas.GetTop(joueur) > hitBoxSol.Top - joueur.Height)
+                {
+                    Canvas.SetTop(joueur, hitBoxSol.Top - joueur.Height);
+                    enSaut = false;
+                }
             }
             else
             {
@@ -96,7 +101,7 @@ namespace JeuxPlateformeBille
             {
                 if ((Canvas.GetLeft(joueur) + sautJoueur) + joueur.Width < this.ActualWidth)
                 {
-                    Canvas.SetLeft(joueur, Canvas.GetLeft(joueur) + sautJoueur);
+                    Canvas.SetLeft(joueur, Canvas.GetLeft(joueur) + vitesseJoueur);
                 }
                 
             }
@@ -105,39 +110,19 @@ namespace JeuxPlateformeBille
             {
                 if ((Canvas.GetLeft(joueur) - sautJoueur) > 0)
                 {
-                    Canvas.SetLeft(joueur, Canvas.GetLeft(joueur) - sautJoueur);
+                    Canvas.SetLeft(joueur, Canvas.GetLeft(joueur) - vitesseJoueur);
                 }
                     
             }
             if (saut)
             {
+                enSaut = true;
                 if ((Canvas.GetTop(joueur) - sautJoueur) > 0)
                 {
                     Canvas.SetTop(joueur, Canvas.GetTop(joueur) - sautJoueur);
                 }
             }
 
-
-            if (saut && auSol())
-            {
-                enSaut = true;
-                Canvas.SetTop(joueur, Canvas.GetTop(joueur) - sautJoueur);
-            }
-
-            if (!auSol())
-            {
-                gravite = 3;
-            }
-            else
-            {
-                gravite = 0;
-                if (Canvas.GetTop(joueur) > hitBoxSol.Top - joueur.Height)
-                {
-                    Canvas.SetTop(joueur, hitBoxSol.Top - joueur.Height);
-                    enSaut = false; 
-                }
-
-            }
         }
         private bool auSol()
         {
