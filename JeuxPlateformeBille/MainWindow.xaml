@@ -71,6 +71,8 @@
             VerticalAlignment="Top"
             Fill="#FFB700FF"
             Stroke="#FFB700FF" />
+        <Rectangle x:Name="EnnemiVie" Height="6" Width="15"    Canvas.Left="576" Canvas.Top="287" HorizontalAlignment="Left" VerticalAlignment="Center" Fill="#FF0A7D00" />
+        <Rectangle x:Name="EnnemiVie2" Height="6" Width="15"   Canvas.Left="591" Canvas.Top="287"  HorizontalAlignment="Left" VerticalAlignment="Center" Fill="#FF0A7D00"/>
 
     </Canvas>
 
