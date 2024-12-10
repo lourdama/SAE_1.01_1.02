@@ -60,8 +60,6 @@ namespace JeuxPlateformeBille
             }
         }
 
-        
-
         private void Window_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Left)

@@ -1,0 +1,18 @@
+﻿<Window x:Class="JeuxPlateformeBille.Parametres"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:JeuxPlateformeBille"
+        mc:Ignorable="d"
+        Title="Parametres" Height="400" Width="300">
+    <Grid>
+        <Label Content="Paramètres" HorizontalAlignment="Center" Margin="0,29,0,0" VerticalAlignment="Top" FontWeight="Bold" Height="36" Width="108" FontSize="18"/>
+        <Label Content="SON" HorizontalAlignment="Left" Margin="32,80,0,0" VerticalAlignment="Top"/>
+        <Label Content="MUSIQUE" HorizontalAlignment="Left" Margin="32,157,0,0" VerticalAlignment="Top"/>
+        <Label Content="CONTROLES" HorizontalAlignment="Left" Margin="32,236,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.542,0.156"/>
+        <Slider x:Name="slideBarSon" HorizontalAlignment="Center" Margin="0,119,0,0" VerticalAlignment="Top" Width="235"/>
+        <Slider x:Name="slideBarMusique" HorizontalAlignment="Center" Margin="0,202,0,0" VerticalAlignment="Top" Width="236"/>
+
+    </Grid>
+</Window>
