@@ -185,7 +185,8 @@ namespace JeuxPlateformeBille
 
         private void deplacementEnnemi()
         {
-            Canvas.SetLeft(ennemi, Canvas.GetLeft(ennemi) + ((Canvas.GetLeft(joueur) - Canvas.GetLeft(ennemi)))/200);
+            Canvas.SetLeft(ennemi, Canvas.GetLeft(ennemi) + Math.Sign(Canvas.GetLeft(joueur) - Canvas.GetLeft(ennemi)) * 3);
+            Canvas.SetTop(ennemi, Canvas.GetTop(ennemi) + Math.Sign(Canvas.GetTop(joueur) - Canvas.GetTop(ennemi)) *3);
         }
     }
 }
