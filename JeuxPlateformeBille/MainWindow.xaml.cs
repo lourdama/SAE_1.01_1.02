@@ -44,7 +44,7 @@ namespace JeuxPlateformeBille
             hitBoxSol = new System.Drawing.Rectangle((int)Canvas.GetLeft(sol), (int)Canvas.GetTop(sol) - gravite/2, (int)sol.Width, (int)sol.Height);
             this.KeyDown += new KeyEventHandler(Window_KeyDown);
             this.KeyUp += new KeyEventHandler(Window_KeyUp);
-            InitTimer();   
+            InitTimer();
             
         }
         private void InitTimer()
