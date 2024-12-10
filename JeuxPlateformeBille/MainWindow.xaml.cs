@@ -216,8 +216,8 @@ namespace JeuxPlateformeBille
             if (hitBoxBille.IntersectsWith(hitBoxEnnemi))
             {
                 bille.Visibility = Visibility.Hidden;
-                Canvas.SetLeft(bille ,- 10);
-                if (nbtouche == 1 )
+                Canvas.SetLeft(bille, -10);
+                if (nbtouche == 1)
                 {
                     ennemi.Visibility = Visibility.Hidden;
                     EnnemiVie.Visibility = Visibility.Hidden;
@@ -229,17 +229,18 @@ namespace JeuxPlateformeBille
                     EnnemiVie2.Fill = new SolidColorBrush(System.Windows.Media.Colors.Red);
                 }
             }
-            private bool VerifTouche()
-            {
-                hitBoxJoueur = new System.Drawing.Rectangle((int)Canvas.GetLeft(joueur), (int)Canvas.GetTop(joueur), (int)joueur.Width - 2, (int)joueur.Height - 2);
-                hitBoxEnnemi = new System.Drawing.Rectangle((int)Canvas.GetLeft(ennemi), (int)Canvas.GetTop(ennemi), (int)ennemi.Width - 2, (int)ennemi.Height - 2);
-                bool ennemiTouche = hitBoxEnnemi.IntersectsWith(hitBoxJoueur);
-                return ennemiTouche;
-            }
-            private void FinJeu()
-            {
-                minuterie.Stop();
-            }
         }
+        private bool VerifTouche()
+        {
+            hitBoxJoueur = new System.Drawing.Rectangle((int)Canvas.GetLeft(joueur), (int)Canvas.GetTop(joueur), (int)joueur.Width - 2, (int)joueur.Height - 2);
+            hitBoxEnnemi = new System.Drawing.Rectangle((int)Canvas.GetLeft(ennemi), (int)Canvas.GetTop(ennemi), (int)ennemi.Width - 2, (int)ennemi.Height - 2);
+            bool ennemiTouche = hitBoxEnnemi.IntersectsWith(hitBoxJoueur);
+            return ennemiTouche;
+        }
+        private void FinJeu()
+        {
+            minuterie.Stop();
+        }
+        
     }
 }
