@@ -137,7 +137,7 @@ namespace JeuxPlateformeBille
             if (saut && enSaut == false)
             {
                 positionJoueurSautX = Canvas.GetTop(joueur) + sautJoueur;
-                positionJoueurX = Canvas.GetLeft(joueur);
+                positionJoueurX = Canvas.GetTop(joueur);
                 enSaut = true;
             }
 
@@ -152,7 +152,7 @@ namespace JeuxPlateformeBille
         private void SautEnCours()
         {
             chronoSaut = chronoSaut + 0.017;
-            Canvas.SetTop(joueur, Canvas.GetTop(bille) - (gravite * chrono * 100) + (positionJoueurSautX - positionJoueurX) / (50 - chronoSaut * 2));
+            Canvas.SetTop(joueur, Canvas.GetTop(joueur) + (gravite * chrono) - ((positionJoueurSautX - positionJoueurX) / (250* chronoSaut )));
 
         }
 
