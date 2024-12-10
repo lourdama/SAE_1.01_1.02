@@ -63,10 +63,10 @@
             Stroke="White" />
         <Rectangle
             x:Name="ennemi"
-            Canvas.Left="561"
-            Canvas.Top="297"
-            Width="60"
-            Height="51"
+            Canvas.Left="554"
+            Canvas.Top="310"
+            Width="24"
+            Height="37"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Fill="#FFB700FF"

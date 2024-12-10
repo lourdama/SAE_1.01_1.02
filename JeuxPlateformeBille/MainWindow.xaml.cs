@@ -96,6 +96,10 @@ namespace JeuxPlateformeBille
         {
             deplacement();
             deplacementEnnemi();
+            if (VerifTouche())
+            {
+                FinJeu();
+            }
             if (billeBouge)
             {
                 billeLance();
@@ -224,6 +228,17 @@ namespace JeuxPlateformeBille
                     nbtouche = nbtouche + 1;
                     EnnemiVie2.Fill = new SolidColorBrush(System.Windows.Media.Colors.Red);
                 }
+            }
+            private bool VerifTouche()
+            {
+                hitBoxJoueur = new System.Drawing.Rectangle((int)Canvas.GetLeft(joueur), (int)Canvas.GetTop(joueur), (int)joueur.Width - 2, (int)joueur.Height - 2);
+                hitBoxEnnemi = new System.Drawing.Rectangle((int)Canvas.GetLeft(ennemi), (int)Canvas.GetTop(ennemi), (int)ennemi.Width - 2, (int)ennemi.Height - 2);
+                bool ennemiTouche = hitBoxEnnemi.IntersectsWith(hitBoxJoueur);
+                return ennemiTouche;
+            }
+            private void FinJeu()
+            {
+                minuterie.Stop();
             }
         }
     }
