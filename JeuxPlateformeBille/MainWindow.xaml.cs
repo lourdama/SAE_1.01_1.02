@@ -24,7 +24,7 @@ namespace JeuxPlateformeBille
         private int vitesseJoueur = 8, sautJoueur = 100, gravite = 3, toleranceColision;
         System.Drawing.Rectangle hitBoxSol, hitBoxJoueur;
         private static Point clickPosition;
-        private static double positionJoueurSautX, positionJoueurX, chrono, chronoSaut = 0, vitessteBilleX, vitesseBilleY, graviteBille = 4;
+        private static double chrono, chronoSaut = 0, vitessteBilleX, vitesseBilleY, graviteBille = 4;
 
         public MainWindow()
         {
@@ -136,9 +136,8 @@ namespace JeuxPlateformeBille
             }
             if (saut && enSaut == false)
             {
-                positionJoueurSautX = Canvas.GetTop(joueur) + sautJoueur;
-                positionJoueurX = Canvas.GetTop(joueur);
                 enSaut = true;
+                chronoSaut = 0;
             }
 
         }
@@ -152,7 +151,7 @@ namespace JeuxPlateformeBille
         private void SautEnCours()
         {
             chronoSaut = chronoSaut + 0.017;
-            Canvas.SetTop(joueur, Canvas.GetTop(joueur) + (gravite * chrono) - ((positionJoueurSautX - positionJoueurX) / (250* chronoSaut )));
+            Canvas.SetTop(joueur, Canvas.GetTop(joueur) + (gravite * chrono*4) - (sautJoueur / (250* chronoSaut )));
 
         }
 
