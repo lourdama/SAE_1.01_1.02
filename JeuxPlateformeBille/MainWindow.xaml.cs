@@ -205,8 +205,8 @@ namespace JeuxPlateformeBille
         }
         private bool VerifTouche()
         {
-            hitBoxJoueur = new System.Drawing.Rectangle((int)Canvas.GetLeft(joueur), (int)Canvas.GetTop(joueur), (int)joueur.Width, (int)joueur.Height);
-            hitBoxEnnemi = new System.Drawing.Rectangle((int)Canvas.GetLeft(ennemi), (int)Canvas.GetTop(ennemi), (int)ennemi.Width, (int)ennemi.Height);
+            hitBoxJoueur = new System.Drawing.Rectangle((int)Canvas.GetLeft(joueur), (int)Canvas.GetTop(joueur), (int)joueur.Width-2, (int)joueur.Height - 2);
+            hitBoxEnnemi = new System.Drawing.Rectangle((int)Canvas.GetLeft(ennemi), (int)Canvas.GetTop(ennemi), (int)ennemi.Width-2, (int)ennemi.Height-2);
             bool ennemiTouche = hitBoxEnnemi.IntersectsWith(hitBoxJoueur);
             return ennemiTouche;
         }
