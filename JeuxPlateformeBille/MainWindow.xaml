@@ -23,9 +23,9 @@
             Stretch="Fill" />
         <Rectangle
             x:Name="sol"
-            Canvas.Left="287"
-            Canvas.Top="346"
-            Width="172"
+            Canvas.Left="64"
+            Canvas.Top="347"
+            Width="662"
             Height="36"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
@@ -58,8 +58,10 @@
             Height="16"
             HorizontalAlignment="Left"
             VerticalAlignment="Center"
+            Fill="White"
             OpacityMask="White"
-            Stroke="White" Fill="White" />
+            Stroke="White" />
+        <Rectangle x:Name="ennemi" Height="50" Canvas.Left="561" Stroke="#FFB700FF" Canvas.Top="297" Width="60" HorizontalAlignment="Left" VerticalAlignment="Top" Fill="#FFB700FF"/>
 
     </Canvas>
 
