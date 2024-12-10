@@ -21,8 +21,8 @@ namespace JeuxPlateformeBille
     {
         private DispatcherTimer minuterie;
         private bool gauche, droite, saut, enSaut, billeBouge = false;
-        private int vitesseJoueur = 8, gravite = 3, toleranceColision = 8;
-        System.Drawing.Rectangle hitBoxSol, hitBoxJoueur;
+        private int vitesseJoueur = 8, gravite = 3, toleranceColision = 8, nbtouche = 0;
+        System.Drawing.Rectangle hitBoxSol, hitBoxJoueur,hitBoxBille, hitBoxEnnemi;
         private static Point clickPosition;
         private static double vitesseBilleX, vitesseBilleY, vitesseSaut, graviteBille = 4;
 
@@ -190,14 +190,41 @@ namespace JeuxPlateformeBille
                 Canvas.SetTop(bille, Canvas.GetTop(bille) + vitesseBilleY / 25);
                 vitesseBilleY = vitesseBilleY + graviteBille;
                 vitesseBilleX = vitesseBilleX * 0.985;
+                hitBoxBille = new System.Drawing.Rectangle((int)Canvas.GetLeft(bille), (int)Canvas.GetTop(bille), (int)bille.Width, (int)bille.Height);
+                colisionEnnemi();
             }
             
         }
 
         private void deplacementEnnemi()
         {
-            Canvas.SetLeft(ennemi, Canvas.GetLeft(ennemi) + Math.Sign(Canvas.GetLeft(joueur) - Canvas.GetLeft(ennemi)) * 3);
-            Canvas.SetTop(ennemi, Canvas.GetTop(ennemi) + Math.Sign(Canvas.GetTop(joueur) - Canvas.GetTop(ennemi)) *3);
+            Canvas.SetLeft(ennemi, Canvas.GetLeft(ennemi) + Math.Sign(Canvas.GetLeft(joueur) - Canvas.GetLeft(ennemi)) * 2);
+            Canvas.SetTop(ennemi, Canvas.GetTop(ennemi) + Math.Sign(Canvas.GetTop(joueur) - Canvas.GetTop(ennemi)) );
+            hitBoxEnnemi = new System.Drawing.Rectangle((int)Canvas.GetLeft(ennemi), (int)Canvas.GetTop(ennemi), (int)ennemi.Width, (int)ennemi.Height);
+            Canvas.SetLeft(EnnemiVie, Canvas.GetLeft(ennemi) + 15);
+            Canvas.SetLeft(EnnemiVie2, Canvas.GetLeft(ennemi) + 30);
+            Canvas.SetTop(EnnemiVie, Canvas.GetTop(ennemi) - 10);
+            Canvas.SetTop(EnnemiVie2, Canvas.GetTop(ennemi) - 10);
+        }
+
+        private void colisionEnnemi()
+        {
+            if (hitBoxBille.IntersectsWith(hitBoxEnnemi))
+            {
+                bille.Visibility = Visibility.Hidden;
+                Canvas.SetLeft(bille ,- 10);
+                if (nbtouche == 1 )
+                {
+                    ennemi.Visibility = Visibility.Hidden;
+                    EnnemiVie.Visibility = Visibility.Hidden;
+                    EnnemiVie2.Visibility = Visibility.Hidden;
+                }
+                else
+                {
+                    nbtouche = nbtouche + 1;
+                    EnnemiVie2.Fill = new SolidColorBrush(System.Windows.Media.Colors.Red);
+                }
+            }
         }
     }
 }
