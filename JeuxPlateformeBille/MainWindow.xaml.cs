@@ -24,7 +24,7 @@ namespace JeuxPlateformeBille
         private int vitesseJoueur = 8, gravite = 3, toleranceColision = 8;
         System.Drawing.Rectangle hitBoxSol, hitBoxJoueur;
         private static Point clickPosition;
-        private static double chrono, vitessteBilleX, vitesseBilleY, graviteBille = 4, vitesseSaut;
+        private static double chrono, vitesseBilleX, vitesseBilleY, vitesseSaut, graviteBille = 4;
 
         public MainWindow()
         {
@@ -84,7 +84,7 @@ namespace JeuxPlateformeBille
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             clickPosition = e.GetPosition(this);
-            vitessteBilleX = (clickPosition.X - Canvas.GetLeft(bille));
+            vitesseBilleX = (clickPosition.X - Canvas.GetLeft(bille));
             vitesseBilleY = (clickPosition.Y - Canvas.GetTop(bille));
             billeBouge = true;
             chrono = 0;
@@ -93,6 +93,7 @@ namespace JeuxPlateformeBille
         private void Jeu(object? sender, EventArgs e)
         {
             deplacement();
+            deplacementEnnemi();
             if (billeBouge)
             {
                 billeLance();
@@ -176,10 +177,15 @@ namespace JeuxPlateformeBille
 
         private void billeLance()
         {
-            Canvas.SetLeft(bille, Canvas.GetLeft(bille) + (vitessteBilleX / 25));
+            Canvas.SetLeft(bille, Canvas.GetLeft(bille) + (vitesseBilleX / 25));
             Canvas.SetTop(bille, Canvas.GetTop(bille) + vitesseBilleY / 25);
             vitesseBilleY = vitesseBilleY + graviteBille;
-            vitessteBilleX = vitessteBilleX * 0.985;
+            vitesseBilleX = vitesseBilleX * 0.985;
+        }
+
+        private void deplacementEnnemi()
+        {
+            Canvas.SetLeft(ennemi, Canvas.GetLeft(ennemi) + ((Canvas.GetLeft(joueur) - Canvas.GetLeft(ennemi)))/200);
         }
     }
 }
