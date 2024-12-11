@@ -240,8 +240,8 @@ namespace JeuxPlateformeBille
         {
             ennemisEnJeu.Insert(0, new Image());
             ennemisEnJeu[0].Source = imgBille;
-            ennemisEnJeu[0].Width = 30;
-            ennemisEnJeu[0].Height = 50;
+            ennemisEnJeu[0].Width = 50;
+            ennemisEnJeu[0].Height = 100;
             Canvas.SetTop(ennemisEnJeu[0], aleatoire.Next(0, 900));
             Canvas.SetLeft(ennemisEnJeu[0], aleatoire.Next(0, 1500));
             vitesseEnnemis.Insert(0, new double[2]);
@@ -264,11 +264,11 @@ namespace JeuxPlateformeBille
         {
             if (hitBoxBille.IntersectsWith(hitBoxEnnemi) )
             {
-                //bille.Visibility = Visibility.Hidden;
-                //Canvas.SetLeft(bille, -10);
+                billesEnJeu[0].Visibility = Visibility.Hidden;
+                Canvas.SetLeft(billesEnJeu[0], -10);
                 if (nbtouche == 1)
                 {
-                    //ennemi.Visibility = Visibility.Hidden;
+                    ennemisEnJeu[0].Visibility = Visibility.Hidden;
                     //EnnemiVie.Visibility = Visibility.Hidden;
                     //EnnemiVie2.Visibility = Visibility.Hidden;
                     ReinitialisationSaut();
@@ -286,13 +286,13 @@ namespace JeuxPlateformeBille
         }
         private bool VerifTouche()
         {
-            /*if (ennemi.Visibility == Visibility.Visible)
+            if (ennemisEnJeu[0].Visibility == Visibility.Visible)
             {
                 hitBoxJoueur = new System.Drawing.Rectangle((int)Canvas.GetLeft(joueur), (int)Canvas.GetTop(joueur), (int)joueur.Width - 2, (int)joueur.Height - 2);
-                hitBoxEnnemi = new System.Drawing.Rectangle((int)Canvas.GetLeft(ennemi), (int)Canvas.GetTop(ennemi), (int)ennemi.Width - 2, (int)ennemi.Height - 2);
+                hitBoxEnnemi = new System.Drawing.Rectangle((int)Canvas.GetLeft(ennemisEnJeu[0]), (int)Canvas.GetTop(ennemisEnJeu[0]), (int)ennemisEnJeu[0].Width - 2, (int)ennemisEnJeu[0].Height - 2);
                 bool ennemiTouche = hitBoxEnnemi.IntersectsWith(hitBoxJoueur);
                 return ennemiTouche;
-            }*/
+            }
             return false;    
         }
 
