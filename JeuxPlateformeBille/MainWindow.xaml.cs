@@ -36,13 +36,39 @@ namespace JeuxPlateformeBille
         public MainWindow()
         {
             InitializeComponent();
-            canvasMainWindow.Focus();
-            imgBille = new BitmapImage(new Uri("pack://application:,,,/img/balle.jpg"));
-            hitBoxSol = new System.Drawing.Rectangle((int)Canvas.GetLeft(sol), (int)Canvas.GetTop(sol) - gravite/2, (int)sol.Width, (int)sol.Height);
+            
+        }
+        private void butJouer_Click(object sender, RoutedEventArgs e)
+        {
+            Suivant();
+        }
+        private void butCredits_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+        private void Suivant()
+        {
+            InitJeu();
             InitTimer();
             spawnEnnemi();
         }
 
+        private void InitJeu()
+        {
+            canvasMainWindow.Focus();
+            imgBille = new BitmapImage(new Uri("pack://application:,,,/img/balle.jpg"));
+            hitBoxSol = new System.Drawing.Rectangle((int)Canvas.GetLeft(sol), (int)Canvas.GetTop(sol) - gravite / 2, (int)sol.Width, (int)sol.Height);
+            joueur.Visibility = Visibility.Visible;
+            sol.Visibility = Visibility.Visible;
+            barreSaut.Visibility = Visibility.Visible;
+            StockBille.Visibility = Visibility.Visible;
+            butCredits.Visibility = Visibility.Hidden;
+            butJouer.Visibility = Visibility.Hidden;
+            butParametres.Visibility = Visibility.Hidden;
+            butQuitter.Visibility = Visibility.Hidden;
+            butRegle.Visibility = Visibility.Hidden;
+
+        }
         private void InitTimer()
         {
             minuterie = new DispatcherTimer();
@@ -242,11 +268,11 @@ namespace JeuxPlateformeBille
             ennemisEnJeu[0].Source = imgBille;
             ennemisEnJeu[0].Width = 30;
             ennemisEnJeu[0].Height = 50;
+            canvasMainWindow.Children.Add(ennemisEnJeu[0]);
             Canvas.SetTop(ennemisEnJeu[0], aleatoire.Next(0, 900));
             Canvas.SetLeft(ennemisEnJeu[0], aleatoire.Next(0, 1500));
             vitesseEnnemis.Insert(0, new double[2]);
             vitesseEnnemis[0] = [2];
-            ennemisEnJeu[0].Visibility = Visibility.Visible;
         }
 
         private void deplacementEnnemi()
