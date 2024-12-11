@@ -33,12 +33,12 @@ namespace JeuxPlateformeBille
         private static List<double[]> vitesseBilles = new List<double[]>();
         private static List<Image> ennemisEnJeu = ennemisEnJeu = new List<Image>();
         private static List<double[]> vitesseEnnemis = new List<double[]>();
-        private static Random aleatoire = new Random(); 
+        private static Random aleatoire = new Random();
 
         public MainWindow()
         {
             InitializeComponent();
-            
+
         }
         private void butJouer_Click(object sender, RoutedEventArgs e)
         {
