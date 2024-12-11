@@ -12,7 +12,7 @@
     WindowStartupLocation="CenterScreen"
     WindowState="Maximized"
     mc:Ignorable="d">
-    <Canvas x:Name="canvasMainWindow" MouseDown="Window_MouseDown"  Focusable="True">
+    <Canvas x:Name="canvasMainWindow" KeyDown="Window_KeyDown" KeyUp="Window_KeyUp" MouseDown="Window_MouseDown"  Focusable="True">
         <Image
             x:Name="ImageFond"
             Canvas.Top="14"

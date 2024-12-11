@@ -11,6 +11,13 @@
   <ItemGroup>
     <None Remove="img\8-bit-graphics-pixels-scene-with-castle.jpg" />
     <None Remove="img\balle.jpg" />
+    <None Remove="img\image2.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="img\image2.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
