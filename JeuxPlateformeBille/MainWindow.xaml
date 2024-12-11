@@ -15,11 +15,10 @@
     <Canvas x:Name="canvasMainWindow" KeyDown="Window_KeyDown" KeyUp="Window_KeyUp" MouseDown="Window_MouseDown"  Focusable="True">
         <Image
             x:Name="ImageFond"
-            Canvas.Top="14"
             Width="1500"
             Height="900"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Center"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
             Source="/img/8-bit-graphics-pixels-scene-with-castle.jpg"
             Stretch="Fill" />
         <Rectangle
@@ -69,11 +68,11 @@
             Stroke="#FFB700FF-->
         <Label x:Name="StockBille" Content="Stock De Billes : 10" Height="51" Canvas.Left="1184" Canvas.Top="22" Width="232" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="24" Background="Transparent" Visibility="Hidden"/>
         <Button x:Name="butJouer" Content="Jouer" Canvas.Left="659" Canvas.Top="272" Height="56" Width="182" HorizontalAlignment="Center" VerticalAlignment="Top" Background="{x:Null}" Foreground="#FFFFFBFB" FontSize="24" FontWeight="Bold" Click="butJouer_Click"/>
-        <Button x:Name="butQuitter" Content="Quitter" Canvas.Left="10" Canvas.Top="818" Height="55" Width="148" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{x:Null}" FontSize="24" FontWeight="Bold" Foreground="White" Click="butQuitter_Click"/>
+        <Button x:Name="butQuitter" Content="Quitter" Canvas.Left="10" Canvas.Top="710" Height="55" Width="148" HorizontalAlignment="Center" VerticalAlignment="Top" Background="{x:Null}" FontSize="24" FontWeight="Bold" Foreground="White" Click="butQuitter_Click"/>
         <Button x:Name="butParametres" Content="Crédits" Canvas.Left="659" Canvas.Top="608" Height="56" Width="182" Background="{x:Null}" Foreground="#FFFFFBFB" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top"/>
         <Button x:Name="butCredits" Content="Paramètres" Canvas.Left="659" Canvas.Top="386" Height="56" Width="182" Background="{x:Null}" Foreground="#FFFFFBFB" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="0.541,-0.83" Click="butCredits_Click"/>
         <Button x:Name="butRegle" Content="Règles du jeu" Canvas.Left="659" Canvas.Top="501" Height="56" Width="182" Background="{x:Null}" Foreground="#FFFFFBFB" FontSize="24" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        
+
 
 
     </Canvas>
