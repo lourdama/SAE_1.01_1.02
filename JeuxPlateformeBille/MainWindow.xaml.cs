@@ -35,9 +35,7 @@ namespace JeuxPlateformeBille
                                            { } };
 
         private static List<Image> billesEnJeu = billesEnJeu = new List<Image>();
-        //private static List<Rectangle> billesEnJeu = billesEnJeu = new List<Rectangle>();
         private static List<double[]> vitesseBilles = new List<double[]>();
-
 
         public MainWindow()
         {
@@ -47,8 +45,7 @@ namespace JeuxPlateformeBille
             hitBoxSol = new System.Drawing.Rectangle((int)Canvas.GetLeft(sol), (int)Canvas.GetTop(sol) - gravite/2, (int)sol.Width, (int)sol.Height);
             this.KeyDown += new KeyEventHandler(Window_KeyDown);
             this.KeyUp += new KeyEventHandler(Window_KeyUp);
-            InitTimer();
-            
+            InitTimer(); 
         }
         private void InitTimer()
         {
@@ -204,7 +201,7 @@ namespace JeuxPlateformeBille
                 if (saut)
                 {
                     Canvas.SetTop(joueur, Canvas.GetTop(joueur) + vitesseSaut);
-                    vitesseSaut = vitesseSaut + gravite / 5;
+                    vitesseSaut = vitesseSaut + gravite / 6;
                     Canvas.SetLeft(barreSaut, Canvas.GetLeft(barreSaut) - 5);
                 }
                 
@@ -285,22 +282,18 @@ namespace JeuxPlateformeBille
                 bool ennemiTouche = hitBoxEnnemi.IntersectsWith(hitBoxJoueur);
                 return ennemiTouche;
             }*/
-            return false;
-            
+            return false;    
         }
 
         private void ReinitialisationSaut()
         {
             enSaut = false;
-            vitesseSaut = -25;
+            vitesseSaut = -35;
             Canvas.SetLeft(barreSaut, 0);
         }
         private void FinJeu()
         {
             minuterie.Stop();
         }
-
-        
-        
     }
 }
