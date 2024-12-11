@@ -21,7 +21,7 @@ namespace JeuxPlateformeBille
     public partial class MainWindow : Window
     {
         private DispatcherTimer minuterie;
-        private static BitmapImage imgBille;
+        private static BitmapImage imgBille, fond;
         private bool gauche, droite, saut, enSaut, billeBouge = false;
         private int vitesseJoueur = 8, gravite = 8, toleranceColision = 8, nbtouche = 0, nbStockBille = 10;
         System.Drawing.Rectangle hitBoxSol, hitBoxJoueur,hitBoxBille, hitBoxEnnemi;
@@ -43,10 +43,9 @@ namespace JeuxPlateformeBille
             canvasMainWindow.Focus();
             imgBille = new BitmapImage(new Uri("pack://application:,,,/img/balle.jpg"));
             hitBoxSol = new System.Drawing.Rectangle((int)Canvas.GetLeft(sol), (int)Canvas.GetTop(sol) - gravite/2, (int)sol.Width, (int)sol.Height);
-            this.KeyDown += new KeyEventHandler(Window_KeyDown);
-            this.KeyUp += new KeyEventHandler(Window_KeyUp);
             InitTimer(); 
         }
+
         private void InitTimer()
         {
             minuterie = new DispatcherTimer();
@@ -161,8 +160,9 @@ namespace JeuxPlateformeBille
             {
                 if ((Canvas.GetLeft(joueur) - vitesseJoueur) > 0)
                 {
-                    Canvas.SetLeft(joueur, Canvas.GetLeft(joueur) - vitesseJoueur);
+                    Canvas.SetLeft(joueur, Canvas.GetLeft(joueur) - vitesseJoueur); 
                 }
+
                     
             }
             if (saut && enSaut == false)
@@ -188,9 +188,7 @@ namespace JeuxPlateformeBille
                     vitesseSaut = vitesseSaut + gravite / 6;
                     Canvas.SetLeft(barreSaut, Canvas.GetLeft(barreSaut) - 5);
                 }
-                
             }
-            
         }
 
         private void tir(MouseButtonEventArgs e)
