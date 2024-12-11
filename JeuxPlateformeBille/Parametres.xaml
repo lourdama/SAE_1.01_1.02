@@ -44,13 +44,75 @@
     HorizontalAlignment="Center"
     VerticalAlignment="Top" />
         <TextBox
-    Width="24"
-    Margin="84,303,0,0"
-    HorizontalAlignment="Left"
-    VerticalAlignment="Top"
-    Text="Z"
-    TextChanged="TextBox_TextChanged"
-    TextWrapping="Wrap"
-    UndoLimit="1" />
+            Width="24"
+            Margin="96,271,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Text="Z"
+            TextChanged="TextBox_TextChanged"
+            TextWrapping="Wrap"
+            UndoLimit="1" />
+        <Label
+            Margin="25,267,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="Droite " />
+        <Label
+            Margin="25,303,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="Gauche" />
+        <Label
+            Margin="32,343,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="Saut" />
+        <Label
+            Margin="163,267,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="Lancer" />
+        <Label
+            Margin="163,343,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="Pause" />
+        <TextBox
+            Width="24"
+            Margin="96,307,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Text="Z"
+            TextChanged="TextBox_TextChanged"
+            TextWrapping="Wrap"
+            UndoLimit="1" />
+        <TextBox
+            Width="24"
+            Margin="233,347,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Text="Z"
+            TextChanged="TextBox_TextChanged"
+            TextWrapping="Wrap"
+            UndoLimit="1" />
+        <TextBox
+            Width="24"
+            Margin="233,271,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Text="Z"
+            TextChanged="TextBox_TextChanged"
+            TextWrapping="Wrap"
+            UndoLimit="1" />
+        <TextBox
+            Width="24"
+            Margin="96,347,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Text="Z"
+            TextChanged="TextBox_TextChanged"
+            TextWrapping="Wrap"
+            UndoLimit="1" />
+
     </Grid>
 </UserControl>
