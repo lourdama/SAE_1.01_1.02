@@ -121,7 +121,10 @@ namespace JeuxPlateformeBille
             tir(e);
         }
 
-        
+        private void butQuitter_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
 
         private void Jeu(object? sender, EventArgs e)
         {
