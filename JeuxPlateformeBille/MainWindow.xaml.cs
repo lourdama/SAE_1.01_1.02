@@ -26,7 +26,7 @@ namespace JeuxPlateformeBille
         private int vitesseJoueur = 8, gravite = 8, toleranceColision = 8, nbtouche = 0, nbStockBille = 10;
         System.Drawing.Rectangle hitBoxSol, hitBoxJoueur,hitBoxBille, hitBoxEnnemi;
         private static Point clickPosition;
-        private static double vitesseSaut, graviteBille = 4;
+        private static double vitesseSaut, graviteBille = 4, coefReductionDeplacementSaut;
         private static List<Image> billesEnJeu = billesEnJeu = new List<Image>();
         private static List<double[]> vitesseBilles = new List<double[]>();
         private static List<Image> ennemisEnJeu = ennemisEnJeu = new List<Image>();
@@ -162,6 +162,7 @@ namespace JeuxPlateformeBille
                     Canvas.SetTop(joueur, hitBoxSol.Top - joueur.Height);
                 } Remonter automatiquement sur plateforme si touché*/
                 gravite = 0;
+                coefReductionDeplacementSaut = 1;
                 ReinitialisationSaut();
             }
              
@@ -175,18 +176,18 @@ namespace JeuxPlateformeBille
             
             if (droite)
             {
-                if ((Canvas.GetLeft(joueur) + vitesseJoueur) + joueur.Width < this.ActualWidth)
+                if ((Canvas.GetLeft(joueur) + vitesseJoueur* coefReductionDeplacementSaut) + joueur.Width < this.ActualWidth)
                 {
-                    Canvas.SetLeft(joueur, Canvas.GetLeft(joueur) + vitesseJoueur);
+                    Canvas.SetLeft(joueur, Canvas.GetLeft(joueur) + vitesseJoueur*coefReductionDeplacementSaut);
                 }
                 
             }
 
             if (gauche)
             {
-                if ((Canvas.GetLeft(joueur) - vitesseJoueur) > 0)
+                if ((Canvas.GetLeft(joueur) - vitesseJoueur* coefReductionDeplacementSaut) > 0)
                 {
-                    Canvas.SetLeft(joueur, Canvas.GetLeft(joueur) - vitesseJoueur); 
+                    Canvas.SetLeft(joueur, Canvas.GetLeft(joueur) - vitesseJoueur* coefReductionDeplacementSaut); 
                 }
 
                     
@@ -194,6 +195,7 @@ namespace JeuxPlateformeBille
             if (saut && enSaut == false)
             {
                 enSaut = true;
+                coefReductionDeplacementSaut = 0.5;
             }
 
         }
@@ -328,7 +330,7 @@ namespace JeuxPlateformeBille
         private void ReinitialisationSaut()
         {
             enSaut = false;
-            vitesseSaut = -35;
+            vitesseSaut = -25;
             Canvas.SetLeft(barreSaut, 0);
         }
         private void FinJeu()
