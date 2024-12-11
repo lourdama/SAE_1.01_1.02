@@ -89,26 +89,10 @@ namespace JeuxPlateformeBille
         }
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (nbStockBille > 0)
-            {
-                clickPosition = e.GetPosition(this);
-                billesEnJeu.Insert(0,new Image());
-                billesEnJeu[0].Source = imgBille;
-                billesEnJeu[0].Width = 15;
-                billesEnJeu[0].Height = 15;
-                canvasMainWindow.Children.Add(billesEnJeu[0]);
-                Canvas.SetTop(billesEnJeu[0], Canvas.GetTop(joueur));
-                Canvas.SetLeft(billesEnJeu[0], Canvas.GetLeft(joueur));
-                vitesseBilles.Insert (0,new double[2]);
-                vitesseBilles[0] = [clickPosition.X - Canvas.GetLeft(billesEnJeu[0]), clickPosition.Y - Canvas.GetTop(billesEnJeu[0])];
-                billesEnJeu[0].Visibility = Visibility.Visible;
-                billeBouge = true;
-                nbStockBille = nbStockBille - 1;
-                StockBille.Content = "Stock De Billes : " + nbStockBille;
-                
-
-            }
+            tir(e);
         }
+
+        
 
         private void Jeu(object? sender, EventArgs e)
         {
@@ -202,6 +186,26 @@ namespace JeuxPlateformeBille
             
         }
 
+        private void tir(MouseButtonEventArgs e)
+        {
+            if (nbStockBille > 0)
+            {
+                clickPosition = e.GetPosition(this);
+                billesEnJeu.Insert(0, new Image());
+                billesEnJeu[0].Source = imgBille;
+                billesEnJeu[0].Width = 15;
+                billesEnJeu[0].Height = 15;
+                canvasMainWindow.Children.Add(billesEnJeu[0]);
+                Canvas.SetTop(billesEnJeu[0], Canvas.GetTop(joueur));
+                Canvas.SetLeft(billesEnJeu[0], Canvas.GetLeft(joueur));
+                vitesseBilles.Insert(0, new double[2]);
+                vitesseBilles[0] = [clickPosition.X - Canvas.GetLeft(billesEnJeu[0]), clickPosition.Y - Canvas.GetTop(billesEnJeu[0])];
+                billesEnJeu[0].Visibility = Visibility.Visible;
+                billeBouge = true;
+                nbStockBille = nbStockBille - 1;
+                StockBille.Content = "Stock De Billes : " + nbStockBille;
+            }
+        }
         private bool billeLance(Image bille, double[] vitesse)
         {
             
