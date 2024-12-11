@@ -96,7 +96,7 @@ namespace JeuxPlateformeBille
         }
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            tir();
+            tir(e);
         }
 
         
@@ -193,7 +193,7 @@ namespace JeuxPlateformeBille
             
         }
 
-        private void tir()
+        private void tir(MouseButtonEventArgs e)
         {
             if (nbStockBille > 0)
             {
