@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Security.Policy;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -34,6 +35,7 @@ namespace JeuxPlateformeBille
                                            { } };
 
         private static List<Image> billesEnJeu = billesEnJeu = new List<Image>();
+        //private static List<Rectangle> billesEnJeu = billesEnJeu = new List<Rectangle>();
         private static List<double[]> vitesseBilles = new List<double[]>();
 
 
@@ -102,11 +104,11 @@ namespace JeuxPlateformeBille
                 clickPosition = e.GetPosition(this);
                 billesEnJeu.Insert(0,new Image());
                 billesEnJeu[0].Source = imgBille;
-                billesEnJeu[0].Width = 100;
-                billesEnJeu[0].Height = 100;
+                billesEnJeu[0].Width = 15;
+                billesEnJeu[0].Height = 15;
+                canvasMainWindow.Children.Add(billesEnJeu[0]);
                 Canvas.SetTop(billesEnJeu[0], Canvas.GetTop(joueur));
                 Canvas.SetLeft(billesEnJeu[0], Canvas.GetLeft(joueur));
-
                 vitesseBilles.Insert (0,new double[2]);
                 vitesseBilles[0] = [clickPosition.X - Canvas.GetLeft(billesEnJeu[0]), clickPosition.Y - Canvas.GetTop(billesEnJeu[0])];
                 billesEnJeu[0].Visibility = Visibility.Visible;
@@ -126,10 +128,16 @@ namespace JeuxPlateformeBille
             {
                 FinJeu();
             }
-            if (billeBouge)
+
+            for (int i = 0; i < billesEnJeu.Count; i++)
             {
-                billeLance();
+                if (billeLance(billesEnJeu[i], vitesseBilles[i]))
+                {
+                    canvasMainWindow.Children.Remove(billesEnJeu[i]);
+                    billesEnJeu.RemoveAt(i);
+                }
             }
+
             if (enSaut)
             {
                 SautEnCours();
@@ -204,20 +212,19 @@ namespace JeuxPlateformeBille
             
         }
 
-        private void billeLance()
+        private bool billeLance(Image bille, double[] vitesse)
         {
             
-            /*if (Canvas.GetLeft(bille) < 0 || Canvas.GetLeft(bille) > this.ActualWidth || Canvas.GetTop(bille) > this.ActualHeight)
+            if (Canvas.GetLeft(bille) < 0 || Canvas.GetLeft(bille) > this.ActualWidth || Canvas.GetTop(bille) > this.ActualHeight)
             {
-                billeBouge = false;
-                bille.Visibility = Visibility.Hidden;
+                return true;
             }
             else
             {
-                Canvas.SetLeft(bille, Canvas.GetLeft(bille) + (vitessesBilleX / 25));
-                Canvas.SetTop(bille, Canvas.GetTop(bille) + vitessesBilleY / 25);
-                vitessesBilleY = vitessesBilleY + graviteBille;
-                vitessesBilleX = vitessesBilleX * 0.985;
+                Canvas.SetLeft(bille, Canvas.GetLeft(bille) + (vitesse[0] / 25));
+                Canvas.SetTop(bille, Canvas.GetTop(bille) + vitesse[1] / 25);
+                vitesse[1] = vitesse[1] + graviteBille;
+                vitesse[0] = vitesse[0] * 0.985;
                 hitBoxBille = new System.Drawing.Rectangle((int)Canvas.GetLeft(bille), (int)Canvas.GetTop(bille), (int)bille.Width, (int)bille.Height);
                 colisionEnnemi();
             }
@@ -226,9 +233,9 @@ namespace JeuxPlateformeBille
             {
                 Canvas.SetLeft(joueur, Canvas.GetLeft(bille));
                 Canvas.SetTop(joueur, Canvas.GetTop(bille) - joueur.Height);
-                bille.Visibility = Visibility.Hidden;
-                billeBouge = false;
-            }*/
+                return true;
+            }
+            return false;
             
             
             
