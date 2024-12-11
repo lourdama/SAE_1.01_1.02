@@ -29,6 +29,9 @@ namespace JeuxPlateformeBille
         private static double vitesseSaut, graviteBille = 4;
         private static List<Image> billesEnJeu = billesEnJeu = new List<Image>();
         private static List<double[]> vitesseBilles = new List<double[]>();
+        private static List<Image> ennemisEnJeu = ennemisEnJeu = new List<Image>();
+        private static List<double[]> vitesseEnnemis = new List<double[]>();
+        private static Random aleatoire = new Random(); 
 
         public MainWindow()
         {
@@ -38,7 +41,8 @@ namespace JeuxPlateformeBille
             hitBoxSol = new System.Drawing.Rectangle((int)Canvas.GetLeft(sol), (int)Canvas.GetTop(sol) - gravite/2, (int)sol.Width, (int)sol.Height);
             this.KeyDown += new KeyEventHandler(Window_KeyDown);
             this.KeyUp += new KeyEventHandler(Window_KeyUp);
-            InitTimer(); 
+            InitTimer();
+            spawnEnnemi();
         }
         private void InitTimer()
         {
@@ -234,13 +238,25 @@ namespace JeuxPlateformeBille
             
             
         }
+        private void spawnEnnemi()
+        {
+            ennemisEnJeu.Insert(0, new Image());
+            ennemisEnJeu[0].Source = imgBille;
+            ennemisEnJeu[0].Width = 30;
+            ennemisEnJeu[0].Height = 50;
+            Canvas.SetTop(ennemisEnJeu[0], aleatoire.Next(0, 900));
+            Canvas.SetLeft(ennemisEnJeu[0], aleatoire.Next(0, 1500));
+            vitesseEnnemis.Insert(0, new double[2]);
+            vitesseEnnemis[0] = [2];
+            ennemisEnJeu[0].Visibility = Visibility.Visible;
+        }
 
         private void deplacementEnnemi()
         {
-            /*Canvas.SetLeft(ennemi, Canvas.GetLeft(ennemi) + Math.Sign(Canvas.GetLeft(joueur) - Canvas.GetLeft(ennemi)) * 2);
-            Canvas.SetTop(ennemi, Canvas.GetTop(ennemi) + Math.Sign(Canvas.GetTop(joueur) - Canvas.GetTop(ennemi)) );
-            hitBoxEnnemi = new System.Drawing.Rectangle((int)Canvas.GetLeft(ennemi), (int)Canvas.GetTop(ennemi), (int)ennemi.Width, (int)ennemi.Height);
-            Canvas.SetLeft(EnnemiVie, Canvas.GetLeft(ennemi) + 15);
+            Canvas.SetLeft(ennemisEnJeu[0], Canvas.GetLeft(ennemisEnJeu[0]) + Math.Sign(Canvas.GetLeft(joueur) - Canvas.GetLeft(ennemisEnJeu[0])) * 2);
+            Canvas.SetTop(ennemisEnJeu[0], Canvas.GetTop(ennemisEnJeu[0]) + Math.Sign(Canvas.GetTop(joueur) - Canvas.GetTop(ennemisEnJeu[0])) );
+            hitBoxEnnemi = new System.Drawing.Rectangle((int)Canvas.GetLeft(ennemisEnJeu[0]), (int)Canvas.GetTop(ennemisEnJeu[0]), (int)ennemisEnJeu[0].Width, (int)ennemisEnJeu[0].Height);
+           /* Canvas.SetLeft(EnnemiVie, Canvas.GetLeft(ennemi) + 15);
             Canvas.SetLeft(EnnemiVie2, Canvas.GetLeft(ennemi) + 30);
             Canvas.SetTop(EnnemiVie, Canvas.GetTop(ennemi) - 10);
             Canvas.SetTop(EnnemiVie2, Canvas.GetTop(ennemi) - 10);*/
