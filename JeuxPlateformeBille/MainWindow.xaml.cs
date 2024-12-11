@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Security.Policy;
 using System.Text;
@@ -12,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+
 
 namespace JeuxPlateformeBille
 {
@@ -27,7 +29,7 @@ namespace JeuxPlateformeBille
         System.Drawing.Rectangle hitBoxSol, hitBoxJoueur,hitBoxBille, hitBoxEnnemi;
         private static Point clickPosition;
         private static double vitesseSaut, graviteBille = 4;
-        private static List<Image> billesEnJeu = billesEnJeu = new List<Image>();
+        private static List<Image> billesEnJeu = new List<Image>();
         private static List<double[]> vitesseBilles = new List<double[]>();
         private static List<Image> ennemisEnJeu = ennemisEnJeu = new List<Image>();
         private static List<double[]> vitesseEnnemis = new List<double[]>();
@@ -44,7 +46,8 @@ namespace JeuxPlateformeBille
         }
         private void butCredits_Click(object sender, RoutedEventArgs e)
         {
-            
+            this.Content = new Parametres();
+
         }
         private void Suivant()
         {
@@ -228,7 +231,6 @@ namespace JeuxPlateformeBille
                 Canvas.SetLeft(billesEnJeu[0], Canvas.GetLeft(joueur));
                 vitesseBilles.Insert(0, new double[2]);
                 vitesseBilles[0] = [clickPosition.X - Canvas.GetLeft(billesEnJeu[0]), clickPosition.Y - Canvas.GetTop(billesEnJeu[0])];
-                billesEnJeu[0].Visibility = Visibility.Visible;
                 billeBouge = true;
                 nbStockBille = nbStockBille - 1;
                 StockBille.Content = "Stock De Billes : " + nbStockBille;

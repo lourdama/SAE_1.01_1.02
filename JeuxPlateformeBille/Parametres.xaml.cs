@@ -17,7 +17,7 @@ namespace JeuxPlateformeBille
     /// <summary>
     /// Logique d'interaction pour Parametres.xaml
     /// </summary>
-    public partial class Parametres : Window
+    public partial class Parametres : UserControl
     {
         public Parametres()
         {
