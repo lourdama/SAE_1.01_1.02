@@ -27,13 +27,6 @@ namespace JeuxPlateformeBille
         System.Drawing.Rectangle hitBoxSol, hitBoxJoueur,hitBoxBille, hitBoxEnnemi;
         private static Point clickPosition;
         private static double vitesseSaut, graviteBille = 4;
-        private static int[,,] typeBilles = { { },
-                                          { },
-                                          { } };
-        private static int[,,] typeEnnemis = { { },
-                                           { },
-                                           { } };
-
         private static List<Image> billesEnJeu = billesEnJeu = new List<Image>();
         private static List<double[]> vitesseBilles = new List<double[]>();
 
