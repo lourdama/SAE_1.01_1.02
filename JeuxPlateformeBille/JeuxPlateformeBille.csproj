@@ -10,14 +10,14 @@
 
   <ItemGroup>
     <None Remove="img\8-bit-graphics-pixels-scene-with-castle.jpg" />
-    <None Remove="img\OIP.png" />
+    <None Remove="img\balle.jpg" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="img\8-bit-graphics-pixels-scene-with-castle.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="img\OIP.png">
+    <Resource Include="img\balle.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

@@ -40,7 +40,8 @@ namespace JeuxPlateformeBille
         public MainWindow()
         {
             InitializeComponent();
-            imgBille = new BitmapImage(new Uri("pack://application:,,,/img/oip.png"));
+            canvasMainWindow.Focus();
+            imgBille = new BitmapImage(new Uri("pack://application:,,,/img/balle.jpg"));
             hitBoxSol = new System.Drawing.Rectangle((int)Canvas.GetLeft(sol), (int)Canvas.GetTop(sol) - gravite/2, (int)sol.Width, (int)sol.Height);
             this.KeyDown += new KeyEventHandler(Window_KeyDown);
             this.KeyUp += new KeyEventHandler(Window_KeyUp);
@@ -99,16 +100,16 @@ namespace JeuxPlateformeBille
             if (nbStockBille > 0)
             {
                 clickPosition = e.GetPosition(this);
-                billesEnJeu.Add(new Image());
-                billesEnJeu[-1].Width = 50;
-                billesEnJeu[-1].Height = 50;
-                billesEnJeu[-1].Source = imgBille;
-                Canvas.SetTop(billesEnJeu[-1], Canvas.GetTop(joueur));
-                Canvas.SetLeft(billesEnJeu[-1], Canvas.GetLeft(joueur));
+                billesEnJeu.Insert(0,new Image());
+                billesEnJeu[0].Source = imgBille;
+                billesEnJeu[0].Width = 100;
+                billesEnJeu[0].Height = 100;
+                Canvas.SetTop(billesEnJeu[0], Canvas.GetTop(joueur));
+                Canvas.SetLeft(billesEnJeu[0], Canvas.GetLeft(joueur));
 
-                vitesseBilles[-1] = new double[2];
-                vitesseBilles[-1] = [(clickPosition.X - Canvas.GetLeft(billesEnJeu[-1])), (clickPosition.Y - Canvas.GetTop(billesEnJeu[-1]))];
-                billesEnJeu[-1].Visibility = Visibility.Visible;
+                vitesseBilles.Insert (0,new double[2]);
+                vitesseBilles[0] = [clickPosition.X - Canvas.GetLeft(billesEnJeu[0]), clickPosition.Y - Canvas.GetTop(billesEnJeu[0])];
+                billesEnJeu[0].Visibility = Visibility.Visible;
                 billeBouge = true;
                 nbStockBille = nbStockBille - 1;
                 StockBille.Content = "Stock De Billes : " + nbStockBille;

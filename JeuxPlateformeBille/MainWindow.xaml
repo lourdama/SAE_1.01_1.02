@@ -70,6 +70,7 @@
         <Button x:Name="butParametres" Content="Crédits" Canvas.Left="659" Canvas.Top="608" Height="56" Width="182" Background="{x:Null}" Foreground="#FFFFFBFB" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top"/>
         <Button x:Name="butCredits" Content="Paramètres" Canvas.Left="659" Canvas.Top="386" Height="56" Width="182" Background="{x:Null}" Foreground="#FFFFFBFB" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="0.541,-0.83"/>
         <Button x:Name="butCredits_Copy" Content="Règles du jeu" Canvas.Left="659" Canvas.Top="501" Height="56" Width="182" Background="{x:Null}" Foreground="#FFFFFBFB" FontSize="24" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        
 
 
     </Canvas>
