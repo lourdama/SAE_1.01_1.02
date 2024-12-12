@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Security.Policy;
 using System.Text;
@@ -33,6 +34,8 @@ namespace JeuxPlateformeBille
         private static List<double[]> vitesseBilles = new List<double[]>();
         private static List<Image> ennemisEnJeu = ennemisEnJeu = new List<Image>();
         private static List<double[]> vitesseEnnemis = new List<double[]>();
+        private static List<double[]> InitVarEnnemis = new List<double[]>();
+        private static Ennemis fantome = new Ennemis();
         private static Random aleatoire = new Random();
 
         public MainWindow()
@@ -53,6 +56,7 @@ namespace JeuxPlateformeBille
         {
             InitJeu();
             InitTimer();
+            InitEnnemis();
             spawnEnnemi();
         }
 
@@ -71,6 +75,19 @@ namespace JeuxPlateformeBille
             butQuitter.Visibility = Visibility.Hidden;
             butRegle.Visibility = Visibility.Hidden;
 
+        }
+
+        private void InitEnnemis()
+        {
+            ennemisEnJeu.Insert(0, new Image());
+            ennemisEnJeu[0].Source = imgBille;
+            ennemisEnJeu[0].Width = 30;
+            ennemisEnJeu[0].Height = 50;
+            canvasMainWindow.Children.Add(ennemisEnJeu[0]);
+            Canvas.SetTop(ennemisEnJeu[0], aleatoire.Next(0, 900));
+            Canvas.SetLeft(ennemisEnJeu[0], aleatoire.Next(0, 1500));
+            vitesseEnnemis.Insert(0, new double[2]);
+            vitesseEnnemis[0] = [2];
         }
         private void InitTimer()
         {
@@ -338,6 +355,80 @@ namespace JeuxPlateformeBille
         private void FinJeu()
         {
             minuterie.Stop();
+        }
+    }
+    public partial class Ennemis
+    {
+       private int coordonneeX, coordonneeY, largeur, longueur, typeDeplacement;
+       private Image texture;
+       private double vitesse;
+
+       public Image Texture
+        {
+            get { return texture; }
+            set { texture = value; }
+        }
+        public int CoordonneeX 
+        { 
+            get { return coordonneeX; } 
+            set { coordonneeX = value; } 
+        }
+        public int CoordonneeY
+        {
+            get { return coordonneeY; }
+            set { coordonneeY = value; }
+        }
+        public int Largeur
+        {
+            get { return largeur; }
+            set { largeur = value; }
+        }
+        public int Longueur
+        {
+            get { return longueur; }
+            set { longueur = value; }
+        }
+        public int TypeDeplacement
+        {
+            get { return typeDeplacement; }
+            set { typeDeplacement = value; }
+        }
+        public double Vitesse
+        {
+            get { return vitesse; }
+            set { vitesse = value; }
+        }
+    }
+    public partial class Billes
+    {
+        private int largeur, longueur, typeBille;
+        private Image texture;
+        private double vitesse;
+
+        public Image Texture
+        {
+            get { return texture; }
+            set { texture = value; }
+        }
+        public int Largeur
+        {
+            get { return largeur; }
+            set { largeur = value; }
+        }
+        public int Longueur
+        {
+            get { return longueur; }
+            set { longueur = value; }
+        }
+        public int TypeBille
+        {
+            get { return typeBille; }
+            set { typeBille = value; }
+        }
+        public double Vitesse
+        {
+            get { return vitesse; }
+            set { vitesse = value; }
         }
     }
 }
