@@ -261,6 +261,13 @@ namespace JeuxPlateformeBille
         {
 
             hitBoxJoueur = new System.Drawing.Rectangle((int)Canvas.GetLeft(joueur), (int)Canvas.GetTop(joueur), (int)joueur.Width, (int)joueur.Height);
+            for (int i = 0; i < ennemisEnJeu.Count; i++)
+            {
+                if (plateformesEnJeu[i].BoiteCollision.IntersectsWith(hitBoxJoueur))
+                {
+                    return true;
+                }
+            }
             bool estAuSol = hitBoxSol.IntersectsWith(hitBoxJoueur);
             return estAuSol;
         }
