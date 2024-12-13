@@ -56,17 +56,7 @@
             OpacityMask="White"
             Stroke="White"
             Visibility="Hidden"/>
-        <!--<Rectangle
-            x:Name="ennemi"
-            Canvas.Left="582"
-            Canvas.Top="325"
-            Width="24"
-            Height="37"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Fill="#FFB700FF"
-            Stroke="#FFB700FF-->
-        <Label x:Name="StockBille" Content="Stock De Billes : 10" Height="51" Canvas.Left="1184" Canvas.Top="22" Width="232" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="24" Background="Transparent" Visibility="Hidden"/>
+        <Label x:Name="StockBille" Content="Stock De Billes : 1000" Height="51" Canvas.Left="1184" Canvas.Top="22" Width="232" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="24" Background="Transparent" Visibility="Hidden"/>
 
 
 

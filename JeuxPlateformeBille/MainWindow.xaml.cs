@@ -10,6 +10,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Media.TextFormatting;
 using System.Windows.Navigation;
@@ -24,9 +25,9 @@ namespace JeuxPlateformeBille
     /// </summary>
     public partial class MainWindow : Window
     {
-        private DispatcherTimer minuterie;
+        public DispatcherTimer minuterie;
         private static BitmapImage imgBille, fond;
-        private bool gauche, droite, saut, enSaut, billeBouge = false;
+        private bool gauche, droite, saut, enSaut, billeBouge, pause = false;
         private int vitesseJoueur = 8, gravite = 8, toleranceColision = 8, nbtouche = 0, nbStockBille = 1000;
         System.Drawing.Rectangle hitBoxSol, hitBoxJoueur, hitBoxBille, hitBoxEnnemi;
         private static Point clickPosition;
@@ -49,11 +50,6 @@ namespace JeuxPlateformeBille
         private void butJouer_Click(object sender, RoutedEventArgs e)
         {
             Suivant();
-        }
-        private void butCredits_Click(object sender, RoutedEventArgs e)
-        {
-            this.Content = new Parametres();
-
         }
         public void Suivant()
         {
@@ -116,6 +112,12 @@ namespace JeuxPlateformeBille
             {
                 saut = true;
             }
+            else if(e.Key == Key.P)
+            {
+                minuterie.Stop();
+                pause = true;
+                this.ControlContent.Content = new Pause();
+            }
         }
 
         private void Window_KeyUp(object sender, KeyEventArgs e)
@@ -133,14 +135,14 @@ namespace JeuxPlateformeBille
             {
                 saut = false;
             }
-            else if (e.Key == Key.Space)
-            {
-                saut = false;
-            }
+
         }
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            tir(e);
+            if (!pause)
+            {
+                tir(e);
+            }
         }
 
         private void butQuitter_Click(object sender, RoutedEventArgs e)
@@ -148,6 +150,11 @@ namespace JeuxPlateformeBille
             Close();
         }
 
+        public void Reprendre()
+        {
+            minuterie.Start();
+            pause = false;
+        }
         private void Jeu(object? sender, EventArgs e)
         {
             deplacement();
