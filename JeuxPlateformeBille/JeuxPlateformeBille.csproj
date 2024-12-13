@@ -12,6 +12,7 @@
     <None Remove="img\8-bit-graphics-pixels-scene-with-castle.jpg" />
     <None Remove="img\balle.jpg" />
     <None Remove="img\image2.jpg" />
+    <None Remove="img\plateforme.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,6 +26,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="img\balle.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\plateforme.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
