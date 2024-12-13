@@ -112,16 +112,18 @@ namespace JeuxPlateformeBille
             {
                 Plateformes nouvellePlateforme = new Plateformes(new Image(), new int(), new int(), new System.Drawing.Rectangle()); 
                 nouvellePlateforme.Texture.Source = new BitmapImage(new Uri("pack://application:,,,/img/plateforme.png"));
-                nouvellePlateforme.Texture.Width = 300;
-                //nouvellePlateforme.Texture.Height = 25;
-                nouvellePlateforme.BoiteCollision = new System.Drawing.Rectangle((int)Canvas.GetLeft(nouvellePlateforme.Texture), (int)Canvas.GetTop(nouvellePlateforme.Texture), (int)nouvellePlateforme.Texture.Width, (int)nouvellePlateforme.Texture.Height);
-                plateformesEnJeu.Insert(i, nouvellePlateforme);
-                canvasMainWindow.Children.Add(nouvellePlateforme.Texture);
-                Canvas.SetTop(nouvellePlateforme.Texture, coordonneesPlateformes[0, i]);
-                Canvas.SetLeft(nouvellePlateforme.Texture, coordonneesPlateformes[1, i]);
-               
-                
-                
+                nouvellePlateforme.Texture.Width = 425;
+                nouvellePlateforme.Texture.Height = 116;
+                plateformesEnJeu.Insert(0, nouvellePlateforme);
+                canvasMainWindow.Children.Add(plateformesEnJeu[0].Texture);
+                Canvas.SetTop(plateformesEnJeu[0].Texture, coordonneesPlateformes[0, i]);
+                Canvas.SetLeft(plateformesEnJeu[0].Texture, coordonneesPlateformes[1, i]);
+                plateformesEnJeu[0].BoiteCollision = new System.Drawing.Rectangle((int)Canvas.GetLeft(plateformesEnJeu[0].Texture), (int)Canvas.GetTop(plateformesEnJeu[0].Texture), (int)plateformesEnJeu[0].Texture.Width, (int)plateformesEnJeu[0].Texture.Height);
+              
+
+
+
+
             }
         }
 
@@ -187,7 +189,7 @@ namespace JeuxPlateformeBille
         {
             pause = false;
             minuterie.Start();
-            this.ControlContent = null;
+            this.ControlContent.Content = null;
         }
         private void Jeu(object? sender, EventArgs e)
         {
@@ -269,7 +271,7 @@ namespace JeuxPlateformeBille
             hitBoxJoueur = new System.Drawing.Rectangle((int)Canvas.GetLeft(joueur), (int)Canvas.GetTop(joueur), (int)joueur.Width, (int)joueur.Height);
             for (int i = 0; i < plateformesEnJeu.Count; i++)
             {
-                if (plateformesEnJeu[i].BoiteCollision.IntersectsWith(hitBoxJoueur))
+                if (hitBoxJoueur.IntersectsWith(plateformesEnJeu[i].BoiteCollision))
                 {
                     return true;
                 }
