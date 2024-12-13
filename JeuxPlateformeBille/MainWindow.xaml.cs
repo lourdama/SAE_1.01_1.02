@@ -253,7 +253,7 @@ namespace JeuxPlateformeBille
                 clickPosition = e.GetPosition(this);
                 double vitesseX = clickPosition.X - Canvas.GetLeft(joueur);
                 double vitesseY = clickPosition.Y - Canvas.GetTop(joueur);
-                nouvelleBille.Vitesse[0] = vitesseX; 
+                nouvelleBille.Vitesse[0] = vitesseX;
                 nouvelleBille.Vitesse[1] = vitesseY;
                 billesEnJeu.Insert(0, nouvelleBille);
                 canvasMainWindow.Children.Add(nouvelleBille.Texture);
@@ -261,8 +261,8 @@ namespace JeuxPlateformeBille
                 Canvas.SetLeft(nouvelleBille.Texture, Canvas.GetLeft(joueur));
                 nbStockBille--;
                 StockBille.Content = "Stock De Billes : " + nbStockBille;
-                
-                
+
+
             }
         }
         private bool billeLance(Billes bille)
@@ -399,12 +399,36 @@ namespace JeuxPlateformeBille
     public class Billes
     {
         public Image Texture { get; set; }
-        public double[] Vitesse { get; set; }  
+        public double[] Vitesse { get; set; }
 
         public Billes(Image texture, double vitesseX, double vitesseY)
         {
             this.Texture = texture;
             this.Vitesse = new double[] { vitesseX, vitesseY };
+        }
+
+
+    }
+    public partial class Billes2
+    {
+        private int coordonneeX, coordonneeY, typeBille;
+        private Image texture;
+        private double[] vitesse;
+
+        public Image Texture
+        {
+            get { return texture; }
+            set { texture = value; }
+        }
+        public int TypeBille
+        {
+            get { return typeBille; }
+            set { typeBille = value; }
+        }
+        public double[] Vitesse
+        {
+            get { return vitesse; }
+            set { vitesse = value; }
         }
     }
 }
