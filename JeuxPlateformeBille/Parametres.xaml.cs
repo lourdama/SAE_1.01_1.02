@@ -31,7 +31,7 @@ namespace JeuxPlateformeBille
 
         private void retour_Click(object sender, RoutedEventArgs e)
         {
-            
+            ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).ControlContent.Content = new Accueil();
         }
     }
 }

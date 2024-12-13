@@ -49,7 +49,7 @@ namespace JeuxPlateformeBille
             this.Content = new Parametres();
 
         }
-        private void Suivant()
+        public void Suivant()
         {
             InitJeu();
             InitTimer();
@@ -65,11 +65,7 @@ namespace JeuxPlateformeBille
             sol.Visibility = Visibility.Visible;
             barreSaut.Visibility = Visibility.Visible;
             StockBille.Visibility = Visibility.Visible;
-            butCredits.Visibility = Visibility.Hidden;
-            butJouer.Visibility = Visibility.Hidden;
-            butParametres.Visibility = Visibility.Hidden;
-            butQuitter.Visibility = Visibility.Hidden;
-            butRegle.Visibility = Visibility.Hidden;
+
 
         }
         private void InitTimer()
@@ -250,8 +246,8 @@ namespace JeuxPlateformeBille
             }
             else
             {
-                Canvas.SetLeft(bille, Canvas.GetLeft(bille) + (vitesse[0] / 25));
-                Canvas.SetTop(bille, Canvas.GetTop(bille) + vitesse[1] / 25);
+                Canvas.SetLeft(bille, Canvas.GetLeft(bille) + (vitesse[0] / 20));
+                Canvas.SetTop(bille, Canvas.GetTop(bille) + vitesse[1] / 20);
                 vitesse[1] = vitesse[1] + graviteBille;
                 vitesse[0] = vitesse[0] * 0.985;
                 hitBoxBille = new System.Drawing.Rectangle((int)Canvas.GetLeft(bille), (int)Canvas.GetTop(bille), (int)bille.Width, (int)bille.Height);
