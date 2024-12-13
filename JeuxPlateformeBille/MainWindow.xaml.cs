@@ -43,8 +43,8 @@ namespace JeuxPlateformeBille
         private static List<Plateformes> plateformesEnJeu = new List<Plateformes>();
         private static int[,] coordonneesPlateformes =
         {
-            {50, 500,1000 },
-            {300, 600, 900 }
+            {50, 500,7500 },
+            {300, 600, 600 }
         };
         private static Random aleatoire = new Random();
 
@@ -75,7 +75,7 @@ namespace JeuxPlateformeBille
             sol.Visibility = Visibility.Visible;
             barreSaut.Visibility = Visibility.Visible;
             StockBille.Visibility = Visibility.Visible;
-
+            
 
         }
 
@@ -113,7 +113,7 @@ namespace JeuxPlateformeBille
                 nouvellePlateforme.Texture.Source = new BitmapImage(new Uri("pack://application:,,,/img/plateforme.png"));
                 nouvellePlateforme.Texture.Width = 300;
                 //nouvellePlateforme.Texture.Height = 25;
-                nouvellePlateforme.BoiteCollision = new System.Drawing.Rectangle(coordonneesPlateformes[0, i], coordonneesPlateformes[1, i], (int)nouvellePlateforme.Texture.Width, (int)nouvellePlateforme.Texture.Height);
+                nouvellePlateforme.BoiteCollision = new System.Drawing.Rectangle((int)Canvas.GetLeft(nouvellePlateforme.Texture), (int)Canvas.GetTop(nouvellePlateforme.Texture), (int)nouvellePlateforme.Texture.Width, (int)nouvellePlateforme.Texture.Height);
                 plateformesEnJeu.Insert(i, nouvellePlateforme);
                 canvasMainWindow.Children.Add(nouvellePlateforme.Texture);
                 Canvas.SetTop(nouvellePlateforme.Texture, coordonneesPlateformes[0, i]);
@@ -215,10 +215,10 @@ namespace JeuxPlateformeBille
             if (auSol())
             {
 
-                /* if (Canvas.GetTop(joueur) > hitBoxSol.Top - joueur.Height + gravite + toleranceColision)
+                 /*if (Canvas.GetTop(joueur) > hitBoxSol.Top - joueur.Height + gravite + toleranceColision)
                  {
                      Canvas.SetTop(joueur, hitBoxSol.Top - joueur.Height);
-                 } Remonter automatiquement sur plateforme si touché*/
+                 } //Remonter automatiquement sur plateforme si touché*/
                 gravite = 0;
                 coefReductionDeplacementSaut = 1;
                 ReinitialisationSaut();
@@ -261,7 +261,7 @@ namespace JeuxPlateformeBille
         {
 
             hitBoxJoueur = new System.Drawing.Rectangle((int)Canvas.GetLeft(joueur), (int)Canvas.GetTop(joueur), (int)joueur.Width, (int)joueur.Height);
-            for (int i = 0; i < ennemisEnJeu.Count; i++)
+            for (int i = 0; i < plateformesEnJeu.Count; i++)
             {
                 if (plateformesEnJeu[i].BoiteCollision.IntersectsWith(hitBoxJoueur))
                 {
@@ -324,6 +324,16 @@ namespace JeuxPlateformeBille
                 colisionEnnemi();
             }
             hitBoxBille = new System.Drawing.Rectangle((int)Canvas.GetLeft(bille.Texture), (int)Canvas.GetTop(bille.Texture), (int)bille.Texture.Width - 1, (int)bille.Texture.Height - 1);
+           
+            for (int i = 0; i < plateformesEnJeu.Count; i++)
+            {
+                if (plateformesEnJeu[i].BoiteCollision.IntersectsWith(hitBoxBille))
+                {
+                    Canvas.SetLeft(joueur, Canvas.GetLeft(bille.Texture));
+                    Canvas.SetTop(joueur, Canvas.GetTop(bille.Texture) - joueur.Height);
+                    return true;
+                }
+            }
             if (hitBoxBille.IntersectsWith(hitBoxSol))
             {
                 Canvas.SetLeft(joueur, Canvas.GetLeft(bille.Texture));
@@ -398,7 +408,7 @@ namespace JeuxPlateformeBille
         private void ReinitialisationSaut()
         {
             enSaut = false;
-            vitesseSaut = -25;
+            vitesseSaut = -35;
             Canvas.SetLeft(barreSaut, 0);
         }
         private void FinJeu()
