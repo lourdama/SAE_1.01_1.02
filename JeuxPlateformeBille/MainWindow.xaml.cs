@@ -47,6 +47,7 @@ namespace JeuxPlateformeBille
             {300, 600, 600 }
         };
         private static Random aleatoire = new Random();
+        Pause menuPause = new Pause();
 
         public MainWindow()
         {
@@ -142,9 +143,13 @@ namespace JeuxPlateformeBille
             }
             else if(e.Key == Key.P)
             {
-                minuterie.Stop();
-                pause = true;
-                this.ControlContent.Content = new Pause();
+                if (!pause)
+                {
+                    pause = true;
+                    minuterie.Stop();
+                    this.ControlContent.Content = menuPause;
+                }
+                
             }
         }
 
@@ -180,8 +185,9 @@ namespace JeuxPlateformeBille
 
         public void Reprendre()
         {
-            minuterie.Start();
             pause = false;
+            minuterie.Start();
+            this.ControlContent = null;
         }
         private void Jeu(object? sender, EventArgs e)
         {

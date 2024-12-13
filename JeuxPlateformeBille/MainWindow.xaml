@@ -15,7 +15,7 @@
 
     <Canvas x:Name="canvasMainWindow" KeyDown="Window_KeyDown" KeyUp="Window_KeyUp" MouseDown="Window_MouseDown"  Focusable="True">
         <Canvas.Background>
-            <ImageBrush ImageSource="img/8-bit-graphics-pixels-scene-with-castle.jpg"/>
+            <ImageBrush ImageSource="img/castle.jpg"/>
         </Canvas.Background>
         <ContentControl  x:Name="ControlContent">
             <local:Accueil x:Name="Control"   />

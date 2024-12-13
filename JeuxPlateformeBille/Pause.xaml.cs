@@ -28,7 +28,6 @@ namespace JeuxPlateformeBille
         private void Pause1_Click(object sender, RoutedEventArgs e)
         {
             ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).Reprendre();
-            ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).ControlContent.Content = null;
         }
     }
 }

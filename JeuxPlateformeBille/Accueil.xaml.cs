@@ -27,6 +27,7 @@ namespace JeuxPlateformeBille
 
         private void butJouer_Click(object sender, RoutedEventArgs e)
         {
+
             ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).Suivant();
             ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).ControlContent.Content = null;
 
