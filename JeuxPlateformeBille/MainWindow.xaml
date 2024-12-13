@@ -12,15 +12,15 @@
     WindowStartupLocation="CenterScreen"
     WindowState="Maximized"
     mc:Ignorable="d">
+
     <Canvas x:Name="canvasMainWindow" KeyDown="Window_KeyDown" KeyUp="Window_KeyUp" MouseDown="Window_MouseDown"  Focusable="True">
-        <Image
-            x:Name="ImageFond"
-            Width="1500"
-            Height="900"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Top"
-            Source="/img/8-bit-graphics-pixels-scene-with-castle.jpg"
-            Stretch="Fill" />
+        <Canvas.Background>
+            <ImageBrush ImageSource="img/8-bit-graphics-pixels-scene-with-castle.jpg"/>
+        </Canvas.Background>
+        <ContentControl  x:Name="ControlContent">
+            <local:Accueil x:Name="Control"   />
+        </ContentControl>
+        
         <Rectangle
             x:Name="sol"
             Canvas.Left="-53"
@@ -56,22 +56,7 @@
             OpacityMask="White"
             Stroke="White"
             Visibility="Hidden"/>
-        <!--<Rectangle
-            x:Name="ennemi"
-            Canvas.Left="582"
-            Canvas.Top="325"
-            Width="24"
-            Height="37"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Fill="#FFB700FF"
-            Stroke="#FFB700FF-->
-        <Label x:Name="StockBille" Content="Stock De Billes : 10" Height="51" Canvas.Left="1184" Canvas.Top="22" Width="232" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="24" Background="Transparent" Visibility="Hidden"/>
-        <Button x:Name="butJouer" Content="Jouer" Canvas.Left="659" Canvas.Top="272" Height="56" Width="182" HorizontalAlignment="Center" VerticalAlignment="Top" Background="{x:Null}" Foreground="#FFFFFBFB" FontSize="24" FontWeight="Bold" Click="butJouer_Click"/>
-        <Button x:Name="butQuitter" Content="Quitter" Canvas.Left="10" Canvas.Top="818" Height="55" Width="148" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{x:Null}" FontSize="24" FontWeight="Bold" Foreground="White"/>
-        <Button x:Name="butCredits" Content="Crédits" Canvas.Left="659" Canvas.Top="608" Height="56" Width="182" Background="{x:Null}" Foreground="#FFFFFBFB" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-        <Button x:Name="butParametres" Content="Paramètres" Canvas.Left="659" Canvas.Top="386" Height="56" Width="182" Background="{x:Null}" Foreground="#FFFFFBFB" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="0.541,-0.83" Click="butCredits_Click"/>
-        <Button x:Name="butRegle" Content="Règles du jeu" Canvas.Left="659" Canvas.Top="501" Height="56" Width="182" Background="{x:Null}" Foreground="#FFFFFBFB" FontSize="24" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Label x:Name="StockBille" Content="Stock De Billes : 1000" Height="51" Canvas.Left="1184" Canvas.Top="22" Width="232" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="24" Background="Transparent" Visibility="Hidden"/>
 
 
 

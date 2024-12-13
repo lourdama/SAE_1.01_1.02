@@ -10,28 +10,25 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace JeuxPlateformeBille
 {
     /// <summary>
-    /// Logique d'interaction pour Parametres.xaml
+    /// Logique d'interaction pour Pause.xaml
     /// </summary>
-    public partial class Parametres : UserControl
+    public partial class Pause : UserControl
     {
-        public Parametres()
+        public Pause()
         {
             InitializeComponent();
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void Pause1_Click(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void retour_Click(object sender, RoutedEventArgs e)
-        {
-            ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).ControlContent.Content = new Accueil();
+            ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).Reprendre();
+            ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).ControlContent.Content = null;
         }
     }
 }

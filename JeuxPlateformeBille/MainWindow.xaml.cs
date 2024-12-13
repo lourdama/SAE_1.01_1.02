@@ -10,6 +10,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Media.TextFormatting;
 using System.Windows.Navigation;
@@ -24,9 +25,9 @@ namespace JeuxPlateformeBille
     /// </summary>
     public partial class MainWindow : Window
     {
-        private DispatcherTimer minuterie;
+        public DispatcherTimer minuterie;
         private static BitmapImage imgBille, fond;
-        private bool gauche, droite, saut, enSaut, billeBouge = false;
+        private bool gauche, droite, saut, enSaut, billeBouge, pause = false;
         private int vitesseJoueur = 8, gravite = 8, toleranceColision = 8, nbtouche = 0, nbStockBille = 1000;
         System.Drawing.Rectangle hitBoxSol, hitBoxJoueur, hitBoxBille, hitBoxEnnemi;
         private static Point clickPosition;
@@ -56,12 +57,7 @@ namespace JeuxPlateformeBille
         {
             Suivant();
         }
-        private void butCredits_Click(object sender, RoutedEventArgs e)
-        {
-            this.Content = new Parametres();
-
-        }
-        private void Suivant()
+        public void Suivant()
         {
             InitJeu();
             InitTimer();
@@ -79,11 +75,7 @@ namespace JeuxPlateformeBille
             sol.Visibility = Visibility.Visible;
             barreSaut.Visibility = Visibility.Visible;
             StockBille.Visibility = Visibility.Visible;
-            butCredits.Visibility = Visibility.Hidden;
-            butJouer.Visibility = Visibility.Hidden;
-            butParametres.Visibility = Visibility.Hidden;
-            butQuitter.Visibility = Visibility.Hidden;
-            butRegle.Visibility = Visibility.Hidden;
+
 
         }
 
@@ -148,6 +140,12 @@ namespace JeuxPlateformeBille
             {
                 saut = true;
             }
+            else if(e.Key == Key.P)
+            {
+                minuterie.Stop();
+                pause = true;
+                this.ControlContent.Content = new Pause();
+            }
         }
 
         private void Window_KeyUp(object sender, KeyEventArgs e)
@@ -165,14 +163,14 @@ namespace JeuxPlateformeBille
             {
                 saut = false;
             }
-            else if (e.Key == Key.Space)
-            {
-                saut = false;
-            }
+
         }
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            tir(e);
+            if (!pause)
+            {
+                tir(e);
+            }
         }
 
         private void butQuitter_Click(object sender, RoutedEventArgs e)
@@ -180,6 +178,11 @@ namespace JeuxPlateformeBille
             Close();
         }
 
+        public void Reprendre()
+        {
+            minuterie.Start();
+            pause = false;
+        }
         private void Jeu(object? sender, EventArgs e)
         {
             deplacement();
@@ -285,7 +288,7 @@ namespace JeuxPlateformeBille
                 clickPosition = e.GetPosition(this);
                 double vitesseX = clickPosition.X - Canvas.GetLeft(joueur);
                 double vitesseY = clickPosition.Y - Canvas.GetTop(joueur);
-                nouvelleBille.Vitesse[0] = vitesseX; 
+                nouvelleBille.Vitesse[0] = vitesseX;
                 nouvelleBille.Vitesse[1] = vitesseY;
                 billesEnJeu.Insert(0, nouvelleBille);
                 canvasMainWindow.Children.Add(nouvelleBille.Texture);
@@ -293,8 +296,8 @@ namespace JeuxPlateformeBille
                 Canvas.SetLeft(nouvelleBille.Texture, Canvas.GetLeft(joueur));
                 nbStockBille--;
                 StockBille.Content = "Stock De Billes : " + nbStockBille;
-                
-                
+
+
             }
         }
         private bool billeLance(Billes bille)
@@ -311,10 +314,7 @@ namespace JeuxPlateformeBille
                 bille.Vitesse[1] = bille.Vitesse[1] + graviteBille;
                 bille.Vitesse[0] = bille.Vitesse[0] * 0.985;
                 hitBoxBille = new System.Drawing.Rectangle((int)Canvas.GetLeft(bille.Texture), (int)Canvas.GetTop(bille.Texture), (int)bille.Texture.Width, (int)bille.Texture.Height);
-                if (colisionEnnemi())
-                {
-                    return true;
-                }
+                colisionEnnemi();
             }
             hitBoxBille = new System.Drawing.Rectangle((int)Canvas.GetLeft(bille.Texture), (int)Canvas.GetTop(bille.Texture), (int)bille.Texture.Width - 1, (int)bille.Texture.Height - 1);
             if (hitBoxBille.IntersectsWith(hitBoxSol))
@@ -434,12 +434,36 @@ namespace JeuxPlateformeBille
     public class Billes
     {
         public Image Texture { get; set; }
-        public double[] Vitesse { get; set; }  
+        public double[] Vitesse { get; set; }
 
         public Billes(Image texture, double vitesseX, double vitesseY)
         {
             this.Texture = texture;
             this.Vitesse = new double[] { vitesseX, vitesseY };
+        }
+
+
+    }
+    public partial class Billes2
+    {
+        private int coordonneeX, coordonneeY, typeBille;
+        private Image texture;
+        private double[] vitesse;
+
+        public Image Texture
+        {
+            get { return texture; }
+            set { texture = value; }
+        }
+        public int TypeBille
+        {
+            get { return typeBille; }
+            set { typeBille = value; }
+        }
+        public double[] Vitesse
+        {
+            get { return vitesse; }
+            set { vitesse = value; }
         }
     }
     public partial class Plateformes
