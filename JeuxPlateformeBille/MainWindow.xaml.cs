@@ -40,6 +40,12 @@ namespace JeuxPlateformeBille
         private static Ennemis fantome = new Ennemis();
         private static List<Ennemis> ennemisEnJeu = new List<Ennemis>();
         private static List<Billes> billesEnJeu = new List<Billes>();
+        private static List<Plateformes> plateformesEnJeu = new List<Plateformes>();
+        private static int[,] coordonneesPlateformes =
+        {
+            {50, 500,1000 },
+            {300, 600, 900 }
+        };
         private static Random aleatoire = new Random();
         Pause menuPause = new Pause();
 
@@ -57,6 +63,7 @@ namespace JeuxPlateformeBille
             InitJeu();
             InitTimer();
             InitEnnemis();
+            InitPlateformes();
             //spawnEnnemi();
         }
 
@@ -88,6 +95,8 @@ namespace JeuxPlateformeBille
             Canvas.SetTop(ennemisEnJeu[0].Texture, ennemisEnJeu[0].CoordonneeY);
             Canvas.SetLeft(ennemisEnJeu[0].Texture, ennemisEnJeu[0].CoordonneeX);
         }
+
+
         private void InitTimer()
         {
             minuterie = new DispatcherTimer();
@@ -95,6 +104,25 @@ namespace JeuxPlateformeBille
             minuterie.Tick += Jeu;
             minuterie.Start();
 
+        }
+
+        private void InitPlateformes()
+        {
+            for (int i = 0; i < coordonneesPlateformes.GetLength(1); i++)
+            {
+                Plateformes nouvellePlateforme = new Plateformes(new Image(), new int(), new int(), new System.Drawing.Rectangle()); 
+                nouvellePlateforme.Texture.Source = new BitmapImage(new Uri("pack://application:,,,/img/plateforme.png"));
+                nouvellePlateforme.Texture.Width = 300;
+                //nouvellePlateforme.Texture.Height = 25;
+                nouvellePlateforme.BoiteCollision = new System.Drawing.Rectangle(coordonneesPlateformes[0, i], coordonneesPlateformes[1, i], (int)nouvellePlateforme.Texture.Width, (int)nouvellePlateforme.Texture.Height);
+                plateformesEnJeu.Insert(i, nouvellePlateforme);
+                canvasMainWindow.Children.Add(nouvellePlateforme.Texture);
+                Canvas.SetTop(nouvellePlateforme.Texture, coordonneesPlateformes[0, i]);
+                Canvas.SetLeft(nouvellePlateforme.Texture, coordonneesPlateformes[1, i]);
+               
+                
+                
+            }
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
@@ -239,6 +267,13 @@ namespace JeuxPlateformeBille
         {
 
             hitBoxJoueur = new System.Drawing.Rectangle((int)Canvas.GetLeft(joueur), (int)Canvas.GetTop(joueur), (int)joueur.Width, (int)joueur.Height);
+            for (int i = 0; i < ennemisEnJeu.Count; i++)
+            {
+                if (plateformesEnJeu[i].BoiteCollision.IntersectsWith(hitBoxJoueur))
+                {
+                    return true;
+                }
+            }
             bool estAuSol = hitBoxSol.IntersectsWith(hitBoxJoueur);
             return estAuSol;
         }
@@ -442,6 +477,20 @@ namespace JeuxPlateformeBille
         {
             get { return vitesse; }
             set { vitesse = value; }
+        }
+    }
+    public partial class Plateformes
+    {
+        public Image Texture { get; set; }
+        public int CoordonneeX { get; set; }
+        public int CoordonneeY { get; set; }
+        public System.Drawing.Rectangle BoiteCollision { get; set; }
+        public Plateformes(Image texture, int coordonneeX, int coordonneeY, System.Drawing.Rectangle boiteCollision)
+        {
+            this.Texture = texture;
+            this.CoordonneeX = coordonneeX;
+            this.CoordonneeY = coordonneeY;
+            this.BoiteCollision = boiteCollision;
         }
     }
 }
