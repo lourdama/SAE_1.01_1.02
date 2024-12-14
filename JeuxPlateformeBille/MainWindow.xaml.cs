@@ -220,13 +220,8 @@ namespace JeuxPlateformeBille
         private void deplacement()
         {
 
-            if (auSol())
+            if (auSol() || CollisionPlat() == 0)
             {
-
-                 /*if (Canvas.GetTop(joueur) > hitBoxSol.Top - joueur.Height + gravite + toleranceColision)
-                 {
-                     Canvas.SetTop(joueur, hitBoxSol.Top - joueur.Height);
-                 } //Remonter automatiquement sur plateforme si touché*/
                 gravite = 0;
                 coefReductionDeplacementSaut = 1;
                 ReinitialisationSaut();
@@ -242,7 +237,7 @@ namespace JeuxPlateformeBille
 
             if (droite)
             {
-                if ((Canvas.GetLeft(joueur) + vitesseJoueur * coefReductionDeplacementSaut) + joueur.Width < this.ActualWidth)
+                if ((Canvas.GetLeft(joueur) + vitesseJoueur * coefReductionDeplacementSaut) + joueur.Width < this.ActualWidth && CollisionPlat() != 1)
                 {
                     Canvas.SetLeft(joueur, Canvas.GetLeft(joueur) + vitesseJoueur * coefReductionDeplacementSaut);
                 }
@@ -251,33 +246,67 @@ namespace JeuxPlateformeBille
 
             if (gauche)
             {
-                if ((Canvas.GetLeft(joueur) - vitesseJoueur * coefReductionDeplacementSaut) > 0)
+                if ((Canvas.GetLeft(joueur) - vitesseJoueur * coefReductionDeplacementSaut) > 0 && CollisionPlat() != 2)
                 {
                     Canvas.SetLeft(joueur, Canvas.GetLeft(joueur) - vitesseJoueur * coefReductionDeplacementSaut);
                 }
 
 
             }
-            if (saut && enSaut == false)
+            if (saut)
+            {
+                Canvas.SetTop(joueur, Canvas.GetTop(joueur) - 16);
+            }
+
+            /*if (saut && enSaut == false)
             {
                 enSaut = true;
                 coefReductionDeplacementSaut = 0.5;
-            }
+            }*/
 
         }
         private bool auSol()
         {
 
             hitBoxJoueur = new System.Drawing.Rectangle((int)Canvas.GetLeft(joueur), (int)Canvas.GetTop(joueur), (int)joueur.Width, (int)joueur.Height);
+            
+            bool estAuSol = hitBoxSol.IntersectsWith(hitBoxJoueur);
+            return estAuSol;
+        }
+
+        private int CollisionPlat()
+        {
+            hitBoxJoueur = new System.Drawing.Rectangle((int)Canvas.GetLeft(joueur), (int)Canvas.GetTop(joueur), (int)joueur.Width, (int)joueur.Height);
             for (int i = 0; i < plateformesEnJeu.Count; i++)
             {
                 if (hitBoxJoueur.IntersectsWith(plateformesEnJeu[i].BoiteCollision))
                 {
-                    return true;
+                    if (Canvas.GetLeft(joueur) + joueur.Width < Canvas.GetLeft(plateformesEnJeu[i].Texture) + toleranceColision)
+                    {
+                        return 1;
+                    }
+                    else if (Canvas.GetTop(joueur) + joueur.Height < Canvas.GetTop(plateformesEnJeu[i].Texture) + toleranceColision)
+                    {
+                        return 0;
+                    }
+                    else if (Canvas.GetLeft(joueur) > Canvas.GetLeft(plateformesEnJeu[i].Texture) + plateformesEnJeu[i].Texture.Width-toleranceColision)
+                    {
+                        return 2;
+                    }
+                    
+                    
+                    else
+                    {
+                        enSaut = false;
+                        saut = false;
+                        return 4;
+                    }
                 }
+  
             }
-            bool estAuSol = hitBoxSol.IntersectsWith(hitBoxJoueur);
-            return estAuSol;
+            return -1;
+            
+
         }
         private void SautEnCours()
         {

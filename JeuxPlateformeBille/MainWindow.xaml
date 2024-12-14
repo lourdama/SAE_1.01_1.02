@@ -20,7 +20,7 @@
         <ContentControl  x:Name="ControlContent">
             <local:Accueil x:Name="Control"   />
         </ContentControl>
-        
+
         <Rectangle
             x:Name="sol"
             Canvas.Left="-53"
@@ -35,8 +35,8 @@
             Visibility="Hidden"/>
         <Rectangle
             x:Name="joueur"
-            Canvas.Left="339"
-            Canvas.Top="254"
+            Canvas.Left="893"
+            Canvas.Top="512"
             Width="16"
             Height="56"
             HorizontalAlignment="Left"
