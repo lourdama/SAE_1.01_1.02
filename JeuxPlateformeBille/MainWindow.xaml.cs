@@ -28,7 +28,7 @@ namespace JeuxPlateformeBille
         public DispatcherTimer minuterie;
         private static BitmapImage imgBille, fond;
         private bool gauche, droite, saut, enSaut, billeBouge, pause = false;
-        private int vitesseJoueur = 8, gravite = 8, toleranceColision = 8, nbtouche = 0, nbStockBille = 1000;
+        private int vitesseJoueur = 8, gravite = 8, toleranceColision = 8, nbtouche = 0, nbStockBille = 1000, niveau = 0;
         System.Drawing.Rectangle hitBoxSol, hitBoxJoueur, hitBoxBille, hitBoxEnnemi;
         private static Point clickPosition;
         private static double vitesseSaut, graviteBille = 4, coefReductionDeplacementSaut;
@@ -41,19 +41,21 @@ namespace JeuxPlateformeBille
         private static List<Ennemis> ennemisEnJeu = new List<Ennemis>();
         private static List<Billes> billesEnJeu = new List<Billes>();
         private static List<Plateformes> plateformesEnJeu = new List<Plateformes>();
-        private static int[,] coordonneesPlateformes =
+
+        int[][,] coordonneesPlateformes = new int[][,]
         {
-            {50, 500,7500 },
-            {300, 600, 600 }
+            new int[,] { {50, 500,7500 }, {300, 600, 600 } },
+            new int[,] { { 1126, 598 }, { 0, 531 }, { -55, 432 }, { 219, 392 }, { 1126, 307 }, { 0, 258 }, { 724, 130 } }
         };
         private static Random aleatoire = new Random();
-        Pause menuPause = new Pause();
+
 
         public MainWindow()
         {
             InitializeComponent();
-
         }
+
+
         private void butJouer_Click(object sender, RoutedEventArgs e)
         {
             Suivant();
@@ -108,7 +110,7 @@ namespace JeuxPlateformeBille
 
         private void InitPlateformes()
         {
-            for (int i = 0; i < coordonneesPlateformes.GetLength(1); i++)
+            for (int i = 0; i < coordonneesPlateformes[niveau].GetLength(1); i++)
             {
                 Plateformes nouvellePlateforme = new Plateformes(new Image(), new int(), new int(), new System.Drawing.Rectangle()); 
                 nouvellePlateforme.Texture.Source = new BitmapImage(new Uri("pack://application:,,,/img/plateforme.png"));
@@ -116,9 +118,9 @@ namespace JeuxPlateformeBille
                 nouvellePlateforme.Texture.Height = 116;
                 plateformesEnJeu.Insert(0, nouvellePlateforme);
                 canvasMainWindow.Children.Add(plateformesEnJeu[0].Texture);
-                Canvas.SetTop(plateformesEnJeu[0].Texture, coordonneesPlateformes[0, i]);
-                Canvas.SetLeft(plateformesEnJeu[0].Texture, coordonneesPlateformes[1, i]);
-                plateformesEnJeu[0].BoiteCollision = new System.Drawing.Rectangle((int)Canvas.GetLeft(plateformesEnJeu[0].Texture), (int)Canvas.GetTop(plateformesEnJeu[0].Texture), (int)plateformesEnJeu[0].Texture.Width, (int)plateformesEnJeu[0].Texture.Height);
+                Canvas.SetTop(plateformesEnJeu[0].Texture, coordonneesPlateformes[niveau][0, i]);
+                Canvas.SetLeft(plateformesEnJeu[0].Texture, coordonneesPlateformes[niveau][1, i]);
+                plateformesEnJeu[0].BoiteCollision = new System.Drawing.Rectangle((int)Canvas.GetLeft(plateformesEnJeu[0].Texture) - toleranceColision , (int)Canvas.GetTop(plateformesEnJeu[0].Texture), (int)plateformesEnJeu[0].Texture.Width + 2* toleranceColision, (int)plateformesEnJeu[0].Texture.Height);
               
 
 
@@ -149,7 +151,7 @@ namespace JeuxPlateformeBille
                 {
                     pause = true;
                     minuterie.Stop();
-                    this.ControlContent.Content = menuPause;
+                    this.ControlContent.Content = new Pause();
                 }
                 
             }
@@ -187,8 +189,10 @@ namespace JeuxPlateformeBille
 
         public void Reprendre()
         {
-            pause = false;
+            
+
             minuterie.Start();
+            pause = false;
             this.ControlContent.Content = null;
         }
         private void Jeu(object? sender, EventArgs e)
@@ -285,14 +289,15 @@ namespace JeuxPlateformeBille
                     {
                         return 1;
                     }
+                    else if (Canvas.GetLeft(joueur) > Canvas.GetLeft(plateformesEnJeu[i].Texture) + plateformesEnJeu[i].Texture.Width - toleranceColision)
+                    {
+                        return 2;
+                    }
                     else if (Canvas.GetTop(joueur) + joueur.Height < Canvas.GetTop(plateformesEnJeu[i].Texture) + toleranceColision)
                     {
                         return 0;
                     }
-                    else if (Canvas.GetLeft(joueur) > Canvas.GetLeft(plateformesEnJeu[i].Texture) + plateformesEnJeu[i].Texture.Width-toleranceColision)
-                    {
-                        return 2;
-                    }
+                    
                     
                     
                     else
