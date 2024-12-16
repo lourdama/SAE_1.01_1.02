@@ -68,8 +68,6 @@
     <None Remove="img\Joueur\Saut\saut3.png" />
     <None Remove="img\Joueur\Saut\saut4.png" />
     <None Remove="img\Joueur\Saut\saut5.png" />
-    <None Remove="img\Joueur\Saut\saut6.png" />
-    <None Remove="img\Joueur\Saut\saut7.png" />
     <None Remove="img\Joueur\Saut\saut8.png" />
     <None Remove="img\Joueur\Saut\saut9.png" />
     <None Remove="img\Joueur\Walk\walk1.png" />
@@ -195,12 +193,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="img\Joueur\Saut\saut5.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="img\Joueur\Saut\saut6.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="img\Joueur\Saut\saut7.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="img\Joueur\Walk\walk1.png">

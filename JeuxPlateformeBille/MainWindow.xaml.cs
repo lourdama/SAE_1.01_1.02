@@ -30,7 +30,7 @@ namespace JeuxPlateformeBille
         public DispatcherTimer minuterie;
         private static BitmapImage imgBille, fond;
         private bool gauche, droite, saut, enSaut, billeBouge, pause = false;
-        private int vitesseJoueur = 8, gravite = 8, toleranceColision = 12, nbtouche = 0, nbStockBille = 1000, niveau = 0, choixBille;
+        private int vitesseJoueur = 8, gravite = 8, toleranceColision = 8, nbtouche = 0, nbStockBille = 1000, niveau = 0, choixBille;
         System.Drawing.Rectangle hitBoxSol, hitBoxJoueur, hitBoxBille, hitBoxEnnemi;
         private int animationJoueur = 1, animationSaut = 1, animationStatic = 1, timerAnimation, timerAnimationSaut, timerAnimationStatic;
         private static Point clickPosition;
@@ -40,6 +40,7 @@ namespace JeuxPlateformeBille
         private static List<Ennemis> ennemisEnJeu = new List<Ennemis>();
         private static List<Billes> billesEnJeu = new List<Billes>();
         private static List<Plateformes> plateformesEnJeu = new List<Plateformes>();
+        private double[,] tailleSaut = { { 61, 49 }, { 61, 49 }, { 61, 49 }, { 61, 49 }, };
 
         int[][,] proprietePlateformes = new int[][,]
         {
@@ -244,13 +245,22 @@ namespace JeuxPlateformeBille
             {
                 gravite = 0;
                 coefReductionDeplacementSaut = 1;
+                animationSaut = 1;
                 ReinitialisationSaut();
             }
 
             else
             {
-                AnimationChute();
+
                 gravite = 8;
+                if (Canvas.GetTop(joueur) > this.Height)
+                {
+                    Canvas.SetTop(joueur, 400);
+                }
+                if (vitesseSaut > 0)
+                {
+                    AnimationChute();
+                }
             }
 
 
@@ -297,6 +307,7 @@ namespace JeuxPlateformeBille
 
                     if (Canvas.GetTop(joueur) + joueur.Height < Canvas.GetTop(plateformesEnJeu[i].Texture) + toleranceColision)
                     {
+                        timerAnimationSaut = 0;
                         if (!droite && !gauche)
                         {
                             AnimationStatic();
@@ -405,7 +416,7 @@ namespace JeuxPlateformeBille
                 if (bille.TypeBille == 1)
                 {
                     Canvas.SetLeft(joueur, Canvas.GetLeft(bille.Texture));
-                    Canvas.SetTop(joueur, Canvas.GetTop(bille.Texture) - joueur.Height);
+                    Canvas.SetTop(joueur, Canvas.GetTop(bille.Texture) - joueur.Height-toleranceColision);
                 }
                 return true;
             }
@@ -438,12 +449,6 @@ namespace JeuxPlateformeBille
                 hitBoxEnnemi = new System.Drawing.Rectangle((int)Canvas.GetLeft(ennemisEnJeu[0].Texture), (int)Canvas.GetTop(ennemisEnJeu[0].Texture), (int)ennemisEnJeu[0].Texture.Width, (int)ennemisEnJeu[0].Texture.Height);
 
             }
-
-
-            /* Canvas.SetLeft(EnnemiVie, Canvas.GetLeft(ennemi) + 15);
-             Canvas.SetLeft(EnnemiVie2, Canvas.GetLeft(ennemi) + 30);
-             Canvas.SetTop(EnnemiVie, Canvas.GetTop(ennemi) - 10);
-             Canvas.SetTop(EnnemiVie2, Canvas.GetTop(ennemi) - 10);*/
         }
 
         private bool ColisionEnnemi(Billes bille)
@@ -462,14 +467,7 @@ namespace JeuxPlateformeBille
                         ennemisEnJeu[0].BarreDeVie.Visibility = Visibility.Hidden;
                         canvasMainWindow.Children.Remove(ennemisEnJeu[0].Texture);
                         ennemisEnJeu.Remove(ennemisEnJeu[0]);
-                        //EnnemiVie.Visibility = Visibility.Hidden;
-                        //EnnemiVie2.Visibility = Visibility.Hidden;
                         ReinitialisationSaut();
-                    }
-                    else
-                    {
-                        //nbtouche = nbtouche + 1;
-                        //EnnemiVie2.Fill = new SolidColorBrush(System.Windows.Media.Colors.Red);
                     }
                     return true;
                 }
@@ -506,6 +504,7 @@ namespace JeuxPlateformeBille
 
         public void AnimationDeplacementJoueur(int direction)
         {
+            joueur.Width = 41;
             regard.ScaleX = direction;
             if (gravite == 0)
             {
@@ -529,7 +528,7 @@ namespace JeuxPlateformeBille
         {
             joueur.Source = new BitmapImage(new Uri($"pack://application:,,,/img/joueur/saut/saut{animationSaut}.png"));
             timerAnimationSaut += 1;
-            if (timerAnimationSaut == 10 && animationSaut< 4)
+            if (timerAnimationSaut == 8 && animationSaut< 4)
             {
                 animationSaut = animationSaut + 1;
                 timerAnimationSaut = 0;
@@ -537,14 +536,15 @@ namespace JeuxPlateformeBille
         }
         private void AnimationChute()
         {
-            animationSaut = 6;
+            animationSaut = 5;
             AnimationSaut();
-            animationSaut = 1;
+            
         }
 
         private void AnimationStatic()
         {
-           
+
+            joueur.Width = 57;
             joueur.Source = new BitmapImage(new Uri($"pack://application:,,,/img/joueur/inactif/inactif{animationStatic}.png"));
             timerAnimationStatic += 1;
             if (timerAnimationStatic == 6)
