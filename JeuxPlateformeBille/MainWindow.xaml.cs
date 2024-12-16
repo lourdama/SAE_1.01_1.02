@@ -125,17 +125,18 @@ namespace JeuxPlateformeBille
         }
         private void PreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
-            if (e.Delta > 0)
+            if (e.Delta > 0 && choixBille< 10)
             {
-
+                choixBille = choixBille + 1;
             }
                 
 
-            else if (e.Delta < 0)
+            else if (e.Delta < 0 && choixBille > 0 )
             {
-
+                choixBille = choixBille -1;    
             }
-                
+            ChoixBille.Content = choixBille;
+
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
@@ -338,6 +339,7 @@ namespace JeuxPlateformeBille
                 nouvelleBille.Texture.Source = imgBille;
                 nouvelleBille.Texture.Width = 15;
                 nouvelleBille.Texture.Height = 15;
+                nouvelleBille.TypeBille = choixBille;
                 clickPosition = e.GetPosition(this);
                 double vitesseX = clickPosition.X - Canvas.GetLeft(joueur);
                 double vitesseY = clickPosition.Y - Canvas.GetTop(joueur);
@@ -375,15 +377,22 @@ namespace JeuxPlateformeBille
             {
                 if (plateformesEnJeu[i].BoiteCollision.IntersectsWith(hitBoxBille))
                 {
-                    Canvas.SetLeft(joueur, Canvas.GetLeft(bille.Texture));
-                    Canvas.SetTop(joueur, Canvas.GetTop(bille.Texture) - joueur.Height);
+                    if (bille.TypeBille == 1) 
+                    {
+                        Canvas.SetLeft(joueur, Canvas.GetLeft(bille.Texture));
+                        Canvas.SetTop(joueur, Canvas.GetTop(bille.Texture) - joueur.Height);
+                    }
+                    
                     return true;
                 }
             }
             if (hitBoxBille.IntersectsWith(hitBoxSol))
             {
-                Canvas.SetLeft(joueur, Canvas.GetLeft(bille.Texture));
-                Canvas.SetTop(joueur, Canvas.GetTop(bille.Texture) - joueur.Height);
+                if (bille.TypeBille == 1)
+                {
+                    Canvas.SetLeft(joueur, Canvas.GetLeft(bille.Texture));
+                    Canvas.SetTop(joueur, Canvas.GetTop(bille.Texture) - joueur.Height);
+                }
                 return true;
             }
             return false;
