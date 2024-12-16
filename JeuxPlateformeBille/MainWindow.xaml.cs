@@ -44,10 +44,10 @@ namespace JeuxPlateformeBille
 
         int[][,] proprietePlateformes = new int[][,]
         {
-         new int[,] { {600, 500 }, {300, 200 }, { 0, 700 } ,{ 425, 700 }, { 850, 700 }, { 1275, 700 }    },
-         new int[,] { { },{ } },
-         new int[,] { { },{ } },
-         new int[,] { { },{ } },
+         new int[,] { { 425, 700 }, { 850, 700 }, { 1275, 700 },{ 600, 500 }, {300, 200 }, { 0, 700 }    },
+         new int[,] { { 425, 700 }, { 850, 700 }, { 1275, 700 } },
+         new int[,] { { 425, 700 }, { 850, 700 }, { 1275, 700 }},
+         new int[,] { { 425, 700 }, { 850, 700 }, { 1275, 700 } },
         };
         private static Random aleatoire = new Random();
 
