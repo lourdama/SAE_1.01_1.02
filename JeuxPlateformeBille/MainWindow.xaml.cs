@@ -28,15 +28,10 @@ namespace JeuxPlateformeBille
         public DispatcherTimer minuterie;
         private static BitmapImage imgBille, fond;
         private bool gauche, droite, saut, enSaut, billeBouge, pause = false;
-        private int vitesseJoueur = 8, gravite = 8, toleranceColision = 8, nbtouche = 0, nbStockBille = 1000, niveau = 0;
+        private int vitesseJoueur = 8, gravite = 8, toleranceColision = 8, nbtouche = 0, nbStockBille = 1000, niveau = 0, choixBille;
         System.Drawing.Rectangle hitBoxSol, hitBoxJoueur, hitBoxBille, hitBoxEnnemi;
         private static Point clickPosition;
         private static double vitesseSaut, graviteBille = 4, coefReductionDeplacementSaut;
-        /*  private static List<Image> billesEnJeu = billesEnJeu = new List<Image>();
-          private static List<double[]> vitesseBilles = new List<double[]>();
-          private static List<Image> ennemisEnJeu = ennemisEnJeu = new List<Image>();
-          private static List<double[]> vitesseEnnemis = new List<double[]>();
-          private static List<double[]> InitVarEnnemis = new List<double[]>();*/
         private static Ennemis fantome = new Ennemis();
         private static List<Ennemis> ennemisEnJeu = new List<Ennemis>();
         private static List<Billes> billesEnJeu = new List<Billes>();
@@ -127,6 +122,20 @@ namespace JeuxPlateformeBille
 
 
             }
+        }
+        private void PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if (e.Delta > 0)
+            {
+
+            }
+                
+
+            else if (e.Delta < 0)
+            {
+
+            }
+                
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
