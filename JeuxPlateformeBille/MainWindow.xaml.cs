@@ -45,7 +45,7 @@ namespace JeuxPlateformeBille
         int[][,] coordonneesPlateformes = new int[][,]
         {
             new int[,] { {50, 500,7500 }, {300, 600, 600 } },
-            new int[,] { { 1126, 598 }, { 0, 531 }, { -55, 432 }, { 219, 392 }, { 1126, 307 }, { 0, 258 }, { 724, 130 } }
+           
         };
         private static Random aleatoire = new Random();
 
@@ -489,37 +489,18 @@ namespace JeuxPlateformeBille
     {
         public Image Texture { get; set; }
         public double[] Vitesse { get; set; }
+        public int TypeBille { get; set; }
 
-        public Billes(Image texture, double vitesseX, double vitesseY)
+        public Billes(Image texture, double vitesseX, double vitesseY, int choix)
         {
             this.Texture = texture;
             this.Vitesse = new double[] { vitesseX, vitesseY };
+            this.TypeBille = choix;
         }
 
 
     }
-    public partial class Billes2
-    {
-        private int coordonneeX, coordonneeY, typeBille;
-        private Image texture;
-        private double[] vitesse;
-
-        public Image Texture
-        {
-            get { return texture; }
-            set { texture = value; }
-        }
-        public int TypeBille
-        {
-            get { return typeBille; }
-            set { typeBille = value; }
-        }
-        public double[] Vitesse
-        {
-            get { return vitesse; }
-            set { vitesse = value; }
-        }
-    }
+    
     public partial class Plateformes
     {
         public Image Texture { get; set; }
