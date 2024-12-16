@@ -325,7 +325,7 @@ namespace JeuxPlateformeBille
         {
             if (nbStockBille > 0)
             {
-                Billes nouvelleBille = new Billes(new Image(), 0, 0);
+                Billes nouvelleBille = new Billes(new Image(), 0, 0, 0);
                 nouvelleBille.Texture.Source = imgBille;
                 nouvelleBille.Texture.Width = 15;
                 nouvelleBille.Texture.Height = 15;
