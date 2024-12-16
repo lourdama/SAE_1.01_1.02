@@ -88,6 +88,7 @@ namespace JeuxPlateformeBille
             for (int i = 0; i < niveauEnnemis[niveau].GetLength(0); i++)
             {
                 // Initialisation ennemi classique
+                Ennemis fantome = new Ennemis();
                 fantome.Texture = new Image();
                 fantome.Texture.Source = new BitmapImage(new Uri("pack://application:,,,/img/fantome.png"));
                 fantome.Texture.Width = 50;
@@ -101,12 +102,12 @@ namespace JeuxPlateformeBille
                 fantome.BarreDeVie.Width = 75;
                 fantome.BarreDeVie.Value = 100;
                 ennemisEnJeu.Insert(0, fantome);
-                canvasMainWindow.Children.Add(ennemisEnJeu[i].Texture);
-                canvasMainWindow.Children.Add(ennemisEnJeu[i].BarreDeVie);
-                Canvas.SetTop(ennemisEnJeu[i].Texture, ennemisEnJeu[i].CoordonneeY);
-                Canvas.SetLeft(ennemisEnJeu[i].Texture, ennemisEnJeu[i].CoordonneeX);
-                Canvas.SetTop(ennemisEnJeu[i].BarreDeVie, ennemisEnJeu[i].CoordonneeY);
-                Canvas.SetLeft(ennemisEnJeu[i].BarreDeVie, ennemisEnJeu[i].CoordonneeX);
+                canvasMainWindow.Children.Add(ennemisEnJeu[0].Texture);
+                canvasMainWindow.Children.Add(ennemisEnJeu[0].BarreDeVie);
+                Canvas.SetTop(ennemisEnJeu[0].Texture, ennemisEnJeu[0].CoordonneeY);
+                Canvas.SetLeft(ennemisEnJeu[0].Texture, ennemisEnJeu[0].CoordonneeX);
+                Canvas.SetTop(ennemisEnJeu[0].BarreDeVie, ennemisEnJeu[0].CoordonneeY);
+                Canvas.SetLeft(ennemisEnJeu[0].BarreDeVie, ennemisEnJeu[0].CoordonneeX);
             }
         }
 
@@ -452,7 +453,7 @@ namespace JeuxPlateformeBille
                 Canvas.SetTop(ennemisEnJeu[i].Texture, Canvas.GetTop(ennemisEnJeu[i].Texture) + Math.Sign(Canvas.GetTop(joueur) - Canvas.GetTop(ennemisEnJeu[i].Texture)));
                 Canvas.SetLeft(ennemisEnJeu[i].BarreDeVie, Canvas.GetLeft(ennemisEnJeu[i].Texture) + Math.Sign(Canvas.GetLeft(joueur) - Canvas.GetLeft(ennemisEnJeu[i].Texture)) * 2);
                 Canvas.SetTop(ennemisEnJeu[i].BarreDeVie, Canvas.GetTop(ennemisEnJeu[i].Texture) + Math.Sign(Canvas.GetTop(joueur) - Canvas.GetTop(ennemisEnJeu[i].Texture)));
-                hitBoxEnnemi = new System.Drawing.Rectangle((int)Canvas.GetLeft(ennemisEnJeu[i].Texture), (int)Canvas.GetTop(ennemisEnJeu[0].Texture), (int)ennemisEnJeu[i].Texture.Width, (int)ennemisEnJeu[i].Texture.Height);
+                hitBoxEnnemi = new System.Drawing.Rectangle((int)Canvas.GetLeft(ennemisEnJeu[i].Texture), (int)Canvas.GetTop(ennemisEnJeu[i].Texture), (int)ennemisEnJeu[i].Texture.Width, (int)ennemisEnJeu[i].Texture.Height);
 
             }
         }
