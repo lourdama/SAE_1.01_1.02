@@ -36,6 +36,7 @@ namespace JeuxPlateformeBille
         private static Point clickPosition;
         private static double vitesseSaut, graviteBille = 4, coefReductionDeplacementSaut;
         private static Ennemis fantome = new Ennemis();
+        private static List<ProgressBar> barreDeVie = new List<ProgressBar>();
         private static List<Ennemis> ennemisEnJeu = new List<Ennemis>();
         private static List<Billes> billesEnJeu = new List<Billes>();
         private static List<Plateformes> plateformesEnJeu = new List<Plateformes>();
@@ -91,10 +92,18 @@ namespace JeuxPlateformeBille
             fantome.CoordonneeY = 500;
             fantome.Vitesse = 2;
             fantome.PointDeVie = 100;
+            fantome.BarreDeVie = new ProgressBar();
+            fantome.BarreDeVie.Height = 10;
+            fantome.BarreDeVie.Width = 75;
+            fantome.BarreDeVie.Value = 100;
             ennemisEnJeu.Insert(0, fantome);
             canvasMainWindow.Children.Add(ennemisEnJeu[0].Texture);
+            canvasMainWindow.Children.Add(ennemisEnJeu[0].BarreDeVie);
             Canvas.SetTop(ennemisEnJeu[0].Texture, ennemisEnJeu[0].CoordonneeY);
             Canvas.SetLeft(ennemisEnJeu[0].Texture, ennemisEnJeu[0].CoordonneeX);
+            Canvas.SetTop(ennemisEnJeu[0].BarreDeVie, ennemisEnJeu[0].CoordonneeY);
+            Canvas.SetLeft(ennemisEnJeu[0].BarreDeVie, ennemisEnJeu[0].CoordonneeX);
+
         }
 
 
@@ -424,6 +433,9 @@ namespace JeuxPlateformeBille
         {
             Canvas.SetLeft(ennemisEnJeu[0].Texture, Canvas.GetLeft(ennemisEnJeu[0].Texture) + Math.Sign(Canvas.GetLeft(joueur) - Canvas.GetLeft(ennemisEnJeu[0].Texture)) * 2);
             Canvas.SetTop(ennemisEnJeu[0].Texture, Canvas.GetTop(ennemisEnJeu[0].Texture) + Math.Sign(Canvas.GetTop(joueur) - Canvas.GetTop(ennemisEnJeu[0].Texture)));
+            Canvas.SetLeft(ennemisEnJeu[0].BarreDeVie, Canvas.GetLeft(ennemisEnJeu[0].Texture) + Math.Sign(Canvas.GetLeft(joueur) - Canvas.GetLeft(ennemisEnJeu[0].Texture)) * 2);
+            Canvas.SetTop(ennemisEnJeu[0].BarreDeVie, Canvas.GetTop(ennemisEnJeu[0].Texture) + Math.Sign(Canvas.GetTop(joueur) - Canvas.GetTop(ennemisEnJeu[0].Texture)));
+
             hitBoxEnnemi = new System.Drawing.Rectangle((int)Canvas.GetLeft(ennemisEnJeu[0].Texture), (int)Canvas.GetTop(ennemisEnJeu[0].Texture), (int)ennemisEnJeu[0].Texture.Width, (int)ennemisEnJeu[0].Texture.Height);
             /* Canvas.SetLeft(EnnemiVie, Canvas.GetLeft(ennemi) + 15);
              Canvas.SetLeft(EnnemiVie2, Canvas.GetLeft(ennemi) + 30);
@@ -436,11 +448,13 @@ namespace JeuxPlateformeBille
             if (hitBoxBille.IntersectsWith(hitBoxEnnemi))
             {
                 ennemisEnJeu[0].PointDeVie -= bille.DegatBille;
+                ennemisEnJeu[0].BarreDeVie.Value -= bille.DegatBille;
                 canvasMainWindow.Children.Remove(bille.Texture);
                 billesEnJeu.Remove(bille);
                 if (ennemisEnJeu[0].PointDeVie <=0)
                 {
                     ennemisEnJeu[0].Texture.Visibility = Visibility.Hidden;
+                    ennemisEnJeu[0].BarreDeVie.Visibility = Visibility.Hidden;
                     //canvasMainWindow.Children.Remove(ennemisEnJeu[0].Texture);
                     //ennemisEnJeu.Remove(ennemisEnJeu[0]);
                     //EnnemiVie.Visibility = Visibility.Hidden;
@@ -515,6 +529,7 @@ namespace JeuxPlateformeBille
         private int coordonneeX, coordonneeY, typeDeplacement, pointDeVie;
         private Image texture;
         private double vitesse;
+        private ProgressBar barreDeVie;
 
         public Image Texture
         {
@@ -545,6 +560,11 @@ namespace JeuxPlateformeBille
         {
             get { return vitesse; }
             set { vitesse = value; }
+        }
+        public ProgressBar BarreDeVie
+        {
+            get { return barreDeVie; }
+            set { barreDeVie = value; }
         }
     }
     public class Billes
