@@ -28,7 +28,7 @@ namespace JeuxPlateformeBille
         public DispatcherTimer minuterie;
         private static BitmapImage imgBille, fond;
         private bool gauche, droite, saut, enSaut, billeBouge, pause = false;
-        private int vitesseJoueur = 8, gravite = 8, toleranceColision = 8, nbtouche = 0, nbStockBille = 1000, niveau = 0, choixBille;
+        private int vitesseJoueur = 8, gravite = 8, toleranceColision = 12, nbtouche = 0, nbStockBille = 1000, niveau = 0, choixBille;
         System.Drawing.Rectangle hitBoxSol, hitBoxJoueur, hitBoxBille, hitBoxEnnemi;
         private static Point clickPosition;
         private static double vitesseSaut, graviteBille = 4, coefReductionDeplacementSaut;
@@ -39,8 +39,10 @@ namespace JeuxPlateformeBille
 
         int[][,] coordonneesPlateformes = new int[][,]
         {
-            new int[,] { {50, 500,7500 }, {300, 600, 600 } },
-           
+         new int[,] { {50, 500,7500 }, {300, 600, 600 } },
+         new int[,] { { },{ } },
+         new int[,] { { },{ } },
+         new int[,] { { },{ } },
         };
         private static Random aleatoire = new Random();
 
@@ -71,7 +73,6 @@ namespace JeuxPlateformeBille
             hitBoxSol = new System.Drawing.Rectangle((int)Canvas.GetLeft(sol), (int)Canvas.GetTop(sol) - gravite / 2, (int)sol.Width, (int)sol.Height);
             joueur.Visibility = Visibility.Visible;
             sol.Visibility = Visibility.Visible;
-            barreSaut.Visibility = Visibility.Visible;
             StockBille.Visibility = Visibility.Visible;
             
 
@@ -322,12 +323,8 @@ namespace JeuxPlateformeBille
         {
             if (vitesseSaut < 0)
             {
-                if (saut)
-                {
-                    Canvas.SetTop(joueur, Canvas.GetTop(joueur) + vitesseSaut);
-                    vitesseSaut = vitesseSaut + gravite / 6;
-                    Canvas.SetLeft(barreSaut, Canvas.GetLeft(barreSaut) - 5);
-                }
+                Canvas.SetTop(joueur, Canvas.GetTop(joueur) + vitesseSaut);
+                vitesseSaut = vitesseSaut + gravite / 6;
             }
         }
 
@@ -372,7 +369,6 @@ namespace JeuxPlateformeBille
                 colisionEnnemi();
             }
             hitBoxBille = new System.Drawing.Rectangle((int)Canvas.GetLeft(bille.Texture), (int)Canvas.GetTop(bille.Texture), (int)bille.Texture.Width - 1, (int)bille.Texture.Height - 1);
-           
             for (int i = 0; i < plateformesEnJeu.Count; i++)
             {
                 if (plateformesEnJeu[i].BoiteCollision.IntersectsWith(hitBoxBille))
@@ -464,7 +460,7 @@ namespace JeuxPlateformeBille
         {
             enSaut = false;
             vitesseSaut = -35;
-            Canvas.SetLeft(barreSaut, 0);
+
         }
         private void FinJeu()
         {
