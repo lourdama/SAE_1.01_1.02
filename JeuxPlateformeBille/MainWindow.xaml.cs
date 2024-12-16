@@ -328,6 +328,7 @@ namespace JeuxPlateformeBille
         {
             if (vitesseSaut < 0)
             {
+                AnimationSaut();
                 Canvas.SetTop(joueur, Canvas.GetTop(joueur) + vitesseSaut);
                 vitesseSaut = vitesseSaut + gravite / 6;
             }
@@ -484,7 +485,7 @@ namespace JeuxPlateformeBille
         public void AnimationDeplacementJoueur(int direction)
         {
             regard.ScaleX = direction;
-            if (enSaut)
+            if (!enSaut)
             {
                 joueur.Source = new BitmapImage(new Uri($"pack://application:,,,/img/joueur/course/course{animationJoueur}.png"));
                 animationJoueur = animationJoueur + 1;
@@ -494,6 +495,16 @@ namespace JeuxPlateformeBille
                 }
             }
             
+        }
+        
+        public void AnimationSaut()
+        {
+            joueur.Source = new BitmapImage(new Uri($"pack://application:,,,/img/joueur/saut/saut{animationJoueur}.png"));
+            
+            if (animationJoueur < 7)
+            {
+                animationJoueur = animationJoueur + 1;
+            }
         }
     }
 

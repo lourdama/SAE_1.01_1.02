@@ -9,6 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="img\Joueur\Jump\**" />
+    <EmbeddedResource Remove="img\Joueur\Jump\**" />
+    <None Remove="img\Joueur\Jump\**" />
+    <Page Remove="img\Joueur\Jump\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="img\8-bit-graphics-pixels-scene-with-castle - pointilles.jpg" />
     <None Remove="img\8-bit-graphics-pixels-scene-with-castle-pointilles.jpg" />
     <None Remove="img\8-bit-graphics-pixels-scene-with-castle.jpg" />
@@ -43,13 +50,6 @@
     <None Remove="img\Joueur\inactif\inactif7.png" />
     <None Remove="img\Joueur\inactif\inactif8.png" />
     <None Remove="img\Joueur\inactif\inactif9.png" />
-    <None Remove="img\Joueur\Jump\jump1.png" />
-    <None Remove="img\Joueur\Jump\jump2.png" />
-    <None Remove="img\Joueur\Jump\jump3.png" />
-    <None Remove="img\Joueur\Jump\jump4.png" />
-    <None Remove="img\Joueur\Jump\jump5.png" />
-    <None Remove="img\Joueur\Jump\jump6.png" />
-    <None Remove="img\Joueur\Jump\jump7.png" />
     <None Remove="img\Joueur\Mort\mort1.png" />
     <None Remove="img\Joueur\Mort\mort10.png" />
     <None Remove="img\Joueur\Mort\mort2.png" />
@@ -179,27 +179,6 @@
     <Resource Include="img\Joueur\inactif\inactif9.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="img\Joueur\Jump\jump1.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="img\Joueur\Jump\jump2.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="img\Joueur\Jump\jump3.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="img\Joueur\Jump\jump4.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="img\Joueur\Jump\jump5.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="img\Joueur\Jump\jump6.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="img\Joueur\Jump\jump7.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
     <Resource Include="img\Joueur\Mort\mort1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -233,15 +212,6 @@
     <Resource Include="img\Joueur\Saut\saut1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="img\Joueur\Saut\saut10.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="img\Joueur\Saut\saut11.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="img\Joueur\Saut\saut12.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
     <Resource Include="img\Joueur\Saut\saut2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -258,12 +228,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="img\Joueur\Saut\saut7.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="img\Joueur\Saut\saut8.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="img\Joueur\Saut\saut9.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="img\Joueur\Walk\walk1.png">
