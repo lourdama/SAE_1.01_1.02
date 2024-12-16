@@ -366,14 +366,18 @@ namespace JeuxPlateformeBille
                 hitBoxBille = new System.Drawing.Rectangle((int)Canvas.GetLeft(bille.Texture), (int)Canvas.GetTop(bille.Texture), (int)bille.Texture.Width, (int)bille.Texture.Height);
                 colisionEnnemi();
             }
+
             hitBoxBille = new System.Drawing.Rectangle((int)Canvas.GetLeft(bille.Texture), (int)Canvas.GetTop(bille.Texture), (int)bille.Texture.Width - 1, (int)bille.Texture.Height - 1);
             for (int i = 0; i < plateformesEnJeu.Count; i++)
             {
                 if (plateformesEnJeu[i].BoiteCollision.IntersectsWith(hitBoxBille))
                 {
-                    Canvas.SetLeft(joueur, Canvas.GetLeft(bille.Texture));
-                    Canvas.SetTop(joueur, Canvas.GetTop(bille.Texture) - joueur.Height);
-                    return true;
+                    if (bille.TypeBille == 1)
+                    {
+                        Canvas.SetLeft(joueur, Canvas.GetLeft(bille.Texture));
+                        Canvas.SetTop(joueur, Canvas.GetTop(bille.Texture) - joueur.Height);
+                        return true;
+                    }
                 }
             }
             if (hitBoxBille.IntersectsWith(hitBoxSol))
