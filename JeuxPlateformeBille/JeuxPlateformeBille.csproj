@@ -15,6 +15,7 @@
     <None Remove="img\balle.jpg" />
     <None Remove="img\castle.jpg" />
     <None Remove="img\ChoixDuNiveau.jpg" />
+    <None Remove="img\fantome.png" />
     <None Remove="img\image2.jpg" />
     <None Remove="img\Joueur\Climb\climb1.png" />
     <None Remove="img\Joueur\Climb\climb2.png" />
@@ -86,6 +87,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="img\choixduniveau.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\fantome.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="img\image2.jpg">

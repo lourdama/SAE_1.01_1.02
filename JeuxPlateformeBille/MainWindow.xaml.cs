@@ -84,12 +84,13 @@ namespace JeuxPlateformeBille
         {
             // Initialisation ennemi classique
             fantome.Texture = new Image();
-            fantome.Texture.Source = imgBille;
+            fantome.Texture.Source = new BitmapImage(new Uri("pack://application:,,,/img/fantome.png"));
             fantome.Texture.Width = 50;
-            fantome.Texture.Height = 30;
+            fantome.Texture.Height = 100;
             fantome.CoordonneeX = 500;
             fantome.CoordonneeY = 500;
             fantome.Vitesse = 2;
+            fantome.PointDeVie = 100;
             ennemisEnJeu.Insert(0, fantome);
             canvasMainWindow.Children.Add(ennemisEnJeu[0].Texture);
             Canvas.SetTop(ennemisEnJeu[0].Texture, ennemisEnJeu[0].CoordonneeY);
@@ -336,11 +337,12 @@ namespace JeuxPlateformeBille
         {
             if (nbStockBille > 0)
             {
-                Billes nouvelleBille = new Billes(new Image(), 0, 0, 0);
+                Billes nouvelleBille = new Billes(new Image(), 0, 0, 0, 0);
                 nouvelleBille.Texture.Source = imgBille;
                 nouvelleBille.Texture.Width = 15;
                 nouvelleBille.Texture.Height = 15;
                 nouvelleBille.TypeBille = choixBille;
+                nouvelleBille.DegatBille = 25;
                 clickPosition = e.GetPosition(this);
                 double vitesseX = clickPosition.X - Canvas.GetLeft(joueur);
                 double vitesseY = clickPosition.Y - Canvas.GetTop(joueur);
@@ -367,11 +369,15 @@ namespace JeuxPlateformeBille
             {
                 Canvas.SetLeft(bille.Texture, Canvas.GetLeft(bille.Texture) + (bille.Vitesse[0] / 25));
                 Canvas.SetTop(bille.Texture, Canvas.GetTop(bille.Texture) + bille.Vitesse[1] / 25);
-                bille.Vitesse[1] = bille.Vitesse[1] + graviteBille;
-                bille.Vitesse[0] = bille.Vitesse[0] * 0.985;
+                if (bille.TypeBille != 2)
+                {
+                    bille.Vitesse[1] = bille.Vitesse[1] + graviteBille;
+                    bille.Vitesse[0] = bille.Vitesse[0] * 0.985;
+                }
                 hitBoxBille = new System.Drawing.Rectangle((int)Canvas.GetLeft(bille.Texture), (int)Canvas.GetTop(bille.Texture), (int)bille.Texture.Width, (int)bille.Texture.Height);
-                colisionEnnemi();
+                colisionEnnemi(bille);
             }
+
             hitBoxBille = new System.Drawing.Rectangle((int)Canvas.GetLeft(bille.Texture), (int)Canvas.GetTop(bille.Texture), (int)bille.Texture.Width - 1, (int)bille.Texture.Height - 1);
             for (int i = 0; i < plateformesEnJeu.Count; i++)
             {
@@ -424,20 +430,24 @@ namespace JeuxPlateformeBille
              Canvas.SetTop(EnnemiVie2, Canvas.GetTop(ennemi) - 10);*/
         }
 
-        private bool colisionEnnemi()
+        private bool colisionEnnemi(Billes bille)
         {
             if (hitBoxBille.IntersectsWith(hitBoxEnnemi))
             {
-                if (nbtouche == 1)
+                ennemisEnJeu[0].PointDeVie -= bille.DegatBille;
+                canvasMainWindow.Children.Remove(bille.Texture);
+                billesEnJeu.Remove(bille);
+                if (ennemisEnJeu[0].PointDeVie <=0)
                 {
                     ennemisEnJeu[0].Texture.Visibility = Visibility.Hidden;
+                    //ennemisEnJeu.Remove(fantome);
                     //EnnemiVie.Visibility = Visibility.Hidden;
                     //EnnemiVie2.Visibility = Visibility.Hidden;
                     ReinitialisationSaut();
                 }
                 else
                 {
-                    nbtouche = nbtouche + 1;
+                    //nbtouche = nbtouche + 1;
                     //EnnemiVie2.Fill = new SolidColorBrush(System.Windows.Media.Colors.Red);
                 }
                 return true;
@@ -490,7 +500,7 @@ namespace JeuxPlateformeBille
     
     public partial class Ennemis
     {
-        private int coordonneeX, coordonneeY, typeDeplacement;
+        private int coordonneeX, coordonneeY, typeDeplacement, pointDeVie;
         private Image texture;
         private double vitesse;
 
@@ -514,6 +524,11 @@ namespace JeuxPlateformeBille
             get { return typeDeplacement; }
             set { typeDeplacement = value; }
         }
+        public int PointDeVie
+        {
+            get { return pointDeVie; }
+            set { pointDeVie = value; }
+        }
         public double Vitesse
         {
             get { return vitesse; }
@@ -525,12 +540,14 @@ namespace JeuxPlateformeBille
         public Image Texture { get; set; }
         public double[] Vitesse { get; set; }
         public int TypeBille { get; set; }
+        public int DegatBille { get; set; } 
 
-        public Billes(Image texture, double vitesseX, double vitesseY, int choix)
+        public Billes(Image texture, double vitesseX, double vitesseY, int choix, int degatBille)
         {
             this.Texture = texture;
             this.Vitesse = new double[] { vitesseX, vitesseY };
             this.TypeBille = choix;
+            this.DegatBille = degatBille;
         }
 
 
