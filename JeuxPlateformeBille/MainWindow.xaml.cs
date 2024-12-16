@@ -28,15 +28,10 @@ namespace JeuxPlateformeBille
         public DispatcherTimer minuterie;
         private static BitmapImage imgBille, fond;
         private bool gauche, droite, saut, enSaut, billeBouge, pause = false;
-        private int vitesseJoueur = 8, gravite = 8, toleranceColision = 8, nbtouche = 0, nbStockBille = 1000, niveau = 0;
+        private int vitesseJoueur = 8, gravite = 8, toleranceColision = 8, nbtouche = 0, nbStockBille = 1000, niveau = 0, choixBille;
         System.Drawing.Rectangle hitBoxSol, hitBoxJoueur, hitBoxBille, hitBoxEnnemi;
         private static Point clickPosition;
         private static double vitesseSaut, graviteBille = 4, coefReductionDeplacementSaut;
-        /*  private static List<Image> billesEnJeu = billesEnJeu = new List<Image>();
-          private static List<double[]> vitesseBilles = new List<double[]>();
-          private static List<Image> ennemisEnJeu = ennemisEnJeu = new List<Image>();
-          private static List<double[]> vitesseEnnemis = new List<double[]>();
-          private static List<double[]> InitVarEnnemis = new List<double[]>();*/
         private static Ennemis fantome = new Ennemis();
         private static List<Ennemis> ennemisEnJeu = new List<Ennemis>();
         private static List<Billes> billesEnJeu = new List<Billes>();
@@ -45,7 +40,7 @@ namespace JeuxPlateformeBille
         int[][,] coordonneesPlateformes = new int[][,]
         {
             new int[,] { {50, 500,7500 }, {300, 600, 600 } },
-            
+           
         };
         private static Random aleatoire = new Random();
 
@@ -127,6 +122,20 @@ namespace JeuxPlateformeBille
 
 
             }
+        }
+        private void PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if (e.Delta > 0)
+            {
+
+            }
+                
+
+            else if (e.Delta < 0)
+            {
+
+            }
+                
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
@@ -325,7 +334,7 @@ namespace JeuxPlateformeBille
         {
             if (nbStockBille > 0)
             {
-                Billes nouvelleBille = new Billes(new Image(), 0, 0);
+                Billes nouvelleBille = new Billes(new Image(), 0, 0, 0);
                 nouvelleBille.Texture.Source = imgBille;
                 nouvelleBille.Texture.Width = 15;
                 nouvelleBille.Texture.Height = 15;
@@ -489,37 +498,18 @@ namespace JeuxPlateformeBille
     {
         public Image Texture { get; set; }
         public double[] Vitesse { get; set; }
+        public int TypeBille { get; set; }
 
-        public Billes(Image texture, double vitesseX, double vitesseY)
+        public Billes(Image texture, double vitesseX, double vitesseY, int choix)
         {
             this.Texture = texture;
             this.Vitesse = new double[] { vitesseX, vitesseY };
+            this.TypeBille = choix;
         }
 
 
     }
-    public partial class Billes2
-    {
-        private int coordonneeX, coordonneeY, typeBille;
-        private Image texture;
-        private double[] vitesse;
-
-        public Image Texture
-        {
-            get { return texture; }
-            set { texture = value; }
-        }
-        public int TypeBille
-        {
-            get { return typeBille; }
-            set { typeBille = value; }
-        }
-        public double[] Vitesse
-        {
-            get { return vitesse; }
-            set { vitesse = value; }
-        }
-    }
+    
     public partial class Plateformes
     {
         public Image Texture { get; set; }
