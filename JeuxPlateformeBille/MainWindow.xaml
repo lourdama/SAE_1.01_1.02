@@ -22,18 +22,7 @@
             <local:Accueil x:Name="Control" />
         </ContentControl>
 
-        <Rectangle
-            x:Name="sol"
-            Canvas.Left="-53"
-            Canvas.Top="747"
-            Width="1606"
-            Height="38"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Top"
-            Fill="White"
-            RenderTransformOrigin="0.647,4.584"
-            Stroke="White"
-            Visibility="Hidden" />
+        
         <Rectangle
                 Canvas.Left="893"
                 Canvas.Top="512"

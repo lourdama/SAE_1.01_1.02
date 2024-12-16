@@ -36,12 +36,12 @@
     <None Remove="img\Joueur\course\course6.png" />
     <None Remove="img\Joueur\course\course7.png" />
     <None Remove="img\Joueur\course\course8.png" />
+    <None Remove="img\Joueur\inactif\.png" />
     <None Remove="img\Joueur\inactif\inactif1.png" />
     <None Remove="img\Joueur\inactif\inactif10.png" />
     <None Remove="img\Joueur\inactif\inactif11.png" />
     <None Remove="img\Joueur\inactif\inactif12.png" />
     <None Remove="img\Joueur\inactif\inactif13.png" />
-    <None Remove="img\Joueur\inactif\inactif14.png" />
     <None Remove="img\Joueur\inactif\inactif2.png" />
     <None Remove="img\Joueur\inactif\inactif3.png" />
     <None Remove="img\Joueur\inactif\inactif4.png" />
@@ -140,21 +140,6 @@
     <Resource Include="img\Joueur\inactif\inactif1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="img\Joueur\inactif\inactif10.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="img\Joueur\inactif\inactif11.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="img\Joueur\inactif\inactif12.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="img\Joueur\inactif\inactif13.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="img\Joueur\inactif\inactif14.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
     <Resource Include="img\Joueur\inactif\inactif2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -165,18 +150,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="img\Joueur\inactif\inactif5.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="img\Joueur\inactif\inactif6.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="img\Joueur\inactif\inactif7.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="img\Joueur\inactif\inactif8.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="img\Joueur\inactif\inactif9.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="img\Joueur\Mort\mort1.png">

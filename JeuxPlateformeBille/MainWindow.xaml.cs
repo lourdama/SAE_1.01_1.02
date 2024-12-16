@@ -30,9 +30,9 @@ namespace JeuxPlateformeBille
         public DispatcherTimer minuterie;
         private static BitmapImage imgBille, fond;
         private bool gauche, droite, saut, enSaut, billeBouge, pause = false;
-        private int vitesseJoueur = 8, gravite = 8, toleranceColision = 12, nbtouche = 0, nbStockBille = 1000, niveau = 0, choixBille, timerAnimation, timerAnimationSaut;
+        private int vitesseJoueur = 8, gravite = 8, toleranceColision = 12, nbtouche = 0, nbStockBille = 1000, niveau = 0, choixBille;
         System.Drawing.Rectangle hitBoxSol, hitBoxJoueur, hitBoxBille, hitBoxEnnemi;
-        private int animationJoueur = 1, animationSaut = 1;
+        private int animationJoueur = 1, animationSaut = 1, animationStatic = 1, timerAnimation, timerAnimationSaut, timerAnimationStatic;
         private static Point clickPosition;
         private static double vitesseSaut, graviteBille = 4, coefReductionDeplacementSaut;
         private static Ennemis fantome = new Ennemis();
@@ -41,9 +41,9 @@ namespace JeuxPlateformeBille
         private static List<Billes> billesEnJeu = new List<Billes>();
         private static List<Plateformes> plateformesEnJeu = new List<Plateformes>();
 
-        int[][,] coordonneesPlateformes = new int[][,]
+        int[][,] proprietePlateformes = new int[][,]
         {
-         new int[,] { {50, 500,7500 }, {300, 600, 600 } },
+         new int[,] { {600, 500 }, {300, 200 }, { 0, 700 } ,{ 425, 700 }, { 850, 700 }, { 1275, 700 }    },
          new int[,] { { },{ } },
          new int[,] { { },{ } },
          new int[,] { { },{ } },
@@ -74,10 +74,7 @@ namespace JeuxPlateformeBille
         {
             canvasMainWindow.Focus();
             imgBille = new BitmapImage(new Uri("pack://application:,,,/img/balle.jpg"));
-            hitBoxSol = new System.Drawing.Rectangle((int)Canvas.GetLeft(sol), (int)Canvas.GetTop(sol) - gravite / 2, (int)sol.Width, (int)sol.Height);
-            sol.Visibility = Visibility.Visible;
-            StockBille.Visibility = Visibility.Visible;
-            
+
 
         }
 
@@ -118,7 +115,7 @@ namespace JeuxPlateformeBille
 
         private void InitPlateformes()
         {
-            for (int i = 0; i < coordonneesPlateformes[niveau].GetLength(1); i++)
+            for (int i = 0; i < proprietePlateformes[niveau].GetLength(0); i++)
             {
                 Plateformes nouvellePlateforme = new Plateformes(new Image(), new int(), new int(), new System.Drawing.Rectangle()); 
                 nouvellePlateforme.Texture.Source = new BitmapImage(new Uri("pack://application:,,,/img/plateforme.png"));
@@ -126,14 +123,10 @@ namespace JeuxPlateformeBille
                 nouvellePlateforme.Texture.Height = 116;
                 plateformesEnJeu.Insert(0, nouvellePlateforme);
                 canvasMainWindow.Children.Add(plateformesEnJeu[0].Texture);
-                Canvas.SetTop(plateformesEnJeu[0].Texture, coordonneesPlateformes[niveau][0, i]);
-                Canvas.SetLeft(plateformesEnJeu[0].Texture, coordonneesPlateformes[niveau][1, i]);
+
+                Canvas.SetLeft(plateformesEnJeu[0].Texture, proprietePlateformes[niveau][i, 0]);
+                Canvas.SetTop(plateformesEnJeu[0].Texture, proprietePlateformes[niveau][i, 1]);
                 plateformesEnJeu[0].BoiteCollision = new System.Drawing.Rectangle((int)Canvas.GetLeft(plateformesEnJeu[0].Texture) - toleranceColision , (int)Canvas.GetTop(plateformesEnJeu[0].Texture), (int)plateformesEnJeu[0].Texture.Width + 2* toleranceColision, (int)plateformesEnJeu[0].Texture.Height);
-              
-
-
-
-
             }
         }
         private void PreviewMouseWheel(object sender, MouseWheelEventArgs e)
@@ -247,7 +240,7 @@ namespace JeuxPlateformeBille
         private void deplacement()
         {
 
-            if (auSol() || CollisionPlat() == 0)
+            if (CollisionPlat() == 0)
             {
                 gravite = 0;
                 coefReductionDeplacementSaut = 1;
@@ -293,14 +286,6 @@ namespace JeuxPlateformeBille
 
         
 
-        private bool auSol()
-        {
-
-            hitBoxJoueur = new System.Drawing.Rectangle((int)Canvas.GetLeft(joueur), (int)Canvas.GetTop(joueur), (int)joueur.Width, (int)joueur.Height);
-            
-            bool estAuSol = hitBoxSol.IntersectsWith(hitBoxJoueur);
-            return estAuSol;
-        }
 
         private int CollisionPlat()
         {
@@ -309,7 +294,16 @@ namespace JeuxPlateformeBille
             {
                 if (hitBoxJoueur.IntersectsWith(plateformesEnJeu[i].BoiteCollision))
                 {
-                    if (Canvas.GetLeft(joueur) + joueur.Width < Canvas.GetLeft(plateformesEnJeu[i].Texture) + toleranceColision)
+
+                    if (Canvas.GetTop(joueur) + joueur.Height < Canvas.GetTop(plateformesEnJeu[i].Texture) + toleranceColision)
+                    {
+                        if (!droite && !gauche)
+                        {
+                            AnimationStatic();
+                        }
+                        return 0;
+                    }
+                    else if (Canvas.GetLeft(joueur) + joueur.Width < Canvas.GetLeft(plateformesEnJeu[i].Texture) + toleranceColision)
                     {
                         return 1;
                     }
@@ -317,17 +311,13 @@ namespace JeuxPlateformeBille
                     {
                         return 2;
                     }
-                    else if (Canvas.GetTop(joueur) + joueur.Height < Canvas.GetTop(plateformesEnJeu[i].Texture) + toleranceColision)
-                    {
-                        return 0;
-                    }
+                    
                     
                     
                     
                     else
                     {
-                        enSaut = false;
-                        saut = false;
+                        vitesseSaut = -1;
                         return 4;
                     }
                 }
@@ -439,12 +429,17 @@ namespace JeuxPlateformeBille
 
         private void deplacementEnnemi()
         {
-            Canvas.SetLeft(ennemisEnJeu[0].Texture, Canvas.GetLeft(ennemisEnJeu[0].Texture) + Math.Sign(Canvas.GetLeft(joueur) - Canvas.GetLeft(ennemisEnJeu[0].Texture)) * 2);
-            Canvas.SetTop(ennemisEnJeu[0].Texture, Canvas.GetTop(ennemisEnJeu[0].Texture) + Math.Sign(Canvas.GetTop(joueur) - Canvas.GetTop(ennemisEnJeu[0].Texture)));
-            Canvas.SetLeft(ennemisEnJeu[0].BarreDeVie, Canvas.GetLeft(ennemisEnJeu[0].Texture) + Math.Sign(Canvas.GetLeft(joueur) - Canvas.GetLeft(ennemisEnJeu[0].Texture)) * 2);
-            Canvas.SetTop(ennemisEnJeu[0].BarreDeVie, Canvas.GetTop(ennemisEnJeu[0].Texture) + Math.Sign(Canvas.GetTop(joueur) - Canvas.GetTop(ennemisEnJeu[0].Texture)));
+            for (int i = 0;i < ennemisEnJeu.Count; i++)
+            {
+                Canvas.SetLeft(ennemisEnJeu[0].Texture, Canvas.GetLeft(ennemisEnJeu[0].Texture) + Math.Sign(Canvas.GetLeft(joueur) - Canvas.GetLeft(ennemisEnJeu[0].Texture)) * 2);
+                Canvas.SetTop(ennemisEnJeu[0].Texture, Canvas.GetTop(ennemisEnJeu[0].Texture) + Math.Sign(Canvas.GetTop(joueur) - Canvas.GetTop(ennemisEnJeu[0].Texture)));
+                Canvas.SetLeft(ennemisEnJeu[0].BarreDeVie, Canvas.GetLeft(ennemisEnJeu[0].Texture) + Math.Sign(Canvas.GetLeft(joueur) - Canvas.GetLeft(ennemisEnJeu[0].Texture)) * 2);
+                Canvas.SetTop(ennemisEnJeu[0].BarreDeVie, Canvas.GetTop(ennemisEnJeu[0].Texture) + Math.Sign(Canvas.GetTop(joueur) - Canvas.GetTop(ennemisEnJeu[0].Texture)));
+                hitBoxEnnemi = new System.Drawing.Rectangle((int)Canvas.GetLeft(ennemisEnJeu[0].Texture), (int)Canvas.GetTop(ennemisEnJeu[0].Texture), (int)ennemisEnJeu[0].Texture.Width, (int)ennemisEnJeu[0].Texture.Height);
 
-            hitBoxEnnemi = new System.Drawing.Rectangle((int)Canvas.GetLeft(ennemisEnJeu[0].Texture), (int)Canvas.GetTop(ennemisEnJeu[0].Texture), (int)ennemisEnJeu[0].Texture.Width, (int)ennemisEnJeu[0].Texture.Height);
+            }
+
+
             /* Canvas.SetLeft(EnnemiVie, Canvas.GetLeft(ennemi) + 15);
              Canvas.SetLeft(EnnemiVie2, Canvas.GetLeft(ennemi) + 30);
              Canvas.SetTop(EnnemiVie, Canvas.GetTop(ennemi) - 10);
@@ -453,28 +448,32 @@ namespace JeuxPlateformeBille
 
         private bool colisionEnnemi(Billes bille)
         {
-            if (hitBoxBille.IntersectsWith(hitBoxEnnemi))
+            for (int i = 0; i< ennemisEnJeu.Count; i++)
             {
-                ennemisEnJeu[0].PointDeVie -= bille.DegatBille;
-                ennemisEnJeu[0].BarreDeVie.Value -= bille.DegatBille;
-                canvasMainWindow.Children.Remove(bille.Texture);
-                billesEnJeu.Remove(bille);
-                if (ennemisEnJeu[0].PointDeVie <=0)
+                if (hitBoxBille.IntersectsWith(hitBoxEnnemi))
                 {
-                    ennemisEnJeu[0].Texture.Visibility = Visibility.Hidden;
-                    ennemisEnJeu[0].BarreDeVie.Visibility = Visibility.Hidden;
-                    //canvasMainWindow.Children.Remove(ennemisEnJeu[0].Texture);
-                    //ennemisEnJeu.Remove(ennemisEnJeu[0]);
-                    //EnnemiVie.Visibility = Visibility.Hidden;
-                    //EnnemiVie2.Visibility = Visibility.Hidden;
-                    ReinitialisationSaut();
+                    ennemisEnJeu[0].PointDeVie -= bille.DegatBille;
+                    ennemisEnJeu[0].BarreDeVie.Value -= bille.DegatBille;
+                    canvasMainWindow.Children.Remove(bille.Texture);
+                    billesEnJeu.Remove(bille);
+                    if (ennemisEnJeu[0].PointDeVie <= 0)
+                    {
+                        ennemisEnJeu[0].Texture.Visibility = Visibility.Hidden;
+                        ennemisEnJeu[0].BarreDeVie.Visibility = Visibility.Hidden;
+                        canvasMainWindow.Children.Remove(ennemisEnJeu[0].Texture);
+                        ennemisEnJeu.Remove(ennemisEnJeu[0]);
+                        //EnnemiVie.Visibility = Visibility.Hidden;
+                        //EnnemiVie2.Visibility = Visibility.Hidden;
+                        ReinitialisationSaut();
+                    }
+                    else
+                    {
+                        //nbtouche = nbtouche + 1;
+                        //EnnemiVie2.Fill = new SolidColorBrush(System.Windows.Media.Colors.Red);
+                    }
+                    return true;
                 }
-                else
-                {
-                    //nbtouche = nbtouche + 1;
-                    //EnnemiVie2.Fill = new SolidColorBrush(System.Windows.Media.Colors.Red);
-                }
-                return true;
+            
             }
             return false;
         }
@@ -484,13 +483,17 @@ namespace JeuxPlateformeBille
         }
         private bool VerifTouche()
         {
-            if (ennemisEnJeu[0].Texture.Visibility == Visibility.Visible)
+            for (int i = 0; i < ennemisEnJeu.Count; i++)
             {
-                hitBoxJoueur = new System.Drawing.Rectangle((int)Canvas.GetLeft(joueur), (int)Canvas.GetTop(joueur), (int)joueur.Width - 2, (int)joueur.Height - 2);
-                hitBoxEnnemi = new System.Drawing.Rectangle((int)Canvas.GetLeft(ennemisEnJeu[0].Texture), (int)Canvas.GetTop(ennemisEnJeu[0].Texture), (int)ennemisEnJeu[0].Texture.Width - 2, (int)ennemisEnJeu[0].Texture.Height - 2);
-                bool ennemiTouche = hitBoxEnnemi.IntersectsWith(hitBoxJoueur);
-                return ennemiTouche;
+                if (ennemisEnJeu[0].Texture.Visibility == Visibility.Visible)
+                {
+                    hitBoxJoueur = new System.Drawing.Rectangle((int)Canvas.GetLeft(joueur), (int)Canvas.GetTop(joueur), (int)joueur.Width - 2, (int)joueur.Height - 2);
+                    hitBoxEnnemi = new System.Drawing.Rectangle((int)Canvas.GetLeft(ennemisEnJeu[0].Texture), (int)Canvas.GetTop(ennemisEnJeu[0].Texture), (int)ennemisEnJeu[0].Texture.Width - 2, (int)ennemisEnJeu[0].Texture.Height - 2);
+                    bool ennemiTouche = hitBoxEnnemi.IntersectsWith(hitBoxJoueur);
+                    return ennemiTouche;
+                }
             }
+            
             return false;
         }
 
@@ -541,6 +544,24 @@ namespace JeuxPlateformeBille
             animationSaut = 6;
             AnimationSaut();
             animationSaut = 1;
+        }
+
+        private void AnimationStatic()
+        {
+           
+            joueur.Source = new BitmapImage(new Uri($"pack://application:,,,/img/joueur/inactif/inactif{animationStatic}.png"));
+            timerAnimationStatic += 1;
+            if (timerAnimationStatic == 6)
+            {
+                animationStatic = animationStatic + 1;
+                timerAnimationStatic = 0;
+            }
+
+            if (animationStatic > 5)
+            {
+                animationStatic = 1;
+            }
+            
         }
     }
 
