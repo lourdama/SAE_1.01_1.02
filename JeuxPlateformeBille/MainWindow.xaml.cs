@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Diagnostics.Metrics;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Security.Policy;
@@ -12,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
+using System.Windows.Media.Media3D;
 using System.Windows.Media.TextFormatting;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -30,6 +32,7 @@ namespace JeuxPlateformeBille
         private bool gauche, droite, saut, enSaut, billeBouge, pause = false;
         private int vitesseJoueur = 8, gravite = 8, toleranceColision = 12, nbtouche = 0, nbStockBille = 1000, niveau = 0, choixBille;
         System.Drawing.Rectangle hitBoxSol, hitBoxJoueur, hitBoxBille, hitBoxEnnemi;
+        private int animationJoueur = 1, animationSaut = 1;
         private static Point clickPosition;
         private static double vitesseSaut, graviteBille = 4, coefReductionDeplacementSaut;
         private static Ennemis fantome = new Ennemis();
@@ -71,7 +74,6 @@ namespace JeuxPlateformeBille
             canvasMainWindow.Focus();
             imgBille = new BitmapImage(new Uri("pack://application:,,,/img/balle.jpg"));
             hitBoxSol = new System.Drawing.Rectangle((int)Canvas.GetLeft(sol), (int)Canvas.GetTop(sol) - gravite / 2, (int)sol.Width, (int)sol.Height);
-            joueur.Visibility = Visibility.Visible;
             sol.Visibility = Visibility.Visible;
             StockBille.Visibility = Visibility.Visible;
             
@@ -255,6 +257,7 @@ namespace JeuxPlateformeBille
                 if ((Canvas.GetLeft(joueur) + vitesseJoueur * coefReductionDeplacementSaut) + joueur.Width < this.ActualWidth && CollisionPlat() != 1)
                 {
                     Canvas.SetLeft(joueur, Canvas.GetLeft(joueur) + vitesseJoueur * coefReductionDeplacementSaut);
+                    AnimationDeplacementJoueur(1);
                 }
 
             }
@@ -264,6 +267,7 @@ namespace JeuxPlateformeBille
                 if ((Canvas.GetLeft(joueur) - vitesseJoueur * coefReductionDeplacementSaut) > 0 && CollisionPlat() != 2)
                 {
                     Canvas.SetLeft(joueur, Canvas.GetLeft(joueur) - vitesseJoueur * coefReductionDeplacementSaut);
+                    AnimationDeplacementJoueur(-1);
                 }
 
 
@@ -466,7 +470,24 @@ namespace JeuxPlateformeBille
         {
             minuterie.Stop();
         }
+
+        public void AnimationDeplacementJoueur(int direction)
+        {
+            regard.ScaleX = direction;
+            if (enSaut)
+            {
+                joueur.Source = new BitmapImage(new Uri($"pack://application:,,,/img/joueur/course/course{animationJoueur}.png"));
+                animationJoueur = animationJoueur + 1;
+                if (animationJoueur > 8)
+                {
+                    animationJoueur = 1;
+                }
+            }
+            
+        }
     }
+
+    
     public partial class Ennemis
     {
         private int coordonneeX, coordonneeY, typeDeplacement;

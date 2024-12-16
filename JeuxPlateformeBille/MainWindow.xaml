@@ -35,7 +35,6 @@
             Stroke="White"
             Visibility="Hidden" />
         <Rectangle
-                x:Name="joueur"
                 Canvas.Left="893"
                 Canvas.Top="512"
                 Width="16"
@@ -59,5 +58,12 @@
                 Visibility="Hidden"/>
         <Label x:Name="StockBille" Content="Stock De Billes : 1000" Height="51" Canvas.Left="1184" Canvas.Top="22" Width="232" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="24" Background="Transparent" Visibility="Hidden"/>
         <Label x:Name="ChoixBille" Content="Numéro bille : " Canvas.Left="50" Canvas.Top="47" HorizontalAlignment="Left" Height="55" VerticalAlignment="Top" Width="370" FontSize="30"/>
+        <Image x:Name="joueur" Height="128" Canvas.Left="25" Source="/img/Joueur/Walk/walk1.png" Stretch="Fill" Canvas.Top="549" Width="128" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform x:Name="regard" ScaleX="-1"/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
     </Canvas>
 </Window>
