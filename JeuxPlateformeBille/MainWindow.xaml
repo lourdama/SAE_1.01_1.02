@@ -14,49 +14,53 @@
     mc:Ignorable="d">
 
 
-    <Canvas x:Name="canvasMainWindow" KeyDown="Window_KeyDown" KeyUp="Window_KeyUp" MouseDown="Window_MouseDown" Focusable="True">
+    <Canvas
+        x:Name="canvasMainWindow"
+        Focusable="True"
+        KeyDown="Window_KeyDown"
+        KeyUp="Window_KeyUp"
+        MouseDown="Window_MouseDown">
         <Canvas.Background>
-            <ImageBrush ImageSource="img/castle.jpg"/>
+            <ImageBrush ImageSource="img/castle.jpg" />
         </Canvas.Background>
         <ContentControl x:Name="ControlContent">
-            <local:Accueil x:Name="Control"/>
+            <local:Accueil x:Name="Control" />
         </ContentControl>
 
         <Rectangle
-                x:Name="sol"
-                Canvas.Left="-53"
-                Canvas.Top="747"
-                Width="1606"
-                Height="38"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Top"
-                Fill="White"
-                RenderTransformOrigin="0.647,4.584"
-                Stroke="White"
-                Visibility="Hidden"/>
+            x:Name="sol"
+            Canvas.Left="-53"
+            Canvas.Top="747"
+            Width="1606"
+            Height="38"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            Fill="White"
+            RenderTransformOrigin="0.647,4.584"
+            Stroke="White"
+            Visibility="Hidden" />
         <Rectangle
-                x:Name="joueur"
-                Canvas.Left="893"
-                Canvas.Top="512"
-                Width="16"
-                Height="56"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Fill="Red"
-                Stroke="Red"
-                Visibility="Hidden"/>
-        <Rectangle
-                x:Name="barreSaut"
-                Canvas.Left="0"
-                Canvas.Top="14"
-                Width="100"
-                Height="16"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                Fill="White"
-                OpacityMask="White"
-                Stroke="White"
-                Visibility="Hidden"/>
-        <Label x:Name="StockBille" Content="Stock De Billes : 1000" Height="51" Canvas.Left="1184" Canvas.Top="22" Width="232" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="24" Background="Transparent" Visibility="Hidden"/>
+            x:Name="joueur"
+            Canvas.Left="893"
+            Canvas.Top="512"
+            Width="16"
+            Height="56"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Fill="Red"
+            Stroke="Red"
+            Visibility="Hidden" />
+        <Label
+            x:Name="StockBille"
+            Canvas.Left="1184"
+            Canvas.Top="22"
+            Width="232"
+            Height="51"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            Background="Transparent"
+            Content="Stock De Billes : 1000"
+            FontSize="24"
+            Visibility="Hidden" />
     </Canvas>
 </Window>

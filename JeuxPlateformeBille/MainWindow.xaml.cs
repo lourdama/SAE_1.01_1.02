@@ -71,7 +71,6 @@ namespace JeuxPlateformeBille
             hitBoxSol = new System.Drawing.Rectangle((int)Canvas.GetLeft(sol), (int)Canvas.GetTop(sol) - gravite / 2, (int)sol.Width, (int)sol.Height);
             joueur.Visibility = Visibility.Visible;
             sol.Visibility = Visibility.Visible;
-            barreSaut.Visibility = Visibility.Visible;
             StockBille.Visibility = Visibility.Visible;
             
 
@@ -321,12 +320,8 @@ namespace JeuxPlateformeBille
         {
             if (vitesseSaut < 0)
             {
-                if (saut)
-                {
-                    Canvas.SetTop(joueur, Canvas.GetTop(joueur) + vitesseSaut);
-                    vitesseSaut = vitesseSaut + gravite / 6;
-                    Canvas.SetLeft(barreSaut, Canvas.GetLeft(barreSaut) - 5);
-                }
+                Canvas.SetTop(joueur, Canvas.GetTop(joueur) + vitesseSaut);
+                vitesseSaut = vitesseSaut + gravite / 6;
             }
         }
 
@@ -455,7 +450,7 @@ namespace JeuxPlateformeBille
         {
             enSaut = false;
             vitesseSaut = -35;
-            Canvas.SetLeft(barreSaut, 0);
+
         }
         private void FinJeu()
         {
