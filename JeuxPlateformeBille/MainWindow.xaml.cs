@@ -201,7 +201,7 @@ namespace JeuxPlateformeBille
         {
             if (!pause)
             {
-                tir(e);
+                Tir(e);
             }
         }
 
@@ -220,8 +220,8 @@ namespace JeuxPlateformeBille
         }
         private void Jeu(object? sender, EventArgs e)
         {
-            deplacement();
-            deplacementEnnemi();
+            Deplacement();
+            DeplacementEnnemi();
             if (VerifTouche())
             {
                 FinJeu();
@@ -229,7 +229,7 @@ namespace JeuxPlateformeBille
 
             for (int i = 0; i < billesEnJeu.Count; i++)
             {
-                if (billeLance(billesEnJeu[i]))
+                if (BilleLance(billesEnJeu[i]))
                 {
 
                     canvasMainWindow.Children.Remove(billesEnJeu[i].Texture);
@@ -244,10 +244,10 @@ namespace JeuxPlateformeBille
 
 
         }
-        private void deplacement()
+        private void Deplacement()
         {
 
-            if (auSol() || CollisionPlat() == 0)
+            if (AuSol() || CollisionPlat() == 0)
             {
                 gravite = 0;
                 coefReductionDeplacementSaut = 1;
@@ -293,7 +293,7 @@ namespace JeuxPlateformeBille
 
         
 
-        private bool auSol()
+        private bool AuSol()
         {
 
             hitBoxJoueur = new System.Drawing.Rectangle((int)Canvas.GetLeft(joueur), (int)Canvas.GetTop(joueur), (int)joueur.Width, (int)joueur.Height);
@@ -351,7 +351,7 @@ namespace JeuxPlateformeBille
             }
         }
 
-        private void tir(MouseButtonEventArgs e)
+        private void Tir(MouseButtonEventArgs e)
         {
             if (nbStockBille > 0)
             {
@@ -376,7 +376,7 @@ namespace JeuxPlateformeBille
 
             }
         }
-        private bool billeLance(Billes bille)
+        private bool BilleLance(Billes bille)
         {
 
             if (Canvas.GetLeft(bille.Texture) < 0 || Canvas.GetLeft(bille.Texture) > this.ActualWidth || Canvas.GetTop(bille.Texture) > this.ActualHeight)
@@ -393,7 +393,7 @@ namespace JeuxPlateformeBille
                     bille.Vitesse[0] = bille.Vitesse[0] * 0.985;
                 }
                 hitBoxBille = new System.Drawing.Rectangle((int)Canvas.GetLeft(bille.Texture), (int)Canvas.GetTop(bille.Texture), (int)bille.Texture.Width, (int)bille.Texture.Height);
-                colisionEnnemi(bille);
+                ColisionEnnemi(bille);
             }
 
             hitBoxBille = new System.Drawing.Rectangle((int)Canvas.GetLeft(bille.Texture), (int)Canvas.GetTop(bille.Texture), (int)bille.Texture.Width - 1, (int)bille.Texture.Height - 1);
@@ -437,7 +437,7 @@ namespace JeuxPlateformeBille
               vitesseEnnemis[0] = [2];
           }*/
 
-        private void deplacementEnnemi()
+        private void DeplacementEnnemi()
         {
             Canvas.SetLeft(ennemisEnJeu[0].Texture, Canvas.GetLeft(ennemisEnJeu[0].Texture) + Math.Sign(Canvas.GetLeft(joueur) - Canvas.GetLeft(ennemisEnJeu[0].Texture)) * 2);
             Canvas.SetTop(ennemisEnJeu[0].Texture, Canvas.GetTop(ennemisEnJeu[0].Texture) + Math.Sign(Canvas.GetTop(joueur) - Canvas.GetTop(ennemisEnJeu[0].Texture)));
@@ -451,7 +451,7 @@ namespace JeuxPlateformeBille
              Canvas.SetTop(EnnemiVie2, Canvas.GetTop(ennemi) - 10);*/
         }
 
-        private bool colisionEnnemi(Billes bille)
+        private bool ColisionEnnemi(Billes bille)
         {
             if (hitBoxBille.IntersectsWith(hitBoxEnnemi))
             {
@@ -477,10 +477,6 @@ namespace JeuxPlateformeBille
                 return true;
             }
             return false;
-        }
-        private void deplacementEnnemi2()
-        {
-
         }
         private bool VerifTouche()
         {
