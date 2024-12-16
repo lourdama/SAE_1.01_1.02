@@ -431,6 +431,8 @@ namespace JeuxPlateformeBille
             if (hitBoxBille.IntersectsWith(hitBoxEnnemi))
             {
                 ennemisEnJeu[0].PointDeVie -= bille.DegatBille;
+                canvasMainWindow.Children.Remove(bille.Texture);
+                billesEnJeu.Remove(bille);
                 if (ennemisEnJeu[0].PointDeVie <=0)
                 {
                     ennemisEnJeu[0].Texture.Visibility = Visibility.Hidden;
