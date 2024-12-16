@@ -257,16 +257,11 @@ namespace JeuxPlateformeBille
 
 
             }
-            if (saut)
-            {
-                Canvas.SetTop(joueur, Canvas.GetTop(joueur) - 16);
-            }
-
-            /*if (saut && enSaut == false)
+            if (saut && enSaut == false)
             {
                 enSaut = true;
                 coefReductionDeplacementSaut = 0.5;
-            }*/
+            }
 
         }
         private bool auSol()
