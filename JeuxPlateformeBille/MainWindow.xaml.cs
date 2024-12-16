@@ -30,7 +30,7 @@ namespace JeuxPlateformeBille
         public DispatcherTimer minuterie;
         private static BitmapImage imgBille, fond;
         private bool gauche, droite, saut, enSaut, billeBouge, pause = false;
-        private int vitesseJoueur = 8, gravite = 8, toleranceColision = 12, nbtouche = 0, nbStockBille = 1000, niveau = 0, choixBille;
+        private int vitesseJoueur = 8, gravite = 8, toleranceColision = 12, nbtouche = 0, nbStockBille = 1000, niveau = 0, choixBille, timerAnimation, timerAnimationSaut;
         System.Drawing.Rectangle hitBoxSol, hitBoxJoueur, hitBoxBille, hitBoxEnnemi;
         private int animationJoueur = 1, animationSaut = 1;
         private static Point clickPosition;
@@ -247,6 +247,7 @@ namespace JeuxPlateformeBille
 
             else
             {
+                AnimationChute();
                 gravite = 8;
             }
 
@@ -280,6 +281,9 @@ namespace JeuxPlateformeBille
             }
 
         }
+
+        
+
         private bool auSol()
         {
 
@@ -331,6 +335,10 @@ namespace JeuxPlateformeBille
                 AnimationSaut();
                 Canvas.SetTop(joueur, Canvas.GetTop(joueur) + vitesseSaut);
                 vitesseSaut = vitesseSaut + gravite / 6;
+            }
+            else
+            {
+                AnimationChute();
             }
         }
 
@@ -486,10 +494,16 @@ namespace JeuxPlateformeBille
         public void AnimationDeplacementJoueur(int direction)
         {
             regard.ScaleX = direction;
-            if (!enSaut)
+            if (gravite == 0)
             {
                 joueur.Source = new BitmapImage(new Uri($"pack://application:,,,/img/joueur/course/course{animationJoueur}.png"));
-                animationJoueur = animationJoueur + 1;
+                timerAnimation += 1;
+                if (timerAnimation == 3 )
+                {
+                    animationJoueur = animationJoueur + 1;
+                    timerAnimation = 0;
+                }
+                    
                 if (animationJoueur > 8)
                 {
                     animationJoueur = 1;
@@ -500,12 +514,19 @@ namespace JeuxPlateformeBille
         
         public void AnimationSaut()
         {
-            joueur.Source = new BitmapImage(new Uri($"pack://application:,,,/img/joueur/saut/saut{animationJoueur}.png"));
-            
-            if (animationJoueur < 7)
+            joueur.Source = new BitmapImage(new Uri($"pack://application:,,,/img/joueur/saut/saut{animationSaut}.png"));
+            timerAnimationSaut += 1;
+            if (timerAnimationSaut == 10 && animationSaut< 4)
             {
-                animationJoueur = animationJoueur + 1;
+                animationSaut = animationSaut + 1;
+                timerAnimationSaut = 0;
             }
+        }
+        private void AnimationChute()
+        {
+            animationSaut = 6;
+            AnimationSaut();
+            animationSaut = 1;
         }
     }
 
