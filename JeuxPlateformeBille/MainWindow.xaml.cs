@@ -194,7 +194,7 @@ namespace JeuxPlateformeBille
         {
             if (!pause)
             {
-                tir(e);
+                Tir(e);
             }
         }
 
@@ -213,8 +213,8 @@ namespace JeuxPlateformeBille
         }
         private void Jeu(object? sender, EventArgs e)
         {
-            deplacement();
-            deplacementEnnemi();
+            Deplacement();
+            DeplacementEnnemi();
             if (VerifTouche())
             {
                 FinJeu();
@@ -222,7 +222,7 @@ namespace JeuxPlateformeBille
 
             for (int i = 0; i < billesEnJeu.Count; i++)
             {
-                if (billeLance(billesEnJeu[i]))
+                if (BilleLance(billesEnJeu[i]))
                 {
 
                     canvasMainWindow.Children.Remove(billesEnJeu[i].Texture);
@@ -237,7 +237,7 @@ namespace JeuxPlateformeBille
 
 
         }
-        private void deplacement()
+        private void Deplacement()
         {
 
             if (CollisionPlat() == 0)
@@ -341,7 +341,7 @@ namespace JeuxPlateformeBille
             }
         }
 
-        private void tir(MouseButtonEventArgs e)
+        private void Tir(MouseButtonEventArgs e)
         {
             if (nbStockBille > 0)
             {
@@ -366,7 +366,7 @@ namespace JeuxPlateformeBille
 
             }
         }
-        private bool billeLance(Billes bille)
+        private bool BilleLance(Billes bille)
         {
 
             if (Canvas.GetLeft(bille.Texture) < 0 || Canvas.GetLeft(bille.Texture) > this.ActualWidth || Canvas.GetTop(bille.Texture) > this.ActualHeight)
@@ -383,7 +383,7 @@ namespace JeuxPlateformeBille
                     bille.Vitesse[0] = bille.Vitesse[0] * 0.985;
                 }
                 hitBoxBille = new System.Drawing.Rectangle((int)Canvas.GetLeft(bille.Texture), (int)Canvas.GetTop(bille.Texture), (int)bille.Texture.Width, (int)bille.Texture.Height);
-                colisionEnnemi(bille);
+                ColisionEnnemi(bille);
             }
 
             hitBoxBille = new System.Drawing.Rectangle((int)Canvas.GetLeft(bille.Texture), (int)Canvas.GetTop(bille.Texture), (int)bille.Texture.Width - 1, (int)bille.Texture.Height - 1);
@@ -427,7 +427,7 @@ namespace JeuxPlateformeBille
               vitesseEnnemis[0] = [2];
           }*/
 
-        private void deplacementEnnemi()
+        private void DeplacementEnnemi()
         {
             for (int i = 0;i < ennemisEnJeu.Count; i++)
             {
@@ -446,7 +446,7 @@ namespace JeuxPlateformeBille
              Canvas.SetTop(EnnemiVie2, Canvas.GetTop(ennemi) - 10);*/
         }
 
-        private bool colisionEnnemi(Billes bille)
+        private bool ColisionEnnemi(Billes bille)
         {
             for (int i = 0; i< ennemisEnJeu.Count; i++)
             {
@@ -476,10 +476,6 @@ namespace JeuxPlateformeBille
             
             }
             return false;
-        }
-        private void deplacementEnnemi2()
-        {
-
         }
         private bool VerifTouche()
         {
