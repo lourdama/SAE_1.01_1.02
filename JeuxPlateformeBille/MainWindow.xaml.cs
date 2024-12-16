@@ -440,7 +440,8 @@ namespace JeuxPlateformeBille
                 if (ennemisEnJeu[0].PointDeVie <=0)
                 {
                     ennemisEnJeu[0].Texture.Visibility = Visibility.Hidden;
-                    //ennemisEnJeu.Remove(fantome);
+                    //canvasMainWindow.Children.Remove(ennemisEnJeu[0].Texture);
+                    //ennemisEnJeu.Remove(ennemisEnJeu[0]);
                     //EnnemiVie.Visibility = Visibility.Hidden;
                     //EnnemiVie2.Visibility = Visibility.Hidden;
                     ReinitialisationSaut();
@@ -484,7 +485,7 @@ namespace JeuxPlateformeBille
         public void AnimationDeplacementJoueur(int direction)
         {
             regard.ScaleX = direction;
-            if (enSaut)
+            if (!enSaut)
             {
                 joueur.Source = new BitmapImage(new Uri($"pack://application:,,,/img/joueur/course/course{animationJoueur}.png"));
                 animationJoueur = animationJoueur + 1;
