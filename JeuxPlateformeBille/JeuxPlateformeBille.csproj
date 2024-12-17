@@ -20,6 +20,10 @@
     <None Remove="img\8-bit-graphics-pixels-scene-with-castle-pointilles.jpg" />
     <None Remove="img\8-bit-graphics-pixels-scene-with-castle.jpg" />
     <None Remove="img\balle.jpg" />
+    <None Remove="img\billes\bille1.png" />
+    <None Remove="img\billes\bille2.png" />
+    <None Remove="img\billes\bille3.png" />
+    <None Remove="img\bille_simple.png" />
     <None Remove="img\castle.jpg" />
     <None Remove="img\ChoixDuNiveau.jpg" />
     <None Remove="img\fantome.png" />
@@ -78,9 +82,19 @@
     <None Remove="img\Joueur\Walk\walk5.png" />
     <None Remove="img\Joueur\Walk\walk6.png" />
     <None Remove="img\plateforme.png" />
+    <None Remove="img\warped_pearl.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="img\billes\bille1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\billes\bille2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\billes\bille3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="img\castle.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -96,9 +110,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="img\balle.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
     <Resource Include="img\Joueur\Climb\climb1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
