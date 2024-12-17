@@ -30,7 +30,7 @@ namespace JeuxPlateformeBille
         public DispatcherTimer minuterie, animationEntreeTimer;
         public int difficulte = 2;
         private static BitmapImage fond;
-        private bool gauche, droite, saut, enSaut, billeBouge, pause,jouer;
+        private bool gauche, droite, saut, enSaut, billeBouge, pause,jouer, niveauGagne = false;
         private int vitesseJoueur = 8, gravite = 8, toleranceColision = 5, nbtouche = 0, nbStockBille = 100, choixBille ;
         System.Drawing.Rectangle  hitBoxJoueur, hitBoxBille, hitBoxEnnemi;
         private int animationJoueur = 1, animationSaut = 1, animationStatic = 1, timerAnimation, timerAnimationSaut, timerAnimationStatic, animationEntre = 1, timerAnimationEntree = 0;
@@ -41,11 +41,15 @@ namespace JeuxPlateformeBille
         private static List<Ennemis> ennemisEnJeu = new List<Ennemis>();
         private static List<Billes> billesEnJeu = new List<Billes>();
         private static List<Plateformes> plateformesEnJeu = new List<Plateformes>();
+        private static List<Sac> sacEnjeu = new List<Sac>();
         private static int[,] sautTailleAnimation = { { 61, 49 }, { 52, 64 }, { 50, 65 }, { 55, 57 }, { 60, 61 } };
         private static BitmapImage[] imageBilles;
         BitmapImage[] marche;
         private static MediaPlayer musique;
         public int niveau = 0;
+        int[,] niveauBille = new int[,]
+        { {0,0,0}, {0,0,1}, {0,2,2}, {0,1,2} };
+        int[] billeInventaire = new int[] { 0, 0, 0 };
         int[][,] niveauEnnemis = new int[][,]
         {
             new int[,] { { 1, 100, 100 }, { 1, 200, 200 }, { 1, 300, 300 }, { 1, 400, 400 } },
@@ -67,6 +71,9 @@ namespace JeuxPlateformeBille
         {
             InitializeComponent();
             InitMusique();
+            joueur.Visibility = Visibility.Hidden;
+            ChoixBilleImg.Visibility = Visibility.Hidden;
+            ChoixBille.Visibility = Visibility.Hidden;
         }
 
 
@@ -143,7 +150,10 @@ namespace JeuxPlateformeBille
         {
             canvasMainWindow.Focus();
             joueur.Visibility = Visibility.Visible;
+            ChoixBilleImg.Visibility = Visibility.Visible;
+            ChoixBille.Visibility = Visibility.Visible;
             Canvas.SetLeft(joueur, 10);
+            Canvas.SetTop(joueur, proprietePlateformes[niveau][0, 1] - joueur.Height);
             jouer = true;
         }
 
@@ -316,7 +326,8 @@ namespace JeuxPlateformeBille
             DeplacementEnnemi();
             if (VerifTouche())
             {
-                FinJeu();
+                niveauGagne = false;
+                DestructionNiveau();
             }
 
             for (int i = 0; i < billesEnJeu.Count; i++)
@@ -335,7 +346,12 @@ namespace JeuxPlateformeBille
             }
             if (ennemisEnJeu.Count ==0)
             {
+                niveauGagne = true;
                 FinNiveau();
+            }
+            if(aleatoire.Next(0,900) == 1)
+            {
+                // spawn sac de bille
             }
 
 
@@ -358,7 +374,7 @@ namespace JeuxPlateformeBille
                 coefReductionDeplacementSaut = 0.6;
                 if (Canvas.GetTop(joueur) > this.Height)
                 {
-                    Canvas.SetTop(joueur, 400);
+                    Canvas.SetTop(joueur, -joueur.Height);
                 }
 
             }
@@ -475,6 +491,22 @@ namespace JeuxPlateformeBille
 
 
             }
+        }
+        private void ApparitionSac()
+        {
+            Sac nouveauSac = new Sac(new Image());
+            nouveauSac.Texture.Source = new BitmapImage(new Uri("pack://application:,,,/img/billes/bille1.png"));
+            nouveauSac.Texture.Width = 64;
+            nouveauSac.Texture.Height = 64;
+            for (int i = 0; i < niveauBille.GetLength(1); i++)
+            {
+                int typeBilleContenu = niveauBille[niveau,i];
+                nouveauSac.Contenu[typeBilleContenu] = aleatoire.Next(3,6);
+            }
+            sacEnjeu.Insert(0, nouveauSac);
+            canvasMainWindow.Children.Add(nouveauSac.Texture);
+            Canvas.SetTop(nouveauSac.Texture, -64);
+            Canvas.SetLeft(nouveauSac.Texture, aleatoire.Next(10, (int)canvasMainWindow.Width - 10));
         }
         private bool BilleLance(Billes bille)
         {
@@ -610,8 +642,26 @@ namespace JeuxPlateformeBille
 
             
             jouer = false;
+            droite = false;
+            gauche = false;
+            saut = false;
+            enSaut = true;
+            vitesseSaut = 0;
             joueur.Visibility = Visibility.Hidden;
+            ChoixBilleImg.Visibility = Visibility.Hidden;
+            ChoixBille.Visibility = Visibility.Hidden;
             ChoixNiveau choixDuNiveau = new ChoixNiveau();
+            if (niveauGagne == false)   
+            {
+                niveau--;
+                int ennemi = ennemisEnJeu.Count;
+                for (int i = 0; i < ennemi; i++)
+                {
+                    canvasMainWindow.Children.Remove(ennemisEnJeu[0].Texture);
+                    canvasMainWindow.Children.Remove(ennemisEnJeu[0].BarreDeVie);
+                    ennemisEnJeu.Remove(ennemisEnJeu[0]);
+                }
+            }
             choixDuNiveau.ChangerCouleurEllipseNiveau(niveau);
             ImageBrush imageBrush = new ImageBrush();
             imageBrush.ImageSource = new BitmapImage(new Uri("pack://application:,,,/img/choixduniveau.jpg", UriKind.RelativeOrAbsolute));
@@ -751,7 +801,21 @@ namespace JeuxPlateformeBille
 
 
     }
-    
+    public class Sac
+    {
+        public Image Texture { get; set; }
+        public int[] Contenu { get; set; }
+
+        public Sac(Image texture)
+        {
+            this.Texture = texture;
+            this.Contenu = new int[] {0,0,0};
+
+        }
+
+
+    }
+
     public partial class Plateformes
     {
         public Image Texture { get; set; }
