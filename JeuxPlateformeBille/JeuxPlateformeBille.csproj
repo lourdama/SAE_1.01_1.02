@@ -31,6 +31,10 @@
     <None Remove="img\castle.jpg" />
     <None Remove="img\ChoixDuNiveau.jpg" />
     <None Remove="img\fantome.png" />
+    <None Remove="img\fond_niveau\level1.jpeg" />
+    <None Remove="img\fond_niveau\level2.jpeg" />
+    <None Remove="img\fond_niveau\level3.jpeg" />
+    <None Remove="img\fond_niveau\level4.jpeg" />
     <None Remove="img\image2.jpg" />
     <None Remove="img\Joueur\Climb\climb1.png" />
     <None Remove="img\Joueur\Climb\climb2.png" />
@@ -86,6 +90,7 @@
     <None Remove="img\Joueur\Saut\saut9.png" />
     <None Remove="img\plateforme.png" />
     <None Remove="img\warped_pearl.png" />
+    <None Remove="sons\musique1.mp3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -105,6 +110,18 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="img\fantome.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\fond_niveau\level1.jpeg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\fond_niveau\level2.jpeg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\fond_niveau\level3.jpeg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\fond_niveau\level4.jpeg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="img\image2.jpg">
@@ -230,12 +247,9 @@
     <Resource Include="img\plateforme.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="sons\musique1.mp3">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </None>
+    <Resource Include="sons\musique1.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

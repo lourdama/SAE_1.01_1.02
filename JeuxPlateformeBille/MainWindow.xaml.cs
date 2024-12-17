@@ -82,8 +82,16 @@ namespace JeuxPlateformeBille
             InitEnnemis();
             InitPlateformes();
             InitTimer();
+            InitMusique();
+            InitFond();
             
 
+        }
+        private void InitFond()
+        {
+            BitmapImage fondniveau = new BitmapImage
+               (new Uri($"pack://application:,,,/img/fond_niveau/level{niveau}.jpeg"));
+            canvasMainWindow.Background = new ImageBrush(fondniveau);
         }
         private void InitAnimation()
         {
@@ -108,9 +116,9 @@ namespace JeuxPlateformeBille
         private void InitMusique()
         {
             musique = new MediaPlayer();
-            musique.Open(new Uri(AppDomain.CurrentDomain.BaseDirectory + "sons/musique1.mp3"));
+            musique.Open(new Uri($"pack://application:,,,/sons/musique1.mp3"));
             musique.MediaEnded += RelanceMusique;
-            musique.Volume = 0.5;
+            musique.Volume = 1;
             musique.Play();
         }
         private void RelanceMusique(object? sender, EventArgs e)
@@ -144,7 +152,7 @@ namespace JeuxPlateformeBille
         }
         private void InitEnnemis()
         {
-            for (int i = 0; i < niveauEnnemis[niveau].GetLength(0); i++)
+            for (int i = 0; i < niveauEnnemis[niveau-1].GetLength(0); i++)
             {
                 // Initialisation ennemi classique
                 Ennemis fantome = new Ennemis();
@@ -152,8 +160,8 @@ namespace JeuxPlateformeBille
                 fantome.Texture.Source = new BitmapImage(new Uri("pack://application:,,,/img/fantome.png"));
                 fantome.Texture.Width = 50;
                 fantome.Texture.Height = 100;
-                fantome.CoordonneeX = niveauEnnemis[niveau][i,1];
-                fantome.CoordonneeY = niveauEnnemis[niveau][i,2]; ;
+                fantome.CoordonneeX = niveauEnnemis[niveau-1][i,1];
+                fantome.CoordonneeY = niveauEnnemis[niveau-1][i,2]; ;
                 fantome.Vitesse = 2;
                 fantome.PointDeVie = 100;
                 fantome.BarreDeVie = new ProgressBar();
@@ -182,7 +190,7 @@ namespace JeuxPlateformeBille
 
         private void InitPlateformes()
         {
-            for (int i = 0; i < proprietePlateformes[niveau].GetLength(0); i++)
+            for (int i = 0; i < proprietePlateformes[niveau-1].GetLength(0); i++)
             {
                 Plateformes nouvellePlateforme = new Plateformes(new Image(), new int(), new int(), new System.Drawing.Rectangle()); 
                 nouvellePlateforme.Texture.Source = new BitmapImage(new Uri("pack://application:,,,/img/plateforme.png"));
@@ -191,8 +199,8 @@ namespace JeuxPlateformeBille
                 plateformesEnJeu.Insert(0, nouvellePlateforme);
                 canvasMainWindow.Children.Add(plateformesEnJeu[0].Texture);
 
-                Canvas.SetLeft(plateformesEnJeu[0].Texture, proprietePlateformes[niveau][i, 0]);
-                Canvas.SetTop(plateformesEnJeu[0].Texture, proprietePlateformes[niveau][i, 1]);
+                Canvas.SetLeft(plateformesEnJeu[0].Texture, proprietePlateformes[niveau-1][i, 0]);
+                Canvas.SetTop(plateformesEnJeu[0].Texture, proprietePlateformes[niveau-1][i, 1]);
                 plateformesEnJeu[0].BoiteCollision = new System.Drawing.Rectangle((int)Canvas.GetLeft(plateformesEnJeu[0].Texture) - toleranceColision , (int)Canvas.GetTop(plateformesEnJeu[0].Texture) - toleranceColision, (int)plateformesEnJeu[0].Texture.Width + 2* toleranceColision, (int)plateformesEnJeu[0].Texture.Height + 2*toleranceColision);
             }
         }
