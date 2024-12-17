@@ -587,10 +587,13 @@ namespace JeuxPlateformeBille
 
         private void DestructionNiveau()
         {
-            for(int i = 0; i <plateformesEnJeu.Count  ; i++)
+            MessageBox.Show(plateformesEnJeu.Count.ToString());
+            int plat = plateformesEnJeu.Count;
+            for(int i = 0; i < plat; i++)
             {
                 canvasMainWindow.Children.Remove(plateformesEnJeu[0].Texture);
                 plateformesEnJeu.Remove(plateformesEnJeu[0]);
+                MessageBox.Show(i.ToString());
             }
 
             
@@ -600,7 +603,9 @@ namespace JeuxPlateformeBille
             choixDuNiveau.ChangerCouleurEllipseNiveau(niveau);
             ImageBrush imageBrush = new ImageBrush();
             imageBrush.ImageSource = new BitmapImage(new Uri("pack://application:,,,/img/choixduniveau.jpg", UriKind.RelativeOrAbsolute));
+            this.canvasMainWindow.Background = imageBrush;
             this.ControlContent.Content = choixDuNiveau;
+            minuterie.Stop();
 
 
 
