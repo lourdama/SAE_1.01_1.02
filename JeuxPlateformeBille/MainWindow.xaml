@@ -22,7 +22,7 @@
             <local:Accueil x:Name="Control" />
         </ContentControl>
 
-        
+
         <Rectangle
                 Canvas.Left="893"
                 Canvas.Top="512"
@@ -47,12 +47,14 @@
                 Visibility="Hidden"/>
         <Label x:Name="StockBille" Content="Stock De Billes : 1000" Height="51" Canvas.Left="1184" Canvas.Top="22" Width="232" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="24" Background="Transparent" Visibility="Hidden"/>
         <Label x:Name="ChoixBille" Content="Numéro bille : " Canvas.Left="50" Canvas.Top="47" HorizontalAlignment="Left" Height="55" VerticalAlignment="Top" Width="370" FontSize="30"/>
-        <Image x:Name="joueur" Height="56" Canvas.Left="25" Source="/img/Joueur/Walk/walk1.png" Stretch="Fill" Canvas.Top="549" Width="41" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Top">
+        <Image x:Name="joueur" Height="56" Source="/img/Joueur/marche/marche1.png" Stretch="Fill" Canvas.Top="644" Width="42" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="327">
             <Image.RenderTransform>
                 <TransformGroup>
-                    <ScaleTransform x:Name="regard" ScaleX="-1"/>
+                    <ScaleTransform x:Name="regard" ScaleX="1"/>
                 </TransformGroup>
             </Image.RenderTransform>
         </Image>
+        <Image Height="116" Canvas.Left="327" Source="/img/plateforme.png" Stretch="Fill" Canvas.Top="700
+               " Width="425"/>
     </Canvas>
 </Window>

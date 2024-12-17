@@ -10,9 +10,13 @@
 
   <ItemGroup>
     <Compile Remove="img\Joueur\Jump\**" />
+    <Compile Remove="img\Joueur\Walk\**" />
     <EmbeddedResource Remove="img\Joueur\Jump\**" />
+    <EmbeddedResource Remove="img\Joueur\Walk\**" />
     <None Remove="img\Joueur\Jump\**" />
+    <None Remove="img\Joueur\Walk\**" />
     <Page Remove="img\Joueur\Jump\**" />
+    <Page Remove="img\Joueur\Walk\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -54,6 +58,12 @@
     <None Remove="img\Joueur\inactif\inactif7.png" />
     <None Remove="img\Joueur\inactif\inactif8.png" />
     <None Remove="img\Joueur\inactif\inactif9.png" />
+    <None Remove="img\joueur\marche\marche1.png" />
+    <None Remove="img\joueur\marche\marche2.png" />
+    <None Remove="img\joueur\marche\marche3.png" />
+    <None Remove="img\joueur\marche\marche4.png" />
+    <None Remove="img\joueur\marche\marche5.png" />
+    <None Remove="img\joueur\marche\marche6.png" />
     <None Remove="img\Joueur\Mort\mort1.png" />
     <None Remove="img\Joueur\Mort\mort10.png" />
     <None Remove="img\Joueur\Mort\mort2.png" />
@@ -74,13 +84,6 @@
     <None Remove="img\Joueur\Saut\saut5.png" />
     <None Remove="img\Joueur\Saut\saut8.png" />
     <None Remove="img\Joueur\Saut\saut9.png" />
-    <None Remove="img\Joueur\Walk\walk1.png" />
-    <None Remove="img\Joueur\Walk\walk2.png" />
-    <None Remove="img\Joueur\Walk\walk3 - Copier.png" />
-    <None Remove="img\Joueur\Walk\walk3.png" />
-    <None Remove="img\Joueur\Walk\walk4.png" />
-    <None Remove="img\Joueur\Walk\walk5.png" />
-    <None Remove="img\Joueur\Walk\walk6.png" />
     <None Remove="img\plateforme.png" />
     <None Remove="img\warped_pearl.png" />
   </ItemGroup>
@@ -161,6 +164,24 @@
     <Resource Include="img\Joueur\inactif\inactif5.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="img\joueur\marche\marche1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\joueur\marche\marche2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\joueur\marche\marche3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\joueur\marche\marche4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\joueur\marche\marche5.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\joueur\marche\marche6.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="img\Joueur\Mort\mort1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -204,27 +225,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="img\Joueur\Saut\saut5.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="img\Joueur\Walk\walk1.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="img\Joueur\Walk\walk2.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="img\Joueur\Walk\walk3 - Copier.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="img\Joueur\Walk\walk3.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="img\Joueur\Walk\walk4.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="img\Joueur\Walk\walk5.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="img\Joueur\Walk\walk6.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="img\plateforme.png">
