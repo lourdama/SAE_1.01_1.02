@@ -29,7 +29,7 @@ namespace JeuxPlateformeBille
     {
         public DispatcherTimer minuterie;
         private static BitmapImage fond;
-        private bool gauche, droite, saut, enSaut, billeBouge, pause,jouer = false;
+        private bool gauche, droite, saut, enSaut, billeBouge, pause,jouer;
         private int vitesseJoueur = 8, gravite = 8, toleranceColision = 5, nbtouche = 0, nbStockBille = 1000, niveau = 0, choixBille;
         System.Drawing.Rectangle hitBoxSol, hitBoxJoueur, hitBoxBille, hitBoxEnnemi;
         private int animationJoueur = 1, animationSaut = 1, animationStatic = 1, timerAnimation, timerAnimationSaut, timerAnimationStatic;
@@ -284,14 +284,12 @@ namespace JeuxPlateformeBille
             {
 
                 gravite = 8;
+                coefReductionDeplacementSaut = 0.6;
                 if (Canvas.GetTop(joueur) > this.Height)
                 {
                     Canvas.SetTop(joueur, 400);
                 }
-                if (vitesseSaut > 0)
-                {
-                    AnimationChute();
-                }
+
             }
 
 
@@ -320,7 +318,6 @@ namespace JeuxPlateformeBille
             if (saut && enSaut == false)
             {
                 enSaut = true;
-                coefReductionDeplacementSaut = 0.5;
             }
 
         }
@@ -338,7 +335,6 @@ namespace JeuxPlateformeBille
 
                     if (Canvas.GetTop(joueur) + joueur.Height < Canvas.GetTop(plateformesEnJeu[i].Texture) + toleranceColision)
                     {
-
                         timerAnimationSaut = 0;
                         if (!droite && !gauche)
                         {
@@ -360,7 +356,7 @@ namespace JeuxPlateformeBille
                     
                     else
                     {
-                        vitesseSaut = -1;
+                        vitesseSaut = 1;
                         return 4;
                     }
                 }
@@ -516,6 +512,7 @@ namespace JeuxPlateformeBille
         {
             enSaut = false;
             vitesseSaut = -35;
+            
 
         }
         private void FinJeu()
