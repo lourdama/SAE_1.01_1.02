@@ -464,6 +464,7 @@ namespace JeuxPlateformeBille
         {
             for (int i = 0; i< ennemisEnJeu.Count; i++)
             {
+                hitBoxEnnemi = new System.Drawing.Rectangle((int)Canvas.GetLeft(ennemisEnJeu[i].Texture), (int)Canvas.GetTop(ennemisEnJeu[i].Texture), (int)ennemisEnJeu[i].Texture.Width, (int)ennemisEnJeu[i].Texture.Height);
                 if (hitBoxBille.IntersectsWith(hitBoxEnnemi))
                 {
                     ennemisEnJeu[i].PointDeVie -= bille.DegatBille;
