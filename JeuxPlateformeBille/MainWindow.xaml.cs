@@ -31,7 +31,7 @@ namespace JeuxPlateformeBille
         public int difficulte = 2;
         private static BitmapImage fond;
         private bool gauche, droite, saut, enSaut, billeBouge, pause,jouer;
-        private int vitesseJoueur = 8, gravite = 8, toleranceColision = 5, nbtouche = 0, nbStockBille = 1000, niveau = 0, choixBille;
+        private int vitesseJoueur = 8, gravite = 8, toleranceColision = 5, nbtouche = 0, nbStockBille = 1000, niveau = 0, choixBille ;
         System.Drawing.Rectangle  hitBoxJoueur, hitBoxBille, hitBoxEnnemi;
         private int animationJoueur = 1, animationSaut = 1, animationStatic = 1, timerAnimation, timerAnimationSaut, timerAnimationStatic, animationEntre = 1, timerAnimationEntree = 0;
         private static Point clickPosition;
@@ -437,7 +437,7 @@ namespace JeuxPlateformeBille
                 nouvelleBille.Texture.Width = 16;
                 nouvelleBille.Texture.Height = 16;
                 nouvelleBille.TypeBille = choixBille;
-                nouvelleBille.DegatBille = 25;
+                nouvelleBille.DegatBille = 25/difficulte;
                 clickPosition = e.GetPosition(this);
                 double vitesseX = clickPosition.X - Canvas.GetLeft(joueur);
                 double vitesseY = clickPosition.Y - Canvas.GetTop(joueur);
@@ -500,9 +500,9 @@ namespace JeuxPlateformeBille
         {
             for (int i = 0;i < ennemisEnJeu.Count; i++)
             {
-                Canvas.SetLeft(ennemisEnJeu[i].Texture, Canvas.GetLeft(ennemisEnJeu[i].Texture) + Math.Sign(Canvas.GetLeft(joueur) - Canvas.GetLeft(ennemisEnJeu[i].Texture)) * 2);
+                Canvas.SetLeft(ennemisEnJeu[i].Texture, Canvas.GetLeft(ennemisEnJeu[i].Texture) + Math.Sign(Canvas.GetLeft(joueur) - Canvas.GetLeft(ennemisEnJeu[i].Texture)) * 2 * Math.Sqrt((double)difficulte));
                 Canvas.SetTop(ennemisEnJeu[i].Texture, Canvas.GetTop(ennemisEnJeu[i].Texture) + Math.Sign(Canvas.GetTop(joueur) - Canvas.GetTop(ennemisEnJeu[i].Texture)));
-                Canvas.SetLeft(ennemisEnJeu[i].BarreDeVie, Canvas.GetLeft(ennemisEnJeu[i].Texture) + Math.Sign(Canvas.GetLeft(joueur) - Canvas.GetLeft(ennemisEnJeu[i].Texture)) * 2);
+                Canvas.SetLeft(ennemisEnJeu[i].BarreDeVie, Canvas.GetLeft(ennemisEnJeu[i].Texture) + Math.Sign(Canvas.GetLeft(joueur) - Canvas.GetLeft(ennemisEnJeu[i].Texture)) * 2 * Math.Sqrt((double)difficulte));
                 Canvas.SetTop(ennemisEnJeu[i].BarreDeVie, Canvas.GetTop(ennemisEnJeu[i].Texture) + Math.Sign(Canvas.GetTop(joueur) - Canvas.GetTop(ennemisEnJeu[i].Texture)));
                 hitBoxEnnemi = new System.Drawing.Rectangle((int)Canvas.GetLeft(ennemisEnJeu[i].Texture), (int)Canvas.GetTop(ennemisEnJeu[i].Texture), (int)ennemisEnJeu[i].Texture.Width, (int)ennemisEnJeu[i].Texture.Height);
 
