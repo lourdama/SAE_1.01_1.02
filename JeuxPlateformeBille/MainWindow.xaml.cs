@@ -139,7 +139,7 @@ namespace JeuxPlateformeBille
                 Plateformes nouvellePlateforme = new Plateformes(new Image(), new int(), new int(), new System.Drawing.Rectangle()); 
                 nouvellePlateforme.Texture.Source = new BitmapImage(new Uri("pack://application:,,,/img/plateforme.png"));
                 nouvellePlateforme.Texture.Width = 425;
-                nouvellePlateforme.Texture.Height = 116;
+                nouvellePlateforme.Texture.Height = 38;
                 plateformesEnJeu.Insert(0, nouvellePlateforme);
                 canvasMainWindow.Children.Add(plateformesEnJeu[0].Texture);
 
