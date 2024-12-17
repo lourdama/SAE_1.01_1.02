@@ -503,15 +503,12 @@ namespace JeuxPlateformeBille
         {
             for (int i = 0; i < ennemisEnJeu.Count; i++)
             {
-                if (ennemisEnJeu[i].Texture.Visibility == Visibility.Visible)
-                {
                     hitBoxJoueur = new System.Drawing.Rectangle((int)Canvas.GetLeft(joueur), (int)Canvas.GetTop(joueur), (int)joueur.Width - 2, (int)joueur.Height - 2);
                     hitBoxEnnemi = new System.Drawing.Rectangle((int)Canvas.GetLeft(ennemisEnJeu[i].Texture), (int)Canvas.GetTop(ennemisEnJeu[i].Texture), (int)ennemisEnJeu[i].Texture.Width - 2, (int)ennemisEnJeu[i].Texture.Height - 2);
                     bool ennemiTouche = hitBoxEnnemi.IntersectsWith(hitBoxJoueur);
-                    return ennemiTouche;
-                }
+                    if(ennemiTouche == true)    
+                        return ennemiTouche;
             }
-            
             return false;
         }
 
