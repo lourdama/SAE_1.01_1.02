@@ -22,6 +22,7 @@ namespace JeuxPlateformeBille
         private Key toucheGaucheUC = Key.Q;
         private Key toucheDroiteUC = Key.D;
         private Key toucheSautUC = Key.Space;
+        private double volumeUC = 1;
 
         private List<Key> touchesDisponibles = new List<Key>
     {
@@ -30,7 +31,12 @@ namespace JeuxPlateformeBille
         public Parametres()
         {
             InitializeComponent();
+            /*toucheDroiteUC = ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).toucheDroite;
+            toucheGaucheUC = ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).toucheGauche;
+            toucheSautUC = ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).toucheSaut;
+            volumeUC = ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).volumeMusique;*/
             RemplirComboBox();
+            slideBarMusique.Value = volumeUC;
         }
         private void RemplirComboBox()
         {
@@ -68,6 +74,7 @@ namespace JeuxPlateformeBille
             ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).toucheDroite = toucheDroiteUC;
             ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).toucheGauche = toucheGaucheUC;
             ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).toucheSaut = toucheSautUC;
+            ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).volumeMusique = volumeUC;
             ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).ControlContent.Content = new Accueil();
         }
 
@@ -84,6 +91,11 @@ namespace JeuxPlateformeBille
         private void butDifficile_Click(object sender, RoutedEventArgs e)
         {
             ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).difficulte = 3;
+        }
+
+        private void slideBarMusique_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            volumeUC = slideBarMusique.Value;
         }
     }
 }

@@ -28,7 +28,8 @@ namespace JeuxPlateformeBille
     public partial class MainWindow : Window
     {
         public DispatcherTimer minuterie, animationEntreeTimer;
-        public int difficulte = 1;
+        public int difficulte = 1, niveau = 0;
+        public double volumeMusique = 1;
         public Key toucheGauche = Key.Q;
         public Key toucheDroite = Key.D;
         public Key toucheSaut = Key.Space;
@@ -49,7 +50,6 @@ namespace JeuxPlateformeBille
         private static BitmapImage[] imageBilles;
         BitmapImage[] marche;
         private static MediaPlayer musique;
-        public int niveau = 0;
         int[,] niveauBille = new int[,]
         { {0,0,0}, {0,0,1}, {0,2,2}, {0,1,2} };
         int[] billeInventaire = new int[] { 0, 0, 0 };
@@ -136,7 +136,7 @@ namespace JeuxPlateformeBille
             musique = new MediaPlayer();
             musique.Open(new Uri(AppDomain.CurrentDomain.BaseDirectory + $"/sons/musique{niveau}.mp3"));
             musique.MediaEnded += RelanceMusique;
-            musique.Volume = 1;
+            musique.Volume = volumeMusique;
             musique.Play();
         }
         private void StopMusique()
