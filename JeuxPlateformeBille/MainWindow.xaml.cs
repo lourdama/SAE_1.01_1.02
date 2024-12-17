@@ -45,7 +45,7 @@ namespace JeuxPlateformeBille
         private static BitmapImage[] imageBilles;
         BitmapImage[] marche;
         private static MediaPlayer musique;
-        public int niveau;
+        public int niveau = 0;
         int[][,] niveauEnnemis = new int[][,]
         {
             new int[,] { { 1, 100, 100 }, { 1, 200, 200 }, { 1, 300, 300 }, { 1, 400, 400 } },
@@ -593,6 +593,8 @@ namespace JeuxPlateformeBille
             joueur.Visibility = Visibility.Hidden;
             ChoixNiveau choixDuNiveau = new ChoixNiveau();
             choixDuNiveau.ChangerCouleurEllipseNiveau(niveau);
+            ImageBrush imageBrush = new ImageBrush();
+            imageBrush.ImageSource = new BitmapImage(new Uri("pack://application:,,,/img/choixduniveau.jpg", UriKind.RelativeOrAbsolute));
             this.ControlContent.Content = choixDuNiveau;
 
 

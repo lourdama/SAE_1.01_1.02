@@ -27,7 +27,7 @@ namespace JeuxPlateformeBille
 
         private void ellipseNiveau1_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).niveau < 1)
+            if (((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).niveau == 0)
             {
                 ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).niveau = 1;
                 ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).Suivant();
@@ -39,9 +39,29 @@ namespace JeuxPlateformeBille
 
         private void ellipseNiveau2_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).niveau < 2)
+            if (((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).niveau == 1)
             {
                 ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).niveau = 2;
+                ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).Suivant();
+                ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).ControlContent.Content = null;
+
+            }
+        }
+        private void ellipseNiveau3_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).niveau == 2)
+            {
+                ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).niveau = 3;
+                ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).Suivant();
+                ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).ControlContent.Content = null;
+
+            }
+        }
+        private void ellipseNiveau4_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).niveau == 3)
+            {
+                ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).niveau = 4;
                 ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).Suivant();
                 ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).ControlContent.Content = null;
 
