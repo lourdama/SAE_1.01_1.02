@@ -30,7 +30,7 @@ namespace JeuxPlateformeBille
         public DispatcherTimer minuterie;
         private static BitmapImage imgBille, fond;
         private bool gauche, droite, saut, enSaut, billeBouge, pause = false;
-        private int vitesseJoueur = 8, gravite = 8, toleranceColision = 4, nbtouche = 0, nbStockBille = 1000, niveau = 0, choixBille;
+        private int vitesseJoueur = 8, gravite = 8, toleranceColision = 6, nbtouche = 0, nbStockBille = 1000, niveau = 0, choixBille;
         System.Drawing.Rectangle hitBoxSol, hitBoxJoueur, hitBoxBille, hitBoxEnnemi;
         private int animationJoueur = 1, animationSaut = 1, animationStatic = 1, timerAnimation, timerAnimationSaut, timerAnimationStatic;
         private static Point clickPosition;
@@ -40,6 +40,7 @@ namespace JeuxPlateformeBille
         private static List<Ennemis> ennemisEnJeu = new List<Ennemis>();
         private static List<Billes> billesEnJeu = new List<Billes>();
         private static List<Plateformes> plateformesEnJeu = new List<Plateformes>();
+        private static int[,] sautTailleAnimation = { { 61, 49 }, { 52, 64 }, { 50, 65 }, { 55, 57 }, { 60, 61 } };
         int[][,] niveauEnnemis = new int[][,]
         {
             new int[,] { { 1, 100, 100 }, { 1, 200, 200 }, { 1, 300, 300 }, { 1, 400, 400 } }
@@ -517,6 +518,7 @@ namespace JeuxPlateformeBille
         public void AnimationDeplacementJoueur(int direction)
         {
             joueur.Width = 41;
+            joueur.Height = 55;
             regard.ScaleX = direction;
             if (gravite == 0)
             {
@@ -538,6 +540,8 @@ namespace JeuxPlateformeBille
         
         public void AnimationSaut()
         {
+            joueur.Width = sautTailleAnimation[animationSaut - 1,0];
+            joueur.Height = sautTailleAnimation[animationSaut - 1,1]; ;
             joueur.Source = new BitmapImage(new Uri($"pack://application:,,,/img/joueur/saut/saut{animationSaut}.png"));
             timerAnimationSaut += 1;
             if (timerAnimationSaut == 8 && animationSaut< 4)
@@ -557,6 +561,7 @@ namespace JeuxPlateformeBille
         {
 
             joueur.Width = 57;
+            joueur.Height = 55;
             joueur.Source = new BitmapImage(new Uri($"pack://application:,,,/img/joueur/inactif/inactif{animationStatic}.png"));
             timerAnimationStatic += 1;
             if (timerAnimationStatic == 6)

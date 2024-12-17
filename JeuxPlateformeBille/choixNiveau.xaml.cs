@@ -16,19 +16,19 @@ using System.Windows.Shapes;
 namespace JeuxPlateformeBille
 {
     /// <summary>
-    /// Logique d'interaction pour choixNiveau.xaml
+    /// Logique d'interaction pour ChoixNiveau.xaml
     /// </summary>
-    public partial class choixNiveau : UserControl
+    public partial class ChoixNiveau : UserControl
     {
-        public choixNiveau()
+        public ChoixNiveau()
         {
             InitializeComponent();
         }
 
-        private void ellipseNiveau1_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        private void ellipseNiveau1_MouseDown(object sender, MouseButtonEventArgs e)
         {
             ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).Suivant();
-            ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).ControlContent = null;
+            ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).ControlContent.Content = null;
         }
     }
 }
