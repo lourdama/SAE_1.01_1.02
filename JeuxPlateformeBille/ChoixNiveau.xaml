@@ -8,6 +8,8 @@
              d:DesignHeight="900" d:DesignWidth="1500">
     <Canvas>
 
+        <Button x:Name="retour" Content="Retour" HorizontalAlignment="Left" Height="54" VerticalAlignment="Top" Width="172" FontSize="24" Click="retour_Click" Canvas.Left="73" Canvas.Top="738"/>
+
         <Ellipse
     x:Name="ellipseNiveau1"
     Canvas.Left="771"
@@ -40,7 +42,7 @@
     VerticalAlignment="Top"
     Fill="Red"
     Opacity="0.5"
-    Stroke="Black" />
+    Stroke="Black" MouseDown="ellipseNiveau2_MouseDown" />
         <Ellipse
     x:Name="ellipseNiveau3"
     Canvas.Left="715"

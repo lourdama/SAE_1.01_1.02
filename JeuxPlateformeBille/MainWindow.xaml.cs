@@ -31,7 +31,7 @@ namespace JeuxPlateformeBille
         public int difficulte = 2;
         private static BitmapImage fond;
         private bool gauche, droite, saut, enSaut, billeBouge, pause,jouer;
-        private int vitesseJoueur = 8, gravite = 8, toleranceColision = 5, nbtouche = 0, nbStockBille = 1000, niveau = 0, choixBille ;
+        private int vitesseJoueur = 8, gravite = 8, toleranceColision = 5, nbtouche = 0, nbStockBille = 100, choixBille ;
         System.Drawing.Rectangle  hitBoxJoueur, hitBoxBille, hitBoxEnnemi;
         private int animationJoueur = 1, animationSaut = 1, animationStatic = 1, timerAnimation, timerAnimationSaut, timerAnimationStatic, animationEntre = 1, timerAnimationEntree = 0;
         private static Point clickPosition;
@@ -45,8 +45,10 @@ namespace JeuxPlateformeBille
         private static BitmapImage[] imageBilles;
         BitmapImage[] marche;
         private static MediaPlayer musique;
+        public int niveau;
         int[][,] niveauEnnemis = new int[][,]
         {
+            new int[,] { { 1, 100, 100 }, { 1, 200, 200 }, { 1, 300, 300 }, { 1, 400, 400 } },
             new int[,] { { 1, 100, 100 }, { 1, 200, 200 }, { 1, 300, 300 }, { 1, 400, 400 } }
         };
         private double[,] tailleSaut = { { 61, 49 }, { 61, 49 }, { 61, 49 }, { 61, 49 }, };
@@ -54,7 +56,7 @@ namespace JeuxPlateformeBille
         int[][,] proprietePlateformes = new int[][,]
         {
          new int[,] { { 425, 700 }, { 850, 700 }, { 1275, 700 },{ 600, 500 }, {300, 200 }, { 0, 700 }    },
-         new int[,] { { 425, 700 }, { 850, 700 }, { 1275, 700 } },
+         new int[,] { { 0, 700 }, { 850, 700 }, { 1275, 700 }, { 100, 500 } },
          new int[,] { { 425, 700 }, { 850, 700 }, { 1275, 700 }},
          new int[,] { { 425, 700 }, { 850, 700 }, { 1275, 700 } },
         };
@@ -120,6 +122,8 @@ namespace JeuxPlateformeBille
         private void InitJeu()
         {
             canvasMainWindow.Focus();
+            joueur.Visibility = Visibility.Visible;
+            Canvas.SetLeft(joueur, 10);
             jouer = true;
         }
 
@@ -235,8 +239,8 @@ namespace JeuxPlateformeBille
                     if (!pause)
                     {
                         pause = true;
-                        minuterie.Stop();
                         this.ControlContent.Content = new Pause();
+                        minuterie.Start();
                     }
 
                 }
@@ -281,11 +285,9 @@ namespace JeuxPlateformeBille
 
         public void Reprendre()
         {
-            
-
-            minuterie.Start();
             pause = false;
             this.ControlContent.Content = null;
+            minuterie.Start();
         }
         private void Jeu(object? sender, EventArgs e)
         {
@@ -564,6 +566,7 @@ namespace JeuxPlateformeBille
                 DestructionNiveau();
             }
             
+
         }
 
         private void DestructionNiveau()
@@ -576,6 +579,12 @@ namespace JeuxPlateformeBille
             }
             jouer = false;
             joueur.Visibility = Visibility.Hidden;
+            ChoixNiveau choixDuNiveau = new ChoixNiveau();
+            choixDuNiveau.ChangerCouleurEllipseNiveau(niveau);
+            this.ControlContent.Content = choixDuNiveau;
+            
+
+
         }
 
         public void AnimationDeplacementJoueur(int direction)

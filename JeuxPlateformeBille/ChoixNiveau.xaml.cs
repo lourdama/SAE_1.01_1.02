@@ -27,8 +27,42 @@ namespace JeuxPlateformeBille
 
         private void ellipseNiveau1_MouseDown(object sender, MouseButtonEventArgs e)
         {
+
+            ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).niveau = 0;
             ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).Suivant();
             ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).ControlContent.Content = null;
         }
+
+        private void ellipseNiveau2_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).niveau = 1;
+            ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).Suivant(); 
+            ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).ControlContent.Content = null;
+        }
+
+        private void retour_Click(object sender, RoutedEventArgs e)
+        {
+            ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).ControlContent.Content = new Accueil();
+
+        }
+        public void ChangerCouleurEllipseNiveau(int niveau)
+        {
+
+
+
+            if (niveau >= 0)
+            {
+                ellipseNiveau1.Fill = Brushes.Green;
+            }
+            if (niveau >=1)
+            {
+                ellipseNiveau2.Fill = Brushes.Green;
+            }
+            if (niveau >= 2)
+            {
+                ellipseNiveau3.Fill = Brushes.Green;
+            }
+        }
+
     }
 }
