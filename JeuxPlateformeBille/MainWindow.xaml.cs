@@ -27,12 +27,12 @@ namespace JeuxPlateformeBille
     /// </summary>
     public partial class MainWindow : Window
     {
-        public DispatcherTimer minuterie;
+        public DispatcherTimer minuterie, animationEntreeTimer;
         private static BitmapImage fond;
         private bool gauche, droite, saut, enSaut, billeBouge, pause,jouer;
         private int vitesseJoueur = 8, gravite = 8, toleranceColision = 5, nbtouche = 0, nbStockBille = 1000, niveau = 0, choixBille;
         System.Drawing.Rectangle hitBoxSol, hitBoxJoueur, hitBoxBille, hitBoxEnnemi;
-        private int animationJoueur = 1, animationSaut = 1, animationStatic = 1, timerAnimation, timerAnimationSaut, timerAnimationStatic;
+        private int animationJoueur = 1, animationSaut = 1, animationStatic = 1, timerAnimation, timerAnimationSaut, timerAnimationStatic, animationEntre = 1, timerAnimationEntree = 0;
         private static Point clickPosition;
         private static double vitesseSaut, graviteBille = 4, coefReductionDeplacementSaut;
         private static Ennemis fantome = new Ennemis();
@@ -42,6 +42,7 @@ namespace JeuxPlateformeBille
         private static List<Plateformes> plateformesEnJeu = new List<Plateformes>();
         private static int[,] sautTailleAnimation = { { 61, 49 }, { 52, 64 }, { 50, 65 }, { 55, 57 }, { 60, 61 } };
         private static BitmapImage[] imageBilles;
+        BitmapImage[] marche;
         int[][,] niveauEnnemis = new int[][,]
         {
             new int[,] { { 1, 100, 100 }, { 1, 200, 200 }, { 1, 300, 300 }, { 1, 400, 400 } }
@@ -71,11 +72,31 @@ namespace JeuxPlateformeBille
         }
         public void Suivant()
         {
+            InitImage();
+            //InitAnimation();
             InitJeu();
-            InitTimer();
             InitEnnemis();
             InitPlateformes();
-            InitImage();
+            InitTimer();
+            
+
+        }
+        private void InitAnimation()
+        {
+            
+            animationEntreeTimer = new DispatcherTimer();
+            animationEntreeTimer.Interval = TimeSpan.FromMilliseconds(17);
+            animationEntreeTimer.Start();
+            animationEntreeTimer.Tick += AnimationEntree;
+            
+        }
+        private void AnimationEntree(object? sender, EventArgs e)
+        {
+
+            
+            animationEntre++;
+
+            
         }
 
         private void InitJeu()
@@ -90,6 +111,11 @@ namespace JeuxPlateformeBille
             for(int i = 0; i < imageBilles.Length; i++)
             {
                 imageBilles[i] = new BitmapImage(new Uri($"pack://application:,,,/img/billes/bille{i+1}.png"));
+            }
+            marche = new BitmapImage[6];
+            for(int i = 0;i < marche.Length; i++)
+            {
+                marche[i] = new BitmapImage(new Uri($"pack://application:,,,/img/joueur/marche/marche{i + 1}.png"));
             }
 
             
@@ -265,6 +291,10 @@ namespace JeuxPlateformeBille
             if (enSaut)
             {
                 SautEnCours();
+            }
+            if (ennemisEnJeu.Count ==0)
+            {
+                FinNiveau();
             }
 
 
@@ -481,12 +511,9 @@ namespace JeuxPlateformeBille
                     ennemisEnJeu[i].BarreDeVie.Value -= bille.DegatBille;
                     if (ennemisEnJeu[i].PointDeVie <= 0)
                     {
-                        ennemisEnJeu[i].Texture.Visibility = Visibility.Hidden;
-                        ennemisEnJeu[i].BarreDeVie.Visibility = Visibility.Hidden;
                         canvasMainWindow.Children.Remove(ennemisEnJeu[i].Texture);
+                        canvasMainWindow.Children.Remove(ennemisEnJeu[i].BarreDeVie);
                         ennemisEnJeu.Remove(ennemisEnJeu[i]);
-                        //EnnemiVie.Visibility = Visibility.Hidden;
-                        //EnnemiVie2.Visibility = Visibility.Hidden;
                         ReinitialisationSaut();
                     }
                     return true;
@@ -518,6 +545,24 @@ namespace JeuxPlateformeBille
         private void FinJeu()
         {
             minuterie.Stop();
+        }
+
+        private void FinNiveau()
+        {
+
+            if (Canvas.GetLeft(joueur) + joueur.Width > this.Width -25 && Canvas.GetTop(joueur) > 500 && Canvas.GetTop(joueur) < 900)
+            {
+                DestructionNiveau();
+            }
+        }
+
+        private void DestructionNiveau()
+        {
+            for(int i = 0; i <plateformesEnJeu.Count  ; i++)
+            {
+                canvasMainWindow.Children.Remove(plateformesEnJeu[0].Texture);
+                plateformesEnJeu.Remove(plateformesEnJeu[0]);
+            }
         }
 
         public void AnimationDeplacementJoueur(int direction)
@@ -581,7 +626,11 @@ namespace JeuxPlateformeBille
             }
             
         }
+
+
     }
+    
+
 
     
     public partial class Ennemis
