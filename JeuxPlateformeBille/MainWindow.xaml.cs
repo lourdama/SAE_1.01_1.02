@@ -210,7 +210,7 @@ namespace JeuxPlateformeBille
 
         private void butQuitter_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            this.Close();
         }
 
         public void Reprendre()
