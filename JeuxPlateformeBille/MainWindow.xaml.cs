@@ -460,18 +460,6 @@ namespace JeuxPlateformeBille
 
 
         }
-        /*  private void spawnEnnemi()
-          {
-              ennemisEnJeu.Insert(0, new Image());
-              ennemisEnJeu[0].Source = imgBille;
-              ennemisEnJeu[0].Width = 30;
-              ennemisEnJeu[0].Height = 50;
-              canvasMainWindow.Children.Add(ennemisEnJeu[0]);
-              Canvas.SetTop(ennemisEnJeu[0], aleatoire.Next(0, 900));
-              Canvas.SetLeft(ennemisEnJeu[0], aleatoire.Next(0, 1500));
-              vitesseEnnemis.Insert(0, new double[2]);
-              vitesseEnnemis[0] = [2];
-          }*/
 
         private void DeplacementEnnemi()
         {
