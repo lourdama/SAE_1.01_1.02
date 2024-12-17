@@ -601,7 +601,7 @@ namespace JeuxPlateformeBille
             for(int i = 0;i < bille; i++)
             {
                 canvasMainWindow.Children.Remove(billesEnJeu[0].Texture);
-                billesEnJeud.Remove(billesEnJeu[0]);
+                billesEnJeu.Remove(billesEnJeu[0]);
             }
 
             
