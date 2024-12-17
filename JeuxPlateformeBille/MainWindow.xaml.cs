@@ -66,7 +66,7 @@ namespace JeuxPlateformeBille
         public MainWindow()
         {
             InitializeComponent();
-            
+            InitMusique();
         }
 
 
@@ -85,6 +85,7 @@ namespace JeuxPlateformeBille
             {
                 InitTimer();
             }
+            StopMusique();
             InitMusique();
             InitFond();
             
@@ -119,10 +120,14 @@ namespace JeuxPlateformeBille
         private void InitMusique()
         {
             musique = new MediaPlayer();
-            musique.Open(new Uri($"pack://application:,,,/sons/musique1.mp3"));
+            musique.Open(new Uri(AppDomain.CurrentDomain.BaseDirectory + $"/sons/musique{niveau}.mp3"));
             musique.MediaEnded += RelanceMusique;
-            musique.Volume = 0.5;
+            musique.Volume = 1;
             musique.Play();
+        }
+        private void StopMusique()
+        {
+            musique.Stop();
         }
         private void RelanceMusique(object? sender, EventArgs e)
         {
