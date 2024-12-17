@@ -28,7 +28,6 @@ namespace JeuxPlateformeBille
     public partial class MainWindow : Window
     {
         public DispatcherTimer minuterie, animationEntreeTimer;
-        public DispatcherTimer minuterie;
         public int difficulte = 2;
         private static BitmapImage fond;
         private bool gauche, droite, saut, enSaut, billeBouge, pause,jouer;
