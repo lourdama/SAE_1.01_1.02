@@ -28,9 +28,9 @@ namespace JeuxPlateformeBille
     public partial class MainWindow : Window
     {
         public DispatcherTimer minuterie;
-        private static BitmapImage imgBille, fond;
-        private bool gauche, droite, saut, enSaut, billeBouge, pause = false;
-        private int vitesseJoueur = 8, gravite = 8, toleranceColision = 6, nbtouche = 0, nbStockBille = 1000, niveau = 0, choixBille;
+        private static BitmapImage fond;
+        private bool gauche, droite, saut, enSaut, billeBouge, pause,jouer = false;
+        private int vitesseJoueur = 8, gravite = 8, toleranceColision = 5, nbtouche = 0, nbStockBille = 1000, niveau = 0, choixBille;
         System.Drawing.Rectangle hitBoxSol, hitBoxJoueur, hitBoxBille, hitBoxEnnemi;
         private int animationJoueur = 1, animationSaut = 1, animationStatic = 1, timerAnimation, timerAnimationSaut, timerAnimationStatic;
         private static Point clickPosition;
@@ -41,6 +41,7 @@ namespace JeuxPlateformeBille
         private static List<Billes> billesEnJeu = new List<Billes>();
         private static List<Plateformes> plateformesEnJeu = new List<Plateformes>();
         private static int[,] sautTailleAnimation = { { 61, 49 }, { 52, 64 }, { 50, 65 }, { 55, 57 }, { 60, 61 } };
+        private static BitmapImage[] imageBilles;
         int[][,] niveauEnnemis = new int[][,]
         {
             new int[,] { { 1, 100, 100 }, { 1, 200, 200 }, { 1, 300, 300 }, { 1, 400, 400 } }
@@ -74,17 +75,25 @@ namespace JeuxPlateformeBille
             InitTimer();
             InitEnnemis();
             InitPlateformes();
-            //spawnEnnemi();
+            InitImage();
         }
 
         private void InitJeu()
         {
             canvasMainWindow.Focus();
-            imgBille = new BitmapImage(new Uri("pack://application:,,,/img/balle.jpg"));
-
-
+            jouer = true;
         }
 
+        private void InitImage()
+        {
+            imageBilles = new BitmapImage[3];
+            for(int i = 0; i < imageBilles.Length; i++)
+            {
+                imageBilles[i] = new BitmapImage(new Uri($"pack://application:,,,/img/billes/bille{i+1}.png"));
+            }
+
+            
+        }
         private void InitEnnemis()
         {
             for (int i = 0; i < niveauEnnemis[niveau].GetLength(0); i++)
@@ -141,68 +150,81 @@ namespace JeuxPlateformeBille
         }
         private void PreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
-            if (e.Delta > 0 && choixBille< 10)
+            if (jouer)
             {
-                choixBille = choixBille + 1;
-            }
-                
+                if (e.Delta > 0 && choixBille < 10)
+                {
+                    choixBille = choixBille + 1;
+                }
 
-            else if (e.Delta < 0 && choixBille > 0 )
-            {
-                choixBille = choixBille -1;    
+
+                else if (e.Delta < 0 && choixBille > 0)
+                {
+                    choixBille = choixBille - 1;
+                }
+                ChoixBille.Content = choixBille;
             }
-            ChoixBille.Content = choixBille;
+            
 
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Q)
+            if (jouer)
             {
-                gauche = true;
-            }
-
-            else if (e.Key == Key.D)
-            {
-                droite = true;
-            }
-
-            else if (e.Key == Key.Space)
-            {
-                saut = true;
-            }
-            else if(e.Key == Key.P)
-            {
-                if (!pause)
+                if (e.Key == Key.Q)
                 {
-                    pause = true;
-                    minuterie.Stop();
-                    this.ControlContent.Content = new Pause();
+                    gauche = true;
                 }
-                
+
+                else if (e.Key == Key.D)
+                {
+                    droite = true;
+                }
+
+                else if (e.Key == Key.Space)
+                {
+                    saut = true;
+                }
+                else if (e.Key == Key.P)
+                {
+                    if (!pause)
+                    {
+                        pause = true;
+                        minuterie.Stop();
+                        this.ControlContent.Content = new Pause();
+                    }
+
+                }
             }
+            
         }
 
         private void Window_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Q)
+            if(jouer)
             {
-                gauche = false;
-            }
-            else if (e.Key == Key.D)
-            {
-                droite = false;
+                if (e.Key == Key.Q)
+                {
+                    gauche = false;
+                }
+                else if (e.Key == Key.D)
+                {
+                    droite = false;
+                }
+
+                else if (e.Key == Key.Space)
+                {
+                    saut = false;
+                }
             }
 
-            else if (e.Key == Key.Space)
-            {
-                saut = false;
-            }
+            
 
         }
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (!pause)
+            if (!pause&&jouer)
             {
                 Tir(e);
             }
@@ -367,9 +389,9 @@ namespace JeuxPlateformeBille
             if (nbStockBille > 0)
             {
                 Billes nouvelleBille = new Billes(new Image(), 0, 0, 0, 0);
-                nouvelleBille.Texture.Source = imgBille;
-                nouvelleBille.Texture.Width = 15;
-                nouvelleBille.Texture.Height = 15;
+                nouvelleBille.Texture.Source = imageBilles[choixBille];
+                nouvelleBille.Texture.Width = 16;
+                nouvelleBille.Texture.Height = 16;
                 nouvelleBille.TypeBille = choixBille;
                 nouvelleBille.DegatBille = 25;
                 clickPosition = e.GetPosition(this);
@@ -404,7 +426,10 @@ namespace JeuxPlateformeBille
                     bille.Vitesse[0] = bille.Vitesse[0] * 0.985;
                 }
                 hitBoxBille = new System.Drawing.Rectangle((int)Canvas.GetLeft(bille.Texture), (int)Canvas.GetTop(bille.Texture), (int)bille.Texture.Width, (int)bille.Texture.Height);
-                ColisionEnnemi(bille);
+                if (ColisionEnnemi(bille))
+                {
+                    return true;
+                }
             }
 
             hitBoxBille = new System.Drawing.Rectangle((int)Canvas.GetLeft(bille.Texture), (int)Canvas.GetTop(bille.Texture), (int)bille.Texture.Width - 1, (int)bille.Texture.Height - 1);
@@ -470,8 +495,6 @@ namespace JeuxPlateformeBille
                 {
                     ennemisEnJeu[i].PointDeVie -= bille.DegatBille;
                     ennemisEnJeu[i].BarreDeVie.Value -= bille.DegatBille;
-                    canvasMainWindow.Children.Remove(bille.Texture);
-                    billesEnJeu.Remove(bille);
                     if (ennemisEnJeu[i].PointDeVie <= 0)
                     {
                         ennemisEnJeu[i].Texture.Visibility = Visibility.Hidden;
