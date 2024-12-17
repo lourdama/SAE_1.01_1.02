@@ -27,10 +27,8 @@ namespace JeuxPlateformeBille
 
         private void butJouer_Click(object sender, RoutedEventArgs e)
         {
-
-            ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).Suivant();
-            ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).ControlContent.Content = null;
-
+            ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).ControlContent.Content = new choixNiveau();
+            ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).canvasMainWindow.image
         }
 
         private void butParametres_Click(object sender, RoutedEventArgs e)
