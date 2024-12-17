@@ -90,7 +90,6 @@
     <None Remove="img\Joueur\Saut\saut9.png" />
     <None Remove="img\plateforme.png" />
     <None Remove="img\warped_pearl.png" />
-    <None Remove="sons\musique1.mp3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -247,9 +246,12 @@
     <Resource Include="img\plateforme.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="sons\musique1.mp3">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="sons\musique1.mp3">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

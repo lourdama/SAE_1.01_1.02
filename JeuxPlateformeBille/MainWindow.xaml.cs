@@ -116,7 +116,7 @@ namespace JeuxPlateformeBille
             musique = new MediaPlayer();
             musique.Open(new Uri($"pack://application:,,,/sons/musique1.mp3"));
             musique.MediaEnded += RelanceMusique;
-            musique.Volume = 1;
+            musique.Volume = 0.5;
             musique.Play();
         }
         private void RelanceMusique(object? sender, EventArgs e)
