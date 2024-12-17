@@ -28,7 +28,10 @@ namespace JeuxPlateformeBille
     public partial class MainWindow : Window
     {
         public DispatcherTimer minuterie, animationEntreeTimer;
-        public int difficulte = 2;
+        public int difficulte = 1;
+        public Key toucheGauche = Key.Q;
+        public Key toucheDroite = Key.D;
+        public Key toucheSaut = Key.Space;
         private static BitmapImage fond;
         private bool gauche, droite, saut, enSaut, billeBouge, pause,jouer, niveauGagne = false;
         private int vitesseJoueur = 8, gravite = 8, toleranceColision = 5, nbtouche = 0, nbStockBille = 100, choixBille ;
@@ -251,17 +254,17 @@ namespace JeuxPlateformeBille
         {
             if (jouer)
             {
-                if (e.Key == Key.Q)
+                if (e.Key == toucheGauche)
                 {
                     gauche = true;
                 }
 
-                else if (e.Key == Key.D)
+                else if (e.Key == toucheDroite)
                 {
                     droite = true;
                 }
 
-                else if (e.Key == Key.Space)
+                else if (e.Key == toucheSaut)
                 {
                     saut = true;
                 }
@@ -283,16 +286,16 @@ namespace JeuxPlateformeBille
         {
             if(jouer)
             {
-                if (e.Key == Key.Q)
+                if (e.Key == toucheGauche)
                 {
                     gauche = false;
                 }
-                else if (e.Key == Key.D)
+                else if (e.Key == toucheDroite)
                 {
                     droite = false;
                 }
 
-                else if (e.Key == Key.Space)
+                else if (e.Key == toucheSaut)
                 {
                     saut = false;
                 }

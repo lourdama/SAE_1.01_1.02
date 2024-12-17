@@ -17,16 +17,11 @@
         <Label
     HorizontalAlignment="Left"
     VerticalAlignment="Top"
-    Content="SON" Canvas.Left="733" Canvas.Top="119" Foreground="White" />
+    Content="SON" Canvas.Left="733" Canvas.Top="119" Foreground="White" FontWeight="Bold" />
         <Label
     HorizontalAlignment="Left"
     VerticalAlignment="Top"
-    Content="MUSIQUE" Canvas.Left="719" Canvas.Top="203" Foreground="White" />
-        <Label
-    HorizontalAlignment="Center"
-    VerticalAlignment="Center"
-    Content="CONTROLES"
-    RenderTransformOrigin="0.542,0.156" Canvas.Left="712" Canvas.Top="308" Foreground="White" />
+    Content="MUSIQUE" Canvas.Left="719" Canvas.Top="203" Foreground="White" FontWeight="Bold" />
         <Slider
     x:Name="slideBarSon"
     Width="236"
@@ -37,15 +32,31 @@
     Width="236"
     HorizontalAlignment="Left"
     VerticalAlignment="Top" Canvas.Left="632" Canvas.Top="255" />
-        <Button x:Name="retour" Content="Retour" HorizontalAlignment="Left" Height="54" VerticalAlignment="Top" Width="172" FontSize="24" Click="retour_Click" Canvas.Left="664" Canvas.Top="524"/>
+        <Button x:Name="retour" Content="Retour" HorizontalAlignment="Center" Height="54" VerticalAlignment="Top" Width="172" FontSize="24" Click="retour_Click" Canvas.Left="664" Canvas.Top="567"/>
         <Label
-            HorizontalAlignment="Left"
+            HorizontalAlignment="Center"
             VerticalAlignment="Top"
             Content="DIFFICULTE"
-            RenderTransformOrigin="0.542,0.156" Canvas.Left="715" Canvas.Top="382" Foreground="White" />
-        <Button x:Name="butFacile" Content="Facile" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.3,0.451" Canvas.Left="652" Canvas.Top="435" Click="butFacile_Click"/>
-        <Button x:Name="butModere" Content="Modéré" HorizontalAlignment="Left" VerticalAlignment="Center" Width="50" RenderTransformOrigin="0.36,0.752" Canvas.Left="725" Canvas.Top="435" Click="butModere_Click"/>
-        <Button x:Name="butDifficile" Content="Difficile" HorizontalAlignment="Left" Margin="796,435,0,0" VerticalAlignment="Top" Width="50" Click="butDifficile_Click"/>
+            RenderTransformOrigin="0.542,0.156" Canvas.Left="715" Canvas.Top="483" Foreground="White" FontWeight="Bold" />
+        <Button x:Name="butFacile" Content="Facile" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.3,0.451" Canvas.Left="650" Canvas.Top="521" Click="butFacile_Click"/>
+        <Button x:Name="butModere" Content="Modéré" HorizontalAlignment="Center" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.36,0.752" Canvas.Left="725" Canvas.Top="521" Click="butModere_Click"/>
+        <Button x:Name="butDifficile" Content="Difficile" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" Click="butDifficile_Click" Canvas.Left="800" Canvas.Top="521"/>
+
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="645" Canvas.Top="333">
+            <TextBlock Text="Configuration des touches" FontSize="16" FontWeight="Bold" Margin="0,0,0,10" Foreground="White"/>
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <TextBlock Text="Gauche :" Width="100" Foreground="White"/>
+                <ComboBox x:Name="ComboBoxGauche" Width="100" SelectionChanged="ComboBox_SelectionChanged"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <TextBlock Text="Droite :" Width="100" Foreground="White"/>
+                <ComboBox x:Name="ComboBoxDroite" Width="100" SelectionChanged="ComboBox_SelectionChanged"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <TextBlock Text="Saut :" Width="100" Foreground="White"/>
+                <ComboBox x:Name="ComboBoxSaut" Width="100" SelectionChanged="ComboBox_SelectionChanged"/>
+            </StackPanel>
+        </StackPanel>
 
     </Canvas>
 </UserControl>

@@ -8,15 +8,15 @@
              d:DesignHeight="900" d:DesignWidth="1500">
     <Canvas>
 
-        <Button x:Name="retour" Content="Retour" HorizontalAlignment="Left" Height="54" VerticalAlignment="Top" Width="172" FontSize="24" Click="retour_Click" Canvas.Left="73" Canvas.Top="738"/>
+        <Button x:Name="retour" Content="Retour" HorizontalAlignment="Center" Height="54" VerticalAlignment="Top" Width="172" FontSize="24" Click="retour_Click" Canvas.Left="73" Canvas.Top="729" Background="{x:Null}" FontWeight="Bold" Foreground="White"/>
 
         <Ellipse
     x:Name="ellipseNiveau1"
-    Canvas.Left="771"
-    Canvas.Top="657"
+    Canvas.Left="715"
+    Canvas.Top="573"
     Width="60"
     Height="60"
-    HorizontalAlignment="Left"
+    HorizontalAlignment="Center"
     VerticalAlignment="Top"
     Fill="Red"
     Opacity="0.5"
@@ -24,18 +24,18 @@
         <Ellipse
     x:Name="ellipseNiveau4"
     Canvas.Left="720"
-    Canvas.Top="217"
+    Canvas.Top="169"
     Width="60"
     Height="60"
-    HorizontalAlignment="Left"
+    HorizontalAlignment="Center"
     VerticalAlignment="Top"
     Fill="Red"
     Opacity="0.5"
     Stroke="Black" />
         <Ellipse
     x:Name="ellipseNiveau2"
-    Canvas.Left="1091"
-    Canvas.Top="532"
+    Canvas.Left="1105"
+    Canvas.Top="450"
     Width="60"
     Height="60"
     HorizontalAlignment="Left"
@@ -46,11 +46,11 @@
         <Ellipse
     x:Name="ellipseNiveau3"
     Canvas.Left="715"
-    Canvas.Top="434"
+    Canvas.Top="390"
     Width="60"
     Height="60"
-    HorizontalAlignment="Left"
-    VerticalAlignment="Top"
+    HorizontalAlignment="Center"
+    VerticalAlignment="Center"
     Fill="Red"
     Opacity="0.5"
     Stroke="Black" />
