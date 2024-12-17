@@ -33,5 +33,20 @@ namespace JeuxPlateformeBille
         {
             ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).ControlContent.Content = new Accueil();
         }
+
+        private void butFacile_Click(object sender, RoutedEventArgs e)
+        {
+            ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).difficulte = 1;
+        }
+
+        private void butModere_Click(object sender, RoutedEventArgs e)
+        {
+            ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).difficulte = 2;
+        }
+
+        private void butDifficile_Click(object sender, RoutedEventArgs e)
+        {
+            ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).difficulte = 3;
+        }
     }
 }

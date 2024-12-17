@@ -5,45 +5,47 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="900" d:DesignWidth="1500">
-    <Grid>
+    <Canvas>
         <Label
     Width="108"
     Height="36"
-    Margin="0,29,0,0"
     HorizontalAlignment="Center"
     VerticalAlignment="Top"
     Content="Paramètres"
     FontSize="18"
-    FontWeight="Bold" />
+    FontWeight="Bold" Canvas.Left="696" Canvas.Top="34" Foreground="White" />
         <Label
-    Margin="770,88,0,0"
     HorizontalAlignment="Left"
     VerticalAlignment="Top"
-    Content="SON" />
+    Content="SON" Canvas.Left="733" Canvas.Top="119" Foreground="White" />
         <Label
-    Margin="0,171,0,0"
-    HorizontalAlignment="Center"
+    HorizontalAlignment="Left"
     VerticalAlignment="Top"
-    Content="MUSIQUE" />
+    Content="MUSIQUE" Canvas.Left="719" Canvas.Top="203" Foreground="White" />
         <Label
-    Margin="0,260,0,0"
     HorizontalAlignment="Center"
-    VerticalAlignment="Top"
+    VerticalAlignment="Center"
     Content="CONTROLES"
-    RenderTransformOrigin="0.542,0.156" />
+    RenderTransformOrigin="0.542,0.156" Canvas.Left="712" Canvas.Top="308" Foreground="White" />
         <Slider
     x:Name="slideBarSon"
-    Width="235"
-    Margin="0,119,0,0"
-    HorizontalAlignment="Center"
-    VerticalAlignment="Top" />
+    Width="236"
+    HorizontalAlignment="Left"
+    VerticalAlignment="Top" Canvas.Left="632" Canvas.Top="143" />
         <Slider
     x:Name="slideBarMusique"
     Width="236"
-    Margin="0,202,0,0"
-    HorizontalAlignment="Center"
-    VerticalAlignment="Top" />
-        <Button x:Name="retour" Content="Retour" HorizontalAlignment="Center" Height="54" Margin="0,500,0,0" VerticalAlignment="Top" Width="172" FontSize="24" Click="retour_Click"/>
+    HorizontalAlignment="Left"
+    VerticalAlignment="Top" Canvas.Left="632" Canvas.Top="255" />
+        <Button x:Name="retour" Content="Retour" HorizontalAlignment="Left" Height="54" VerticalAlignment="Top" Width="172" FontSize="24" Click="retour_Click" Canvas.Left="664" Canvas.Top="524"/>
+        <Label
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="DIFFICULTE"
+            RenderTransformOrigin="0.542,0.156" Canvas.Left="715" Canvas.Top="382" Foreground="White" />
+        <Button x:Name="butFacile" Content="Facile" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.3,0.451" Canvas.Left="652" Canvas.Top="435" Click="butFacile_Click"/>
+        <Button x:Name="butModere" Content="Modéré" HorizontalAlignment="Left" VerticalAlignment="Center" Width="50" RenderTransformOrigin="0.36,0.752" Canvas.Left="725" Canvas.Top="435" Click="butModere_Click"/>
+        <Button x:Name="butDifficile" Content="Difficile" HorizontalAlignment="Left" Margin="796,435,0,0" VerticalAlignment="Top" Width="50" Click="butDifficile_Click"/>
 
-    </Grid>
+    </Canvas>
 </UserControl>

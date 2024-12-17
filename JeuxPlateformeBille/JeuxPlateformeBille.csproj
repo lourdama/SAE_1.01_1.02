@@ -232,4 +232,10 @@
     </Resource>
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="sons\musique1.mp3">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

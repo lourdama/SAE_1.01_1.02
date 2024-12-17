@@ -28,10 +28,11 @@ namespace JeuxPlateformeBille
     public partial class MainWindow : Window
     {
         public DispatcherTimer minuterie;
+        public int difficulte = 2;
         private static BitmapImage fond;
         private bool gauche, droite, saut, enSaut, billeBouge, pause,jouer;
         private int vitesseJoueur = 8, gravite = 8, toleranceColision = 5, nbtouche = 0, nbStockBille = 1000, niveau = 0, choixBille;
-        System.Drawing.Rectangle hitBoxSol, hitBoxJoueur, hitBoxBille, hitBoxEnnemi;
+        System.Drawing.Rectangle hitBoxJoueur, hitBoxBille, hitBoxEnnemi;
         private int animationJoueur = 1, animationSaut = 1, animationStatic = 1, timerAnimation, timerAnimationSaut, timerAnimationStatic;
         private static Point clickPosition;
         private static double vitesseSaut, graviteBille = 4, coefReductionDeplacementSaut;
@@ -42,6 +43,7 @@ namespace JeuxPlateformeBille
         private static List<Plateformes> plateformesEnJeu = new List<Plateformes>();
         private static int[,] sautTailleAnimation = { { 61, 49 }, { 52, 64 }, { 50, 65 }, { 55, 57 }, { 60, 61 } };
         private static BitmapImage[] imageBilles;
+        private static MediaPlayer musique;
         int[][,] niveauEnnemis = new int[][,]
         {
             new int[,] { { 1, 100, 100 }, { 1, 200, 200 }, { 1, 300, 300 }, { 1, 400, 400 } }
@@ -61,7 +63,7 @@ namespace JeuxPlateformeBille
         public MainWindow()
         {
             InitializeComponent();
-
+            
         }
 
 
@@ -76,6 +78,21 @@ namespace JeuxPlateformeBille
             InitEnnemis();
             InitPlateformes();
             InitImage();
+            InitMusique();
+        }
+
+        private void InitMusique()
+        {
+            musique = new MediaPlayer();
+            musique.Open(new Uri(AppDomain.CurrentDomain.BaseDirectory + "sons/musique1.mp3"));
+            musique.MediaEnded += RelanceMusique;
+            musique.Volume = 0.5;
+            musique.Play();
+        }
+        private void RelanceMusique(object? sender, EventArgs e)
+        {
+            musique.Position = TimeSpan.Zero;
+            musique.Play();
         }
 
         private void InitJeu()
@@ -441,15 +458,6 @@ namespace JeuxPlateformeBille
                     
                     return true;
                 }
-            }
-            if (hitBoxBille.IntersectsWith(hitBoxSol))
-            {
-                if (bille.TypeBille == 1)
-                {
-                    Canvas.SetLeft(joueur, Canvas.GetLeft(bille.Texture));
-                    Canvas.SetTop(joueur, Canvas.GetTop(bille.Texture) - joueur.Height-toleranceColision);
-                }
-                return true;
             }
             return false;
 
