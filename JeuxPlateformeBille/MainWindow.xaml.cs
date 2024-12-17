@@ -85,6 +85,10 @@ namespace JeuxPlateformeBille
             {
                 InitTimer();
             }
+            else
+            {
+                minuterie.Start();
+            }
             StopMusique();
             InitMusique();
             InitFond();
@@ -587,13 +591,17 @@ namespace JeuxPlateformeBille
 
         private void DestructionNiveau()
         {
-            MessageBox.Show(plateformesEnJeu.Count.ToString());
             int plat = plateformesEnJeu.Count;
+            int bille = billesEnJeu.Count;
             for(int i = 0; i < plat; i++)
             {
                 canvasMainWindow.Children.Remove(plateformesEnJeu[0].Texture);
                 plateformesEnJeu.Remove(plateformesEnJeu[0]);
-                MessageBox.Show(i.ToString());
+            }
+            for(int i = 0;i < bille; i++)
+            {
+                canvasMainWindow.Children.Remove(billesEnJeu[0].Texture);
+                billesEnJeud.Remove(billesEnJeu[0]);
             }
 
             
