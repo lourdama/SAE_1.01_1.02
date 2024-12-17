@@ -554,6 +554,7 @@ namespace JeuxPlateformeBille
             {
                 DestructionNiveau();
             }
+            
         }
 
         private void DestructionNiveau()
@@ -562,7 +563,10 @@ namespace JeuxPlateformeBille
             {
                 canvasMainWindow.Children.Remove(plateformesEnJeu[0].Texture);
                 plateformesEnJeu.Remove(plateformesEnJeu[0]);
+
             }
+            jouer = false;
+            joueur.Visibility = Visibility.Hidden;
         }
 
         public void AnimationDeplacementJoueur(int direction)
