@@ -23,6 +23,7 @@ namespace JeuxPlateformeBille
         public Accueil()
         {
             InitializeComponent();
+
         }
 
         private void butJouer_Click(object sender, RoutedEventArgs e)
