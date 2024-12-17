@@ -54,7 +54,5 @@
                 </TransformGroup>
             </Image.RenderTransform>
         </Image>
-        <Image Height="116" Canvas.Left="327" Source="/img/plateforme.png" Stretch="Fill" Canvas.Top="700
-               " Width="425"/>
     </Canvas>
 </Window>
