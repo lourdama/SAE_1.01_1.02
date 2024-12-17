@@ -7,6 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="900" d:DesignWidth="1500">
     <Canvas>
+        
         <Button x:Name="butJouer" Content="Jouer" Canvas.Left="659" Canvas.Top="272" Height="56" Width="182" HorizontalAlignment="Center" VerticalAlignment="Top" Background="{x:Null}" Foreground="#FFFFFBFB" FontSize="24" FontWeight="Bold" Click="butJouer_Click"/>
         <Button x:Name="butQuitter" Content="Quitter" Canvas.Left="10" Canvas.Top="750" Height="55" Width="148" HorizontalAlignment="Center" VerticalAlignment="Top" Background="{x:Null}" FontSize="24" FontWeight="Bold" Foreground="White"/>
         <Button x:Name="butCredits" Content="Crédits" Canvas.Left="659" Canvas.Top="608" Height="56" Width="182" Background="{x:Null}" Foreground="#FFFFFBFB" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top"/>

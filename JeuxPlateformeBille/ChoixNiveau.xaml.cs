@@ -10,18 +10,25 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace JeuxPlateformeBille
 {
     /// <summary>
-    /// Logique d'interaction pour SelectionNiveau.xaml
+    /// Logique d'interaction pour ChoixNiveau.xaml
     /// </summary>
-    public partial class SelectionNiveau : Window
+    public partial class ChoixNiveau : UserControl
     {
-        public SelectionNiveau()
+        public ChoixNiveau()
         {
             InitializeComponent();
+        }
+
+        private void ellipseNiveau1_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).Suivant();
+            ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).ControlContent.Content = null;
         }
     }
 }
