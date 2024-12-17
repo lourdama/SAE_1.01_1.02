@@ -220,7 +220,7 @@ namespace JeuxPlateformeBille
         {
             if (jouer)
             {
-                if (e.Delta > 0 && choixBille < 10)
+                if (e.Delta > 0 && choixBille < 2)
                 {
                     choixBille = choixBille + 1;
                 }
@@ -232,7 +232,8 @@ namespace JeuxPlateformeBille
                 }
                 ChoixBille.Content = choixBille;
             }
-            
+
+            ChoixBilleImg.Source = imageBilles[choixBille];
 
         }
 
@@ -533,23 +534,26 @@ namespace JeuxPlateformeBille
 
         private bool ColisionEnnemi(Billes bille)
         {
-            for (int i = 0; i< ennemisEnJeu.Count; i++)
+            if (bille.TypeBille != 1)
             {
-                hitBoxEnnemi = new System.Drawing.Rectangle((int)Canvas.GetLeft(ennemisEnJeu[i].Texture), (int)Canvas.GetTop(ennemisEnJeu[i].Texture), (int)ennemisEnJeu[i].Texture.Width, (int)ennemisEnJeu[i].Texture.Height);
-                if (hitBoxBille.IntersectsWith(hitBoxEnnemi))
+                for (int i = 0; i < ennemisEnJeu.Count; i++)
                 {
-                    ennemisEnJeu[i].PointDeVie -= bille.DegatBille;
-                    ennemisEnJeu[i].BarreDeVie.Value -= bille.DegatBille;
-                    if (ennemisEnJeu[i].PointDeVie <= 0)
+                    hitBoxEnnemi = new System.Drawing.Rectangle((int)Canvas.GetLeft(ennemisEnJeu[i].Texture), (int)Canvas.GetTop(ennemisEnJeu[i].Texture), (int)ennemisEnJeu[i].Texture.Width, (int)ennemisEnJeu[i].Texture.Height);
+                    if (hitBoxBille.IntersectsWith(hitBoxEnnemi))
                     {
-                        canvasMainWindow.Children.Remove(ennemisEnJeu[i].Texture);
-                        canvasMainWindow.Children.Remove(ennemisEnJeu[i].BarreDeVie);
-                        ennemisEnJeu.Remove(ennemisEnJeu[i]);
-                        ReinitialisationSaut();
+                        ennemisEnJeu[i].PointDeVie -= bille.DegatBille;
+                        ennemisEnJeu[i].BarreDeVie.Value -= bille.DegatBille;
+                        if (ennemisEnJeu[i].PointDeVie <= 0)
+                        {
+                            canvasMainWindow.Children.Remove(ennemisEnJeu[i].Texture);
+                            canvasMainWindow.Children.Remove(ennemisEnJeu[i].BarreDeVie);
+                            ennemisEnJeu.Remove(ennemisEnJeu[i]);
+                            ReinitialisationSaut();
+                        }
+                        return true;
                     }
-                    return true;
+
                 }
-            
             }
             return false;
         }
