@@ -27,17 +27,25 @@ namespace JeuxPlateformeBille
 
         private void ellipseNiveau1_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            if (((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).niveau < 1)
+            {
+                ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).niveau = 1;
+                ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).Suivant();
+                ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).ControlContent.Content = null;
 
-            ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).niveau = 0;
-            ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).Suivant();
-            ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).ControlContent.Content = null;
+            }
+            
         }
 
         private void ellipseNiveau2_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).niveau = 1;
-            ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).Suivant(); 
-            ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).ControlContent.Content = null;
+            if (((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).niveau < 2)
+            {
+                ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).niveau = 2;
+                ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).Suivant();
+                ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).ControlContent.Content = null;
+
+            }
         }
 
         private void retour_Click(object sender, RoutedEventArgs e)
@@ -50,15 +58,15 @@ namespace JeuxPlateformeBille
 
 
 
-            if (niveau >= 0)
+            if (niveau >= 1)
             {
                 ellipseNiveau1.Fill = Brushes.Green;
             }
-            if (niveau >=1)
+            if (niveau >=2)
             {
                 ellipseNiveau2.Fill = Brushes.Green;
             }
-            if (niveau >= 2)
+            if (niveau >= 3)
             {
                 ellipseNiveau3.Fill = Brushes.Green;
             }

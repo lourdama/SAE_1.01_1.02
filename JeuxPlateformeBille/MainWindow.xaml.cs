@@ -81,7 +81,10 @@ namespace JeuxPlateformeBille
             InitJeu();
             InitEnnemis();
             InitPlateformes();
-            InitTimer();
+            if (niveau == 1)
+            {
+                InitTimer();
+            }
             InitMusique();
             InitFond();
             
@@ -583,14 +586,15 @@ namespace JeuxPlateformeBille
             {
                 canvasMainWindow.Children.Remove(plateformesEnJeu[0].Texture);
                 plateformesEnJeu.Remove(plateformesEnJeu[0]);
-
             }
+
+            
             jouer = false;
             joueur.Visibility = Visibility.Hidden;
             ChoixNiveau choixDuNiveau = new ChoixNiveau();
             choixDuNiveau.ChangerCouleurEllipseNiveau(niveau);
             this.ControlContent.Content = choixDuNiveau;
-            
+
 
 
         }
