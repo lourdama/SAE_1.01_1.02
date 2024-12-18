@@ -30,6 +30,7 @@
     <None Remove="img\bille_simple.png" />
     <None Remove="img\castle.jpg" />
     <None Remove="img\ChoixDuNiveau.jpg" />
+    <None Remove="img\credits.png" />
     <None Remove="img\ennemi\ennemi1.png" />
     <None Remove="img\ennemi\ennemi2.png" />
     <None Remove="img\fantome.png" />
@@ -98,6 +99,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="img\credits.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="img\reglesdujeu.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>

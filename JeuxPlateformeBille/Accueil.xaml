@@ -8,11 +8,11 @@
              d:DesignHeight="900" d:DesignWidth="1500">
     <Canvas>
 
-        <Button x:Name="butJouer" Content="Jouer" Canvas.Left="659" Canvas.Top="272" Height="56" Width="182" HorizontalAlignment="Center" VerticalAlignment="Top" Background="{x:Null}" Foreground="#FFFFFBFB" FontSize="24" FontWeight="Bold" Click="butJouer_Click"/>
-        <Button x:Name="butQuitter" Content="Quitter" Canvas.Left="33" Canvas.Top="724" Height="55" Width="148" HorizontalAlignment="Left" VerticalAlignment="Top" Background="{x:Null}" FontSize="24" FontWeight="Bold" Foreground="White" Click="butQuitter_Click"/>
-        <Button x:Name="butCredits" Content="Crédits" Canvas.Left="659" Canvas.Top="608" Height="56" Width="182" Background="{x:Null}" Foreground="#FFFFFBFB" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-        <Button x:Name="butParametres" Content="Paramètres" Canvas.Left="659" Canvas.Top="386" Height="56" Width="182" Background="{x:Null}" Foreground="#FFFFFBFB" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="0.541,-0.83" Click="butParametres_Click" />
-        <Button x:Name="butRegle" Content="Règles du jeu" Canvas.Left="659" Canvas.Top="501" Height="56" Width="182" Background="{x:Null}" Foreground="#FFFFFBFB" FontSize="24" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Click="butRegle_Click"/>
+        <Button x:Name="butJouer" Content="Jouer" Canvas.Left="659" Canvas.Top="272" Height="56" Width="182" HorizontalAlignment="Center" VerticalAlignment="Top" Background="{x:Null}" Foreground="#FFFFFBFB" FontSize="24" FontWeight="Bold" Click="butJouer_Click" BorderBrush="{x:Null}"/>
+        <Button x:Name="butQuitter" Content="Quitter" Canvas.Left="33" Canvas.Top="724" Height="55" Width="148" HorizontalAlignment="Left" VerticalAlignment="Top" Background="{x:Null}" FontSize="24" FontWeight="Bold" Foreground="White" Click="butQuitter_Click" BorderBrush="{x:Null}"/>
+        <Button x:Name="butCredits" Content="Crédits" Canvas.Left="659" Canvas.Top="608" Height="56" Width="182" Background="{x:Null}" Foreground="#FFFFFBFB" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top" Click="butCredits_Click" BorderBrush="{x:Null}"/>
+        <Button x:Name="butParametres" Content="Paramètres" Canvas.Left="659" Canvas.Top="386" Height="56" Width="182" Background="{x:Null}" Foreground="#FFFFFBFB" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="0.541,-0.83" Click="butParametres_Click" BorderBrush="{x:Null}" />
+        <Button x:Name="butRegle" Content="Règles du jeu" Canvas.Left="659" Canvas.Top="501" Height="56" Width="182" Background="{x:Null}" Foreground="#FFFFFBFB" FontSize="24" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Click="butRegle_Click" BorderBrush="{x:Null}"/>
 
     </Canvas>
 </UserControl>

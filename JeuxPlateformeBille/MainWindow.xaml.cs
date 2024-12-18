@@ -80,6 +80,7 @@ namespace JeuxPlateformeBille
         private static BitmapImage[] ennemi;
         private static MediaPlayer musique = new MediaPlayer();
 
+
         private static Random aleatoire = new Random();
 
 
@@ -136,6 +137,10 @@ namespace JeuxPlateformeBille
         public void StopMusique()
         {
             musique.Stop();
+        }
+        public void ModifVolumeMusique(double volumeMusique)
+        {
+            musique.Volume = volumeMusique;
         }
         private void RelanceMusique(object? sender, EventArgs e)
         {
