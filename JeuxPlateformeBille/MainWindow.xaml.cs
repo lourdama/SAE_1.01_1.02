@@ -143,7 +143,6 @@ namespace JeuxPlateformeBille
             Canvas.SetTop(joueur, proprietePlateformes[niveau][0, 1] - joueur.Height);
             ChoixBille.Content = billeInventaire[choixBille];
             ChoixBilleImg.Source = imageBilles[choixBille];
-            jouer = true;
         }
 
         private void InitImage()
