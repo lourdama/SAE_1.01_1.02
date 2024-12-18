@@ -82,9 +82,7 @@ namespace JeuxPlateformeBille
         {
             InitializeComponent();
             InitMusique(niveau);
-            joueur.Visibility = Visibility.Hidden;
-            ChoixBilleImg.Visibility = Visibility.Hidden;
-            ChoixBille.Visibility = Visibility.Hidden;
+            InitImage();
         }
 
 
@@ -94,7 +92,6 @@ namespace JeuxPlateformeBille
         }
         public void Suivant()
         {
-            InitImage();
             InitJeu();
             InitEnnemis();
             InitPlateformes();
@@ -530,7 +527,6 @@ namespace JeuxPlateformeBille
                 Canvas.SetTop(nouvelleBille.Texture, Canvas.GetTop(joueur));
                 Canvas.SetLeft(nouvelleBille.Texture, Canvas.GetLeft(joueur));
                 billeInventaire[choixBille] --;
-                StockBille.Content = "Stock De Billes : " + billeInventaire[choixBille];
                 ChoixBille.Content = billeInventaire[choixBille];
 
             }
@@ -634,7 +630,6 @@ namespace JeuxPlateformeBille
                 }
                 canvasMainWindow.Children.Remove(sacDeBille.Texture);
                 sacEnjeu.Remove(sacDeBille);
-                StockBille.Content = "Stock De Billes : " + billeInventaire[choixBille];
                 ChoixBille.Content = billeInventaire[choixBille];
             }
         }
