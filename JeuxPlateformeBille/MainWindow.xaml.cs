@@ -36,7 +36,7 @@ namespace JeuxPlateformeBille
         private static BitmapImage fond;
         private bool gauche, droite, saut, enSaut, billeBouge, pause,jouer, niveauGagne, animationEntreeBool, porteFerme = false;
         private int vitesseJoueur = 8, gravite = 8, toleranceColision = 5, nbtouche = 0, nbStockBille = 100, choixBille ;
-        System.Drawing.Rectangle  hitBoxJoueur, hitBoxBille, hitBoxEnnemi;
+        System.Drawing.Rectangle  hitBoxJoueur, hitBoxBille, hitBoxEnnemi, hitBoxSac;
         private int animationJoueur = 1, animationSaut = 1, animationStatic = 1, timerAnimation, timerAnimationSaut, timerAnimationStatic, animationEntree = 1, timerAnimationEntree = 0;
         private static Point clickPosition;
         private static double vitesseSaut, graviteBille = 4, coefReductionDeplacementSaut;
@@ -719,7 +719,7 @@ namespace JeuxPlateformeBille
 
             if (animationEntree > 6)
             {
-                porteFerme = true;
+                jouer = true;
                 animationEntree = 1;
             }
         }
