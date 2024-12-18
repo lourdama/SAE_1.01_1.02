@@ -1098,7 +1098,7 @@ namespace JeuxPlateformeBille
             private Image texture;
             private double vitesse, pointDeVie;
             private ProgressBar barreDeVie;
-            private System.Drawing.Rectangle 
+            private System.Drawing.Rectangle hitBox;
 
             public Image Texture
             {
