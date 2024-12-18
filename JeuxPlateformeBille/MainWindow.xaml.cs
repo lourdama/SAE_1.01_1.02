@@ -497,7 +497,7 @@ namespace JeuxPlateformeBille
                 Canvas.SetLeft(nouvelleBille.Texture, Canvas.GetLeft(joueur));
                 billeInventaire[choixBille] --;
                 StockBille.Content = "Stock De Billes : " + billeInventaire[choixBille];
-
+                ChoixBille.Content = billeInventaire[choixBille];
 
             }
         }
