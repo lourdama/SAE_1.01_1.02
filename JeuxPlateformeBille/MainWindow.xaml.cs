@@ -34,10 +34,10 @@ namespace JeuxPlateformeBille
         public Key toucheDroite = Key.D;
         public Key toucheSaut = Key.Space;
         private static BitmapImage fond;
-        private bool gauche, droite, saut, enSaut, billeBouge, pause,jouer, niveauGagne = false;
+        private bool gauche, droite, saut, enSaut, billeBouge, pause,jouer, niveauGagne, animationEntreeBool = false;
         private int vitesseJoueur = 8, gravite = 8, toleranceColision = 5, nbtouche = 0, nbStockBille = 100, choixBille ;
         System.Drawing.Rectangle  hitBoxJoueur, hitBoxBille, hitBoxEnnemi;
-        private int animationJoueur = 1, animationSaut = 1, animationStatic = 1, timerAnimation, timerAnimationSaut, timerAnimationStatic, animationEntre = 1, timerAnimationEntree = 0;
+        private int animationJoueur = 1, animationSaut = 1, animationStatic = 1, timerAnimation, timerAnimationSaut, timerAnimationStatic, animationEntree = 1, timerAnimationEntree = 0;
         private static Point clickPosition;
         private static double vitesseSaut, graviteBille = 4, coefReductionDeplacementSaut;
         private static Ennemis fantome = new Ennemis();
@@ -87,10 +87,13 @@ namespace JeuxPlateformeBille
         public void Suivant()
         {
             InitImage();
-            //InitAnimation();
             InitJeu();
             InitEnnemis();
             InitPlateformes();
+            StopMusique();
+            InitMusique();
+            InitFond();
+            animationEntreeBool = true;
             if (niveau == 1)
             {
                 InitTimer();
@@ -99,10 +102,8 @@ namespace JeuxPlateformeBille
             {
                 minuterie.Start();
             }
-            StopMusique();
-            InitMusique();
-            InitFond();
             
+
 
         }
         private void InitFond()
@@ -111,25 +112,8 @@ namespace JeuxPlateformeBille
                (new Uri($"pack://application:,,,/img/fond_niveau/level{niveau}.jpeg"));
             canvasMainWindow.Background = new ImageBrush(fondniveau);
         }
-        private void InitAnimation()
-        {
-            
-            animationEntreeTimer = new DispatcherTimer();
-            animationEntreeTimer.Interval = TimeSpan.FromMilliseconds(17);
-            animationEntreeTimer.Start();
-            animationEntreeTimer.Tick += AnimationEntree;
-            
-        }
-        private void AnimationEntree(object? sender, EventArgs e)
-        {
 
-            
-            animationEntre++;
 
-            
-            InitImage();
-            InitMusique();
-        }
 
         private void InitMusique()
         {
@@ -155,9 +139,9 @@ namespace JeuxPlateformeBille
             joueur.Visibility = Visibility.Visible;
             ChoixBilleImg.Visibility = Visibility.Visible;
             ChoixBille.Visibility = Visibility.Visible;
-            Canvas.SetLeft(joueur, 10);
+            Canvas.SetLeft(joueur, -joueur.Width);
             Canvas.SetTop(joueur, proprietePlateformes[niveau][0, 1] - joueur.Height);
-            jouer = true;
+            
         }
 
         private void InitImage()
@@ -325,37 +309,46 @@ namespace JeuxPlateformeBille
         }
         private void Jeu(object? sender, EventArgs e)
         {
-            Deplacement();
-            DeplacementEnnemi();
-            if (VerifTouche())
+            if (jouer)
             {
-                niveauGagne = false;
-                DestructionNiveau();
-            }
-
-            for (int i = 0; i < billesEnJeu.Count; i++)
-            {
-                if (BilleLance(billesEnJeu[i]))
+                Deplacement();
+                DeplacementEnnemi();
+                if (VerifTouche())
                 {
+                    niveauGagne = false;
+                    DestructionNiveau();
+                }
 
-                    canvasMainWindow.Children.Remove(billesEnJeu[i].Texture);
-                    billesEnJeu.RemoveAt(i);
+                for (int i = 0; i < billesEnJeu.Count; i++)
+                {
+                    if (BilleLance(billesEnJeu[i]))
+                    {
+
+                        canvasMainWindow.Children.Remove(billesEnJeu[i].Texture);
+                        billesEnJeu.RemoveAt(i);
+                    }
+                }
+
+                if (enSaut)
+                {
+                    SautEnCours();
+                }
+                if (ennemisEnJeu.Count == 0)
+                {
+                    niveauGagne = true;
+                    FinNiveau();
+                }
+                if (aleatoire.Next(0, 900) == 1)
+                {
+                    // spawn sac de bille
                 }
             }
 
-            if (enSaut)
+            else if (!jouer)
             {
-                SautEnCours();
+                AnimationEntree();
             }
-            if (ennemisEnJeu.Count ==0)
-            {
-                niveauGagne = true;
-                FinNiveau();
-            }
-            if(aleatoire.Next(0,900) == 1)
-            {
-                // spawn sac de bille
-            }
+            
 
 
         }
@@ -674,6 +667,24 @@ namespace JeuxPlateformeBille
 
 
 
+        }
+
+        private void AnimationEntree()
+        {
+            Canvas.SetLeft(joueur, Canvas.GetLeft(joueur) + 5);
+            joueur.Source = new BitmapImage(new Uri($"pack://application:,,,/img/joueur/marche/marche{animationEntree}.png"));
+            timerAnimationEntree += 1;
+            if (timerAnimationEntree == 5)
+            {
+                animationEntree = animationEntree + 1;
+                timerAnimationEntree = 0;
+            }
+
+            if (animationEntree > 6)
+            {
+                jouer = true;
+                animationEntree = 1;
+            }
         }
 
         public void AnimationDeplacementJoueur(int direction)
