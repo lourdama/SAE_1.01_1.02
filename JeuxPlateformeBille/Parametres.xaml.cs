@@ -19,34 +19,35 @@ namespace JeuxPlateformeBille
     /// </summary>
     public partial class Parametres : UserControl
     {
-        private Key toucheGaucheUC = Key.Q;
+        public Key toucheGaucheUC = Key.Q;
         private Key toucheDroiteUC = Key.D;
         private Key toucheSautUC = Key.Space;
         private double volumeUC = 1;
 
-        private List<Key> touchesDisponibles = new List<Key>
+        private List<Key> touchesDisponibles = new List<Key> // liste des key disponibles pour la personnalisation des touches
     {
         Key.Q, Key.D, Key.Z, Key.S, Key.A, Key.E, Key.Left, Key.Right, Key.Up, Key.Down, Key.Space, Key.W
     };
         public Parametres()
         {
             InitializeComponent();
-            /*toucheDroiteUC = ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).toucheDroite;
-            toucheGaucheUC = ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).toucheGauche;
-            toucheSautUC = ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).toucheSaut;
-            volumeUC = ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).volumeMusique;*/
             RemplirComboBox();
             slideBarMusique.Value = volumeUC;
         }
         private void RemplirComboBox()
         {
-            foreach (var touche in touchesDisponibles)
+            //remplissage des listes déroulantes avec la liste des propositions
+            foreach (Key touche in touchesDisponibles)
             {
                 ComboBoxGauche.Items.Add(touche);
                 ComboBoxDroite.Items.Add(touche);
                 ComboBoxSaut.Items.Add(touche);
             }
 
+            /*toucheDroiteUC = ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).toucheDroite;
+            toucheGaucheUC = ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).toucheGauche;
+            toucheSautUC = ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).toucheSaut;
+            volumeUC = ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).volumeMusique;*/
             ComboBoxGauche.SelectedItem = toucheGaucheUC;
             ComboBoxDroite.SelectedItem = toucheDroiteUC;
             ComboBoxSaut.SelectedItem = toucheSautUC;
@@ -54,6 +55,7 @@ namespace JeuxPlateformeBille
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            // quand une selection est changée, met dans une variable locale la key selectionnée
             if (ComboBoxGauche.SelectedItem != null)
                 toucheGaucheUC = (Key)ComboBoxGauche.SelectedItem;
 
@@ -64,13 +66,10 @@ namespace JeuxPlateformeBille
                 toucheSautUC = (Key)ComboBoxSaut.SelectedItem;
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
 
         private void retour_Click(object sender, RoutedEventArgs e)
         {
+            // quand retour est cliqué, changement des variables dans le main en fonction des paramètres selectionnés
             ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).toucheDroite = toucheDroiteUC;
             ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).toucheGauche = toucheGaucheUC;
             ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).toucheSaut = toucheSautUC;
@@ -78,7 +77,7 @@ namespace JeuxPlateformeBille
             ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).ModifVolumeMusique(volumeUC);
             ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).ControlContent.Content = new Accueil();
         }
-
+        // ci-dessous change la variable de difficulté dans la mainwindow en fonction du bouton cliqué
         private void butFacile_Click(object sender, RoutedEventArgs e)
         {
             ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).difficulte = 1;
@@ -96,6 +95,7 @@ namespace JeuxPlateformeBille
 
         private void slideBarMusique_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
+            //si valeur bar glissante changée alors stockée dans une variable locale
             volumeUC = slideBarMusique.Value;
         }
     }
