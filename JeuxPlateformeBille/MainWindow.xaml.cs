@@ -56,16 +56,18 @@ namespace JeuxPlateformeBille
         int[][,] niveauEnnemis = new int[][,]
         {
             new int[,] { { 1, 100, 100 }, { 1, 200, 200 }, { 1, 300, 300 }, { 1, 400, 400 } },
+            new int[,] { { 1, 100, 100 }, { 1, 200, 200 }, { 1, 300, 300 }, { 1, 400, 400 } },
+            new int[,] { { 1, 100, 100 }, { 1, 200, 200 }, { 1, 300, 300 }, { 1, 400, 400 } },
             new int[,] { { 1, 100, 100 }, { 1, 200, 200 }, { 1, 300, 300 }, { 1, 400, 400 } }
         };
         private double[,] tailleSaut = { { 61, 49 }, { 61, 49 }, { 61, 49 }, { 61, 49 }, };
 
         int[][,] proprietePlateformes = new int[][,]
         {
-         new int[,] { { 425, 700 }, { 850, 700 }, { 1275, 700 },{ 600, 500 }, {300, 200 }, { 0, 700 }    },
+         new int[,] { { 425, 700 }, { 850, 700 }, { 1275, 700 },{ 600, 500 }, {300, 200 }, { 0, 700 }},
          new int[,] { { 0, 700 }, { 850, 700 }, { 1275, 700 }, { 100, 500 } },
          new int[,] { { 425, 700 }, { 850, 700 }, { 1275, 700 }},
-         new int[,] { { 425, 700 }, { 850, 700 }, { 1275, 700 } },
+         new int[,] { { 425, 700 }, { 850, 700 }, { 1275, 700 } }
         };
         private static Random aleatoire = new Random();
 
@@ -140,7 +142,7 @@ namespace JeuxPlateformeBille
             ChoixBilleImg.Visibility = Visibility.Visible;
             ChoixBille.Visibility = Visibility.Visible;
             Canvas.SetLeft(joueur, -joueur.Width);
-            Canvas.SetTop(joueur, proprietePlateformes[niveau][0, 1] - joueur.Height);
+            Canvas.SetTop(joueur, proprietePlateformes[niveau-1][0, 1] - joueur.Height);
             ChoixBille.Content = billeInventaire[choixBille];
             ChoixBilleImg.Source = imageBilles[choixBille];
         }
@@ -530,7 +532,7 @@ namespace JeuxPlateformeBille
             nouveauSac.Texture.Height = 64;
             for (int i = 0; i < niveauBille.GetLength(1); i++)
             {
-                int typeBilleContenu = niveauBille[niveau,i];
+                int typeBilleContenu = niveauBille[niveau-1,i];
                 nouveauSac.Contenu[typeBilleContenu] = aleatoire.Next(3,6);
             }
             sacEnjeu.Insert(0, nouveauSac);
