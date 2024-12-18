@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Diagnostics.Metrics;
+using System.Net.Security;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Security.Policy;
@@ -436,7 +437,7 @@ namespace JeuxPlateformeBille
         }
         private void Deplacement()
         {
-
+            //si colision avec la plateforme alors ne pas appliquer le verteur gravite 
             if (CollisionPlat() == 0)
             {
                 gravite = 0;
@@ -444,7 +445,7 @@ namespace JeuxPlateformeBille
                 animationSaut = 1;
                 ReinitialisationSaut();
             }
-
+            //sinon appliquer le vecteur de gravité en mettant un coefficient de réduction de déplacement dans les airs
             else
             {
 
@@ -456,7 +457,7 @@ namespace JeuxPlateformeBille
                 }
 
             }
-
+            //on applique les différent déplacement si les touches sont enfoncées
 
             Canvas.SetTop(joueur, Canvas.GetTop(joueur) + gravite);
 
@@ -480,6 +481,7 @@ namespace JeuxPlateformeBille
 
 
             }
+            // évite les saut à l'infini, attend de ne plus être en saut pour l'être de nouveau
             if (saut && enSaut == false)
             {
                 enSaut = true;
@@ -489,8 +491,8 @@ namespace JeuxPlateformeBille
 
         
 
-
-        private int CollisionPlat()
+        
+        private int CollisionPlat() //collision avec les plateformes par hitbox et calcul de dimensions pour couvrir tout les côtés et adapter les actions à réaliser
         {
             hitBoxJoueur = new System.Drawing.Rectangle((int)Canvas.GetLeft(joueur), (int)Canvas.GetTop(joueur), (int)joueur.Width, (int)joueur.Height);
             for (int i = 0; i < plateformesEnJeu.Count; i++)
@@ -531,7 +533,8 @@ namespace JeuxPlateformeBille
             
 
         }
-        private int CollisionPlat(Sac sacDeBille)
+        
+        private int CollisionPlat(Sac sacDeBille) //surcharge simplifiée pour la colision des sac des billes qui tombent sur le sol
         {
             hitBoxSac = new System.Drawing.Rectangle((int)Canvas.GetLeft(sacDeBille.Texture), (int)Canvas.GetTop(sacDeBille.Texture), (int)sacDeBille.Texture.Width, (int)sacDeBille.Texture.Height);
             for (int i = 0; i < plateformesEnJeu.Count; i++)
@@ -545,7 +548,7 @@ namespace JeuxPlateformeBille
             }
             return -1;
         }
-        private int CollisionPlat(Ennemis ennemi, double direction)
+        private int CollisionPlat(Ennemis ennemi, double direction) // sucharge pour les ennemis slimes pour les empêcher de tombre de leur plateforme
         {
             hitBoxSac = new System.Drawing.Rectangle((int)(Canvas.GetLeft(ennemi.Texture) + (ennemi.Texture.Width * direction ) ), (int)Canvas.GetTop(ennemi.Texture), (int)(ennemi.Texture.Width + ennemi.Texture.Width), (int)ennemi.Texture.Height);
             for (int i = 0; i < plateformesEnJeu.Count; i++)
@@ -558,7 +561,7 @@ namespace JeuxPlateformeBille
             }
             return -1;
         }
-        private void SautEnCours()
+        private void SautEnCours() //permet de simuler un saut par translation exponentielle puis dégressive
         {
             if (vitesseSaut < 0)
             {
@@ -572,7 +575,8 @@ namespace JeuxPlateformeBille
             }
         }
 
-        private void Tir(MouseButtonEventArgs e)
+        private void Tir(MouseButtonEventArgs e) //méthode de tir, initialisant un bille en fonction d'un type , lui attribuant une vitesse en fonction de la distance de la souris du joueur
+            // en l'orientant dans la bonne direction, et en adaptant l'inventaire en fonction
         {
             if (billeInventaire[choixBille] > 0)
             {
@@ -596,7 +600,7 @@ namespace JeuxPlateformeBille
 
             }
         }
-        private void ApparitionSac()
+        private void ApparitionSac() // permet de faire apparaitre des sacs contenant des billes en dans des proportions en fonction des niveau avec un peu d'aléatoire 
         {
             Console.WriteLine("Apparition Sac");
             Sac nouveauSac = new Sac(new Image());
@@ -616,7 +620,7 @@ namespace JeuxPlateformeBille
             Console.WriteLine("Sac ajouté");
         }
 
-        private void DeplacementSac()
+        private void DeplacementSac() //fait déplacer les sac soumis au vecteur gravité jusqu'à une collision avec une plateforme
         {
             for (int i = 0; i < sacEnjeu.Count; i++)
             {
@@ -628,7 +632,7 @@ namespace JeuxPlateformeBille
                 ColisionSac(sacEnjeu[i]);
             }
         }
-        private bool BilleLance(Billes bille)
+        private bool BilleLance(Billes bille) //simulation de la physique des trajectoires des billes et colisions
         {
 
             if (Canvas.GetLeft(bille.Texture) < 0 || Canvas.GetLeft(bille.Texture) > this.ActualWidth || Canvas.GetTop(bille.Texture) > this.ActualHeight)
@@ -671,12 +675,13 @@ namespace JeuxPlateformeBille
 
         }
 
-        private void DeplacementEnnemi()
+        private void DeplacementEnnemi() //déplacements des ennemis en fonctions du type d'ennemis
         {
             for (int i = 0;i < ennemisEnJeu.Count; i++)
             {
                 if (ennemisEnJeu[i].TypeDeplacement == 1)
                 {
+                    //suit le joueur sur les deux axes
                     Canvas.SetLeft(ennemisEnJeu[i].Texture, Canvas.GetLeft(ennemisEnJeu[i].Texture) + Math.Sign(Canvas.GetLeft(joueur) - Canvas.GetLeft(ennemisEnJeu[i].Texture)) * 2 * Math.Sqrt((double)difficulte));
                     Canvas.SetTop(ennemisEnJeu[i].Texture, Canvas.GetTop(ennemisEnJeu[i].Texture) + Math.Sign(Canvas.GetTop(joueur) - Canvas.GetTop(ennemisEnJeu[i].Texture)));
                     Canvas.SetLeft(ennemisEnJeu[i].BarreDeVie, Canvas.GetLeft(ennemisEnJeu[i].Texture) + Math.Sign(Canvas.GetLeft(joueur) - Canvas.GetLeft(ennemisEnJeu[i].Texture)) * 2 * Math.Sqrt((double)difficulte));
@@ -687,6 +692,7 @@ namespace JeuxPlateformeBille
                     if ((Canvas.GetLeft(joueur) > Canvas.GetLeft(ennemisEnJeu[i].Texture) && CollisionPlat(ennemisEnJeu[i], 1) == 0 )
                         || Canvas.GetLeft(joueur) < Canvas.GetLeft(ennemisEnJeu[i].Texture) && CollisionPlat(ennemisEnJeu[i], -2) == 0 )
                     {
+                        // suit le joueur sur l'axe horizontal
                         Canvas.SetLeft(ennemisEnJeu[i].Texture, Canvas.GetLeft(ennemisEnJeu[i].Texture) + Math.Sign(Canvas.GetLeft(joueur) - Canvas.GetLeft(ennemisEnJeu[i].Texture)) * 2 * Math.Sqrt((double)difficulte));
                         Canvas.SetLeft(ennemisEnJeu[i].BarreDeVie, Canvas.GetLeft(ennemisEnJeu[i].Texture) + Math.Sign(Canvas.GetLeft(joueur) - Canvas.GetLeft(ennemisEnJeu[i].Texture)) * 2 * Math.Sqrt((double)difficulte));
                     }
@@ -696,7 +702,7 @@ namespace JeuxPlateformeBille
 
             }
         }
-        private void ColisionSac(Sac sacDeBille)
+        private void ColisionSac(Sac sacDeBille) // si le joueur rentre en collision avec un sac de bille et rempli son inventaire en fonction du contenu du sac 
         {
             hitBoxJoueur = new System.Drawing.Rectangle((int)Canvas.GetLeft(joueur), (int)Canvas.GetTop(joueur), (int)joueur.Width - 2, (int)joueur.Height - 2);
             hitBoxSac = new System.Drawing.Rectangle((int)Canvas.GetLeft(sacDeBille.Texture), (int)Canvas.GetTop(sacDeBille.Texture), (int)joueur.Width, (int)joueur.Height);
@@ -711,7 +717,7 @@ namespace JeuxPlateformeBille
                 ChoixBille.Content = billeInventaire[choixBille];
             }
         }
-        private bool ColisionEnnemi(Billes bille)
+        private bool ColisionEnnemi(Billes bille) // si une bille rentre en collision avec un ennemi alors il applique les dégâts et fait disparaitre l'ennemi si necessaire
         {
             if (bille.TypeBille != 1)
             {
@@ -736,7 +742,7 @@ namespace JeuxPlateformeBille
             }
             return false;
         }
-        private bool VerifTouche()
+        private bool VerifTouche() //si un ennemi touche le joueur alors retourne vrai
         {
             for (int i = 0; i < ennemisEnJeu.Count; i++)
             {
@@ -749,18 +755,18 @@ namespace JeuxPlateformeBille
             return false;
         }
 
-        private void ReinitialisationSaut()
+        private void ReinitialisationSaut() // quand appelé réinitialise les variables de saut.
         {
             enSaut = false;
             vitesseSaut = -35;
             
 
         }
-        private void FinJeu()
+        private void FinJeu() // arrete la minuterie
         {
             minuterie.Stop();
         }
-        private void Richesse()
+        private void Richesse() // code de triche donnant un nombre véridique de bille
         {
             if (toucheG && toucheCtrl)
             {
@@ -771,7 +777,7 @@ namespace JeuxPlateformeBille
                 ChoixBille.Content = billeInventaire[choixBille];
             }
         }
-        private void FinNiveau()
+        private void FinNiveau() // si le joueur va à l'endroit spécifié dans les règles quand il a tué tous les ennemis alors initie la procédure de destruction du niveau
         {
 
             if (Canvas.GetLeft(joueur) + joueur.Width > this.Width -25 && Canvas.GetTop(joueur) > 500 && Canvas.GetTop(joueur) < 900)
@@ -782,7 +788,7 @@ namespace JeuxPlateformeBille
 
         }
 
-        private void DestructionNiveau()
+        private void DestructionNiveau() // destruction de tout les éléments relatif au niveau et renvoi vers un écran en fonction de l'issu
         {
             int plat = plateformesEnJeu.Count;
             int bille = billesEnJeu.Count;
@@ -854,7 +860,7 @@ namespace JeuxPlateformeBille
 
 
         }
-
+        //ci-dessous différentes animations de déplacements du joueur
         private void AnimationEntree()
         {
             Canvas.SetLeft(joueur, Canvas.GetLeft(joueur) + 5);
@@ -965,7 +971,7 @@ namespace JeuxPlateformeBille
     }
     
 
-
+    //ci-dessous les différentes class permettant de donner des attributes à des objets créés comme ennemi, bille ou sac.
     
     public partial class Ennemis
     {
