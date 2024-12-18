@@ -52,7 +52,7 @@ namespace JeuxPlateformeBille
         private static MediaPlayer musique;
         int[,] niveauBille = new int[,]
         { {0,0,0}, {0,0,1}, {0,2,2}, {0,1,2} };
-        int[] billeInventaire = new int[] { 0, 0, 0 };
+        int[] billeInventaire = new int[] { 100, 100, 0 };
         int[][,] niveauEnnemis = new int[][,]
         {
             new int[,] { { 1, 100, 100 }, { 1, 200, 200 }, { 1, 300, 300 }, { 1, 400, 400 } },
@@ -243,7 +243,7 @@ namespace JeuxPlateformeBille
                 {
                     choixBille = choixBille - 1;
                 }
-                ChoixBille.Content = choixBille;
+                ChoixBille.Content = billeInventaire[choixBille];
             }
 
             ChoixBilleImg.Source = imageBilles[choixBille];
@@ -485,7 +485,7 @@ namespace JeuxPlateformeBille
 
         private void Tir(MouseButtonEventArgs e)
         {
-            if (nbStockBille > 0)
+            if (billeInventaire[choixBille] > 0)
             {
                 Billes nouvelleBille = new Billes(new Image(), 0, 0, 0, 0);
                 nouvelleBille.Texture.Source = imageBilles[choixBille];
@@ -502,8 +502,8 @@ namespace JeuxPlateformeBille
                 canvasMainWindow.Children.Add(nouvelleBille.Texture);
                 Canvas.SetTop(nouvelleBille.Texture, Canvas.GetTop(joueur));
                 Canvas.SetLeft(nouvelleBille.Texture, Canvas.GetLeft(joueur));
-                nbStockBille--;
-                StockBille.Content = "Stock De Billes : " + nbStockBille;
+                billeInventaire[choixBille] --;
+                StockBille.Content = "Stock De Billes : " + billeInventaire[choixBille];
 
 
             }
