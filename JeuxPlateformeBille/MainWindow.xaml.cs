@@ -34,7 +34,7 @@ namespace JeuxPlateformeBille
         public Key toucheDroite = Key.D;
         public Key toucheSaut = Key.Space;
         private static BitmapImage fond;
-        private bool gauche, droite, saut, enSaut, billeBouge, pause,jouer, niveauGagne, animationEntreeBool, porteFerme = false, toucheG, toucheCtrl, mort = false;
+        private bool gauche, droite, saut, enSaut, billeBouge, pause,jouer, niveauGagne, animationEntreeBool, porteFerme, mort = false, toucheG, toucheCtrl ;
         private int vitesseJoueur = 8, gravite = 8, toleranceColision = 5, nbtouche = 0, nbStockBille = 100, choixBille, nbBillesDepart = 3;
         System.Drawing.Rectangle  hitBoxJoueur, hitBoxBille, hitBoxEnnemi, hitBoxSac;
         private int animationJoueur = 1, animationSaut = 1, animationStatic = 1, timerAnimation, timerAnimationSaut, timerAnimationStatic, animationEntree = 1, timerAnimationEntree = 0, timerAnimationMort, animationMort = 1;
@@ -277,32 +277,29 @@ namespace JeuxPlateformeBille
         private void Window_KeyUp(object sender, KeyEventArgs e)
         {
 
-                if (e.Key == toucheGauche)
-                {
-                    gauche = false;
-                }
-                else if (e.Key == toucheDroite)
-                {
-                    droite = false;
-                }
-
-                else if (e.Key == toucheSaut)
-                {
-                    saut = false;
-                }
-                else if (e.Key == Key.G)
-                {
-                    toucheG = false;
-                }
-                else if (e.Key == Key.LeftCtrl)
-                {
-                    toucheCtrl = false;
-                }
+            if (e.Key == toucheGauche)
+            {
+                gauche = false;
+            }
+            else if (e.Key == toucheDroite)
+            {
+                droite = false;
             }
 
-            
-
+            else if (e.Key == toucheSaut)
+            {
+                saut = false;
+            }
+            else if (e.Key == Key.G)
+            {
+                toucheG = false;
+            }
+            else if (e.Key == Key.LeftCtrl)
+            {
+                toucheCtrl = false;
+            }
         }
+        
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (jouer)
