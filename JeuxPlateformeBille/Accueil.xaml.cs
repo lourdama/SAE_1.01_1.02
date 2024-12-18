@@ -39,12 +39,13 @@ namespace JeuxPlateformeBille
 
         private void butParametres_Click(object sender, RoutedEventArgs e)
         {
+
             ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).ControlContent.Content = new Parametres();
         }
 
         private void butQuitter_Click(object sender, RoutedEventArgs e)
         {
-            ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).Close();
+           ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).Close();
         }
 
         private void butRegle_Click(object sender, RoutedEventArgs e)

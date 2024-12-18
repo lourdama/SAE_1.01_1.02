@@ -89,6 +89,7 @@
     <None Remove="img\Joueur\Saut\saut5.png" />
     <None Remove="img\Joueur\Saut\saut8.png" />
     <None Remove="img\Joueur\Saut\saut9.png" />
+    <None Remove="img\logo.png" />
     <None Remove="img\plateforme.png" />
     <None Remove="img\reglesdujeu.png" />
     <None Remove="img\sacBille.png" />
@@ -104,6 +105,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="img\ennemi\ennemi4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\logo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="img\reglesdujeu.png">

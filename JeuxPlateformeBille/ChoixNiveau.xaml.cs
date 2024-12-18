@@ -24,7 +24,7 @@ namespace JeuxPlateformeBille
         {
             InitializeComponent();
         }
-
+        // ci-dessous ellipse pour modéliser les différents niveaux
         private void ellipseNiveau1_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).niveau == 0)
@@ -67,7 +67,7 @@ namespace JeuxPlateformeBille
 
             }
         }
-
+        // bouton retour au menu principal avec un arrière plan de l'accueil
         private void retour_Click(object sender, RoutedEventArgs e)
         {
             ChoixNiveau choixDuNiveau = new ChoixNiveau();
@@ -77,6 +77,7 @@ namespace JeuxPlateformeBille
             ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).ControlContent.Content = new Accueil();
 
         }
+        //change la couleur des ellipse en fonction des niveaux terminés
         public void ChangerCouleurEllipseNiveau(int niveau)
         {
 

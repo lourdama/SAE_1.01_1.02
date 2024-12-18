@@ -517,6 +517,8 @@ namespace JeuxPlateformeBille
                     Canvas.SetLeft(joueur, Canvas.GetLeft(joueur) - vitesseJoueur * coefReductionDeplacementSaut);
                     AnimationDeplacementJoueur(-1);
                 }
+
+
             }
             // évite les saut à l'infini, attend de ne plus être en saut pour l'être de nouveau
             hitBoxJoueur = new System.Drawing.Rectangle((int)Canvas.GetLeft(joueur), (int)Canvas.GetTop(joueur), (int)joueur.Width - 2, (int)joueur.Height - 2);
@@ -1096,7 +1098,7 @@ namespace JeuxPlateformeBille
             private Image texture;
             private double vitesse, pointDeVie;
             private ProgressBar barreDeVie;
-            private System.Drawing.Rectangle hitBox, hitBox2;
+            private System.Drawing.Rectangle 
 
             public Image Texture
             {
