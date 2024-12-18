@@ -33,7 +33,7 @@ namespace JeuxPlateformeBille
         private static readonly double DEPLACEMENT_AIR = 0.6;
         private static readonly int[,] NIVEAU_BILLE = new int[,]
             { {0,0,0}, {0,0,1}, {0,2,2}, {0,1,2} };
-        private static readonly int[][,] NIVEAU_ENNEMIS = new int[][,]
+        private static readonly int[][,] NIVEAU_ENNEMIS = new int[][,]// définition des différents ennemis par type et coordonnées
         {
             new int[,] { {2, 800, 440}, {2, 500, 140}, {2, 900, 640} },
             new int[,] { { 1, 1000, 100 }, { 1, 1000, 700 }, { 1, 1400, 400 }, {2, 500, 340}, {2, 1400, 640}, {2, 1200, 140} },
@@ -41,16 +41,16 @@ namespace JeuxPlateformeBille
             new int[,] {{ 3, 450, 900} }
 
         };
-        private static readonly double[,] TAILLE_SAUT = { { 61, 49 }, { 61, 49 }, { 61, 49 }, { 61, 49 }, };
+        private static readonly double[,] TAILLE_SAUT = { { 61, 49 }, { 61, 49 }, { 61, 49 }, { 61, 49 }, };//taille des différentes images de l'animation
 
-        private static readonly int[][,] PROPRIETES_PLATEFORMES = new int[][,]
+        private static readonly int[][,] PROPRIETES_PLATEFORMES = new int[][,] //définition des coordonnées des plateformes
         {
          new int[,] { { 425, 700 }, { 850, 700 }, { 1275, 700 },{ 600, 500 }, {300, 200 }, { 0, 700 }},
          new int[,] { { 0, 700 },{425 ,400 }, { 850, 400 }, { 1275, 700 }, { 850, 200 } },
          new int[,] { { 425, 700 }, { 850, 700 }, { 1275, 700 }},
          new int[,] { { 425, 700 }, { 850, 700 }, { 1275, 700 } }
         };
-        private static int[,] SAUT_TAILLE_ANIMATION = { { 61, 49 }, { 52, 64 }, { 50, 65 }, { 55, 57 }, { 60, 61 } };
+        private static int[,] SAUT_TAILLE_ANIMATION = { { 61, 49 }, { 52, 64 }, { 50, 65 }, { 55, 57 }, { 60, 61 } }; //taille des différentes images de l'animation
         // Fin constantes, et début variables
         public DispatcherTimer minuterie, animationEntreeTimer;
         public int difficulte = 1, niveau = 0;
@@ -65,19 +65,19 @@ namespace JeuxPlateformeBille
         private int animationJoueur = 1, animationSaut = 1, animationStatic = 1, timerAnimation, timerAnimationSaut, timerAnimationStatic, animationEntree = 1, timerAnimationEntree = 0, timerAnimationMort, animationMort = 1;
         private static Point clickPosition;
         private static double vitesseSaut, coefReductionDeplacementSaut;
-        private static List<ProgressBar> barreDeVie = new List<ProgressBar>();
-        private static List<Ennemis> ennemisEnJeu = new List<Ennemis>();
-        private static List<Billes> billesEnJeu = new List<Billes>();
-        private static List<Plateformes> plateformesEnJeu = new List<Plateformes>();
-        private static List<Sac> sacEnjeu = new List<Sac>();
-        private static  int[] billeInventaire = new int[] { 3, 3, 3 };
+        private static List<ProgressBar> barreDeVie = new List<ProgressBar>(); //liste des barre de vie des ennemis en jeu
+        private static List<Ennemis> ennemisEnJeu = new List<Ennemis>(); //liste des ennemis en jeu
+        private static List<Billes> billesEnJeu = new List<Billes>();// liste des billes en jeu
+        private static List<Plateformes> plateformesEnJeu = new List<Plateformes>(); //liste des plateformes en jeu
+        private static List<Sac> sacEnjeu = new List<Sac>(); //liste des sac en jeu
+        private static  int[] billeInventaire = new int[] { 3, 3, 3 }; //définition de l'inventaire l'index étant le type de bille et la valeur, le nombre de bille
         private static BitmapImage[] imageBilles;
         private static BitmapImage[] courseAnimationTab;
         private static BitmapImage[] sautAnimationTab;
         private static BitmapImage[] mortAnimationTab;
         private static BitmapImage[] marcheAnimationTab;
         private static BitmapImage[] inactifAnimationTab;
-        private static BitmapImage[] ennemi;
+        private static BitmapImage[] ennemis;
         private static MediaPlayer musique = new MediaPlayer();
 
 
@@ -117,7 +117,7 @@ namespace JeuxPlateformeBille
 
 
         }
-        private void InitFond()
+        private void InitFond() //définit le fond en fonction du niveau actuel
         {
             BitmapImage fondniveau = new BitmapImage
                (new Uri($"pack://application:,,,/img/fond_niveau/level{niveau}.jpeg"));
@@ -126,7 +126,7 @@ namespace JeuxPlateformeBille
 
 
 
-        public void InitMusique(int indice)
+        public void InitMusique(int indice) // lance une musique en fnction d'un indice demandé ( dans ce programme en fonction du niveau)
         {
             musique = new MediaPlayer();
             musique.Open(new Uri(AppDomain.CurrentDomain.BaseDirectory + $"/sons/musique{indice}.mp3"));
@@ -134,15 +134,15 @@ namespace JeuxPlateformeBille
             musique.Volume = volumeMusique;
             musique.Play();
         }
-        public void StopMusique()
+        public void StopMusique() // stop la musique
         {
             musique.Stop();
         }
-        public void ModifVolumeMusique(double volumeMusique)
+        public void ModifVolumeMusique(double volumeMusique) // permet de modifier le volume (UC paramètre) sans réinit le volume de la musqiue
         {
             musique.Volume = volumeMusique;
         }
-        private void RelanceMusique(object? sender, EventArgs e)
+        private void RelanceMusique(object? sender, EventArgs e) //recommence la musique quand elle est terminée
         {
             musique.Position = TimeSpan.Zero;
             musique.Play();
@@ -151,13 +151,13 @@ namespace JeuxPlateformeBille
         private void InitJeu()
         {
             canvasMainWindow.Focus();
-            joueur.Visibility = Visibility.Visible;
+            joueur.Visibility = Visibility.Visible; //rend visible certains éléments graphiques du jeu non généré
             ChoixBilleImg.Visibility = Visibility.Visible;
             ChoixBille.Visibility = Visibility.Visible;
             Canvas.SetLeft(joueur, -joueur.Width);
-            Canvas.SetTop(joueur, PROPRIETES_PLATEFORMES[niveau-1][0, 1] - joueur.Height);
-            ChoixBille.Content = billeInventaire[choixBille];
-            ChoixBilleImg.Source = imageBilles[choixBille];
+            Canvas.SetTop(joueur, PROPRIETES_PLATEFORMES[niveau-1][0, 1] - joueur.Height); // positionnement du joueur en fonction du niveau (premiere plateforme)
+            ChoixBille.Content = billeInventaire[choixBille]; //affiche le nombre de bille pour le type spécifié
+            ChoixBilleImg.Source = imageBilles[choixBille]; // affiche le type de bille selectionné
         }
 
         private void InitImage()
@@ -198,12 +198,12 @@ namespace JeuxPlateformeBille
                 inactifAnimationTab[i] = new BitmapImage(new Uri($"pack://application:,,,/img/joueur/inactif/inactif{i + 1}.png"));
             }
 
-            ennemi = new BitmapImage[2];
-            for (int i = 0;i < ennemi.Length; i++)
+            ennemis = new BitmapImage[2];
+            for (int i = 0;i < ennemis.Length; i++)
             {
-                ennemi[i] = new BitmapImage(new Uri($"pack://application:,,,/img/ennemi/ennemi{i + 1}.png"));
+                ennemis[i] = new BitmapImage(new Uri($"pack://application:,,,/img/ennemi/ennemi{i + 1}.png"));
             }
-
+            //definition de tableau d'images pour l'utiliser tout au long des animations et apparitions d'ennemis
 
 
         }
@@ -211,23 +211,23 @@ namespace JeuxPlateformeBille
         {
             for (int i = 0; i < NIVEAU_ENNEMIS[niveau-1].GetLength(0); i++)
             {
-                // Initialisation ennemi 
+                // Initialisation ennemi , selon le tableau d'initialisation
                 int multiplicateur;
-                Ennemis ennemie = new Ennemis();
-                ennemie.Texture = new Image();
-                ennemie.Texture.Source = ennemi[NIVEAU_ENNEMIS[niveau - 1][i, 0]-1];
-                ennemie.Texture.Width = 50;
-                ennemie.Texture.Height = 100;
-                ennemie.CoordonneeX = NIVEAU_ENNEMIS[niveau-1][i,1];
-                ennemie.CoordonneeY = NIVEAU_ENNEMIS[niveau-1][i,2]; ;
-                ennemie.Vitesse = 2;
-                ennemie.TypeDeplacement = NIVEAU_ENNEMIS[niveau-1][i,0];
-                ennemie.PointDeVie = 100;
-                ennemie.BarreDeVie = new ProgressBar();
-                ennemie.BarreDeVie.Height = 10;
-                ennemie.BarreDeVie.Width = 75;
-                ennemie.BarreDeVie.Value = 100;
-                ennemisEnJeu.Insert(0, ennemie);
+                Ennemis ennemi = new Ennemis();
+                ennemi.Texture = new Image();
+                ennemi.Texture.Source = ennemis[NIVEAU_ENNEMIS[niveau - 1][i, 0]-1];
+                ennemi.Texture.Width = 50;
+                ennemi.Texture.Height = 100;
+                ennemi.CoordonneeX = NIVEAU_ENNEMIS[niveau-1][i,1];
+                ennemi.CoordonneeY = NIVEAU_ENNEMIS[niveau-1][i,2]; ;
+                ennemi.Vitesse = 2;
+                ennemi.TypeDeplacement = NIVEAU_ENNEMIS[niveau-1][i,0];
+                ennemi.PointDeVie = 100;
+                ennemi.BarreDeVie = new ProgressBar();
+                ennemi.BarreDeVie.Height = 10;
+                ennemi.BarreDeVie.Width = 75;
+                ennemi.BarreDeVie.Value = 100;
+                ennemisEnJeu.Insert(0, ennemi);
                 canvasMainWindow.Children.Add(ennemisEnJeu[0].Texture);
                 canvasMainWindow.Children.Add(ennemisEnJeu[0].BarreDeVie);
                 Canvas.SetTop(ennemisEnJeu[0].Texture, ennemisEnJeu[0].CoordonneeY);
@@ -240,6 +240,7 @@ namespace JeuxPlateformeBille
 
         private void InitTimer()
         {
+            //timer pour faire fonctionner le jeu à 60 fps
             minuterie = new DispatcherTimer();
             minuterie.Interval = TimeSpan.FromMilliseconds(17);
             minuterie.Tick += Jeu;
@@ -249,6 +250,7 @@ namespace JeuxPlateformeBille
 
         private void InitPlateformes()
         {
+            //initialise les plateformes en fonction du tableau d'initialisation
             for (int i = 0; i < PROPRIETES_PLATEFORMES[niveau-1].GetLength(0); i++)
             {
                 Plateformes nouvellePlateforme = new Plateformes(new Image(), new int(), new int(), new System.Drawing.Rectangle()); 
@@ -265,6 +267,7 @@ namespace JeuxPlateformeBille
         }
         private void PreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
+            //quand il y un roulement de la molette de la souris, la bille selectionnée change
             if (jouer)
             {
                 if (e.Delta > 0 && choixBille < 2)
@@ -286,6 +289,7 @@ namespace JeuxPlateformeBille
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
+            //vérification des inputs (touches appuyées)
             if (jouer)
             {
                 if (e.Key == toucheGauche)
@@ -329,7 +333,7 @@ namespace JeuxPlateformeBille
 
         private void Window_KeyUp(object sender, KeyEventArgs e)
         {
-
+            //vérification des inputs (touches relachées)
             if (e.Key == toucheGauche)
             {
                 gauche = false;
@@ -355,6 +359,7 @@ namespace JeuxPlateformeBille
         
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            //si le jeu est en cours et qu'un clic de souris est détecté alors appelle la méthode tir.
             if (jouer)
             {
                 Tir(e);
@@ -363,11 +368,13 @@ namespace JeuxPlateformeBille
 
         private void butQuitter_Click(object sender, RoutedEventArgs e)
         {
+            //ferme le jeu si le bouton prévu à cet effet est appuyé
             this.Close();
         }
 
         public void Reprendre()
         {
+            //reprend le jeu après la pause si appelé (Focus importan pour la redetection des touches)
             jouer = true;
             this.ControlContent.Content = null;
             canvasMainWindow.Focus();
@@ -375,6 +382,7 @@ namespace JeuxPlateformeBille
         }
         private void Jeu(object? sender, EventArgs e)
         {
+            // logique de jeu appel des différentes fonctions 
             if (jouer)
             {
                 Deplacement();
