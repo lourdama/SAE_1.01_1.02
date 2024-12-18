@@ -34,8 +34,8 @@ namespace JeuxPlateformeBille
         public Key toucheDroite = Key.D;
         public Key toucheSaut = Key.Space;
         private static BitmapImage fond;
-        private bool gauche, droite, saut, enSaut, billeBouge, pause,jouer, niveauGagne, animationEntreeBool, porteFerme = false;
-        private int vitesseJoueur = 8, gravite = 8, toleranceColision = 5, nbtouche = 0, nbStockBille = 100, choixBille ;
+        private bool gauche, droite, saut, enSaut, billeBouge, pause,jouer, niveauGagne, animationEntreeBool, porteFerme = false, toucheG, toucheCtrl;
+        private int vitesseJoueur = 8, gravite = 8, toleranceColision = 5, nbtouche = 0, nbStockBille = 100, choixBille, nbBillesDepart = 3;
         System.Drawing.Rectangle  hitBoxJoueur, hitBoxBille, hitBoxEnnemi, hitBoxSac;
         private int animationJoueur = 1, animationSaut = 1, animationStatic = 1, timerAnimation, timerAnimationSaut, timerAnimationStatic, animationEntree = 1, timerAnimationEntree = 0;
         private static Point clickPosition;
@@ -263,6 +263,14 @@ namespace JeuxPlateformeBille
                     }
 
                 }
+                else if (e.Key == Key.G)
+                {
+                    toucheG = true;
+                }
+                else if (e.Key == Key.LeftCtrl)
+                {
+                    toucheCtrl = true;
+                }
             }
             
         }
@@ -283,6 +291,14 @@ namespace JeuxPlateformeBille
                 else if (e.Key == toucheSaut)
                 {
                     saut = false;
+                }
+                else if (e.Key == Key.G)
+                {
+                    toucheG = false;
+                }
+                else if (e.Key == Key.LeftCtrl)
+                {
+                    toucheCtrl = false;
                 }
             }
 
@@ -314,6 +330,7 @@ namespace JeuxPlateformeBille
             {
                 Deplacement();
                 DeplacementEnnemi();
+                Richesse();
                 if (VerifTouche())
                 {
                     niveauGagne = false;
@@ -349,6 +366,7 @@ namespace JeuxPlateformeBille
             {
                 AnimationEntree();
             }
+            
             
 
 
@@ -647,7 +665,17 @@ namespace JeuxPlateformeBille
         {
             minuterie.Stop();
         }
-
+        private void Richesse()
+        {
+            if (toucheG && toucheCtrl)
+            {
+                for (int i = 0; i < billeInventaire.Length; i++)
+                {
+                    billeInventaire[i] = 4242;
+                }
+                ChoixBille.Content = billeInventaire[choixBille];
+            }
+        }
         private void FinNiveau()
         {
 
@@ -695,6 +723,10 @@ namespace JeuxPlateformeBille
                     canvasMainWindow.Children.Remove(ennemisEnJeu[0].BarreDeVie);
                     ennemisEnJeu.Remove(ennemisEnJeu[0]);
                 }
+            }
+            for (int i = 0; i < billeInventaire.Length; i++)
+            {
+                billeInventaire[i] = nbBillesDepart;
             }
             choixDuNiveau.ChangerCouleurEllipseNiveau(niveau);
             ImageBrush imageBrush = new ImageBrush();
