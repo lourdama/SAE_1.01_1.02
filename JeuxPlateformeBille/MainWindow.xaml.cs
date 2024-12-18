@@ -34,8 +34,8 @@ namespace JeuxPlateformeBille
         public Key toucheDroite = Key.D;
         public Key toucheSaut = Key.Space;
         private static BitmapImage fond;
-        private bool gauche, droite, saut, enSaut, billeBouge, pause,jouer, niveauGagne, animationEntreeBool, porteFerme, mort = false;
-        private int vitesseJoueur = 8, gravite = 8, toleranceColision = 5, nbtouche = 0, nbStockBille = 100, choixBille ;
+        private bool gauche, droite, saut, enSaut, billeBouge, pause,jouer, niveauGagne, animationEntreeBool, porteFerme = false, toucheG, toucheCtrl, mort = false;
+        private int vitesseJoueur = 8, gravite = 8, toleranceColision = 5, nbtouche = 0, nbStockBille = 100, choixBille, nbBillesDepart = 3;
         System.Drawing.Rectangle  hitBoxJoueur, hitBoxBille, hitBoxEnnemi, hitBoxSac;
         private int animationJoueur = 1, animationSaut = 1, animationStatic = 1, timerAnimation, timerAnimationSaut, timerAnimationStatic, animationEntree = 1, timerAnimationEntree = 0, timerAnimationMort, animationMort = 1;
         private static Point clickPosition;
@@ -49,10 +49,10 @@ namespace JeuxPlateformeBille
         private static int[,] sautTailleAnimation = { { 61, 49 }, { 52, 64 }, { 50, 65 }, { 55, 57 }, { 60, 61 } };
         private static BitmapImage[] imageBilles;
         BitmapImage[] marche;
-        private static MediaPlayer musique;
+        private static MediaPlayer musique = new MediaPlayer();
         int[,] niveauBille = new int[,]
         { {0,0,0}, {0,0,1}, {0,2,2}, {0,1,2} };
-        int[] billeInventaire = new int[] { 100, 100, 100 };
+        int[] billeInventaire = new int[] { 3, 3, 3 };
         int[][,] niveauEnnemis = new int[][,]
         {
             new int[,] { { 1, 100, 100 }, { 1, 200, 200 }, { 1, 300, 300 }, { 1, 400, 400 } },
@@ -262,6 +262,14 @@ namespace JeuxPlateformeBille
                     }
 
                 }
+                else if (e.Key == Key.G)
+                {
+                    toucheG = true;
+                }
+                else if (e.Key == Key.LeftCtrl)
+                {
+                    toucheCtrl = true;
+                }
             }
             
         }
@@ -282,7 +290,15 @@ namespace JeuxPlateformeBille
                 {
                     saut = false;
                 }
-            
+                else if (e.Key == Key.G)
+                {
+                    toucheG = false;
+                }
+                else if (e.Key == Key.LeftCtrl)
+                {
+                    toucheCtrl = false;
+                }
+            }
 
             
 
@@ -311,6 +327,8 @@ namespace JeuxPlateformeBille
             {
                 Deplacement();
                 DeplacementEnnemi();
+                DeplacementSac();
+                Richesse();
                 if (VerifTouche())
                 {
                     jouer = false;
@@ -339,7 +357,7 @@ namespace JeuxPlateformeBille
                 }
                 if (aleatoire.Next(0, 900) == 1)
                 {
-                    // spawn sac de bille
+                    ApparitionSac();
                 }
             }
 
@@ -508,7 +526,7 @@ namespace JeuxPlateformeBille
         {
             Sac nouveauSac = new Sac(new Image());
             nouveauSac.Texture = new Image();
-            nouveauSac.Texture.Source = new BitmapImage(new Uri("pack://application:,,,/img/billes/bille1.png"));
+            nouveauSac.Texture.Source = new BitmapImage(new Uri("pack://application:,,,/img/sacBille.png"));
             nouveauSac.Texture.Width = 64;
             nouveauSac.Texture.Height = 64;
             for (int i = 0; i < niveauBille.GetLength(1); i++)
@@ -650,7 +668,17 @@ namespace JeuxPlateformeBille
         {
             minuterie.Stop();
         }
-
+        private void Richesse()
+        {
+            if (toucheG && toucheCtrl)
+            {
+                for (int i = 0; i < billeInventaire.Length; i++)
+                {
+                    billeInventaire[i] = 4242;
+                }
+                ChoixBille.Content = billeInventaire[choixBille];
+            }
+        }
         private void FinNiveau()
         {
 
@@ -689,6 +717,10 @@ namespace JeuxPlateformeBille
                     canvasMainWindow.Children.Remove(ennemisEnJeu[0].BarreDeVie);
                     ennemisEnJeu.Remove(ennemisEnJeu[0]);
                 }
+            }
+            for (int i = 0; i < billeInventaire.Length; i++)
+            {
+                billeInventaire[i] = nbBillesDepart;
             }
             jouer = false;
             choixDuNiveau.ChangerCouleurEllipseNiveau(niveau);
