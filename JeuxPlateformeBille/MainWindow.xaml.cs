@@ -524,7 +524,7 @@ namespace JeuxPlateformeBille
         {
             Sac nouveauSac = new Sac(new Image());
             nouveauSac.Texture = new Image();
-            nouveauSac.Texture.Source = new BitmapImage(new Uri("pack://application:,,,/img/billes/bille1.png"));
+            nouveauSac.Texture.Source = new BitmapImage(new Uri("pack://application:,,,/img/sacBille.png"));
             nouveauSac.Texture.Width = 64;
             nouveauSac.Texture.Height = 64;
             for (int i = 0; i < niveauBille.GetLength(1); i++)
