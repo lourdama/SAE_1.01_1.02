@@ -49,7 +49,7 @@ namespace JeuxPlateformeBille
         private static int[,] sautTailleAnimation = { { 61, 49 }, { 52, 64 }, { 50, 65 }, { 55, 57 }, { 60, 61 } };
         private static BitmapImage[] imageBilles;
         BitmapImage[] marche;
-        private static MediaPlayer musique;
+        private static MediaPlayer musique = new MediaPlayer();
         int[,] niveauBille = new int[,]
         { {0,0,0}, {0,0,1}, {0,2,2}, {0,1,2} };
         int[] billeInventaire = new int[] { 3, 3, 3 };
@@ -330,6 +330,7 @@ namespace JeuxPlateformeBille
             {
                 Deplacement();
                 DeplacementEnnemi();
+                DeplacementSac();
                 Richesse();
                 if (VerifTouche())
                 {
@@ -358,7 +359,7 @@ namespace JeuxPlateformeBille
                 }
                 if (aleatoire.Next(0, 900) == 1)
                 {
-                    // spawn sac de bille
+                    ApparitionSac();
                 }
             }
 
