@@ -52,7 +52,7 @@ namespace JeuxPlateformeBille
         private static MediaPlayer musique;
         int[,] niveauBille = new int[,]
         { {0,0,0}, {0,0,1}, {0,2,2}, {0,1,2} };
-        int[] billeInventaire = new int[] { 100, 100, 0 };
+        int[] billeInventaire = new int[] { 100, 100, 100 };
         int[][,] niveauEnnemis = new int[][,]
         {
             new int[,] { { 1, 100, 100 }, { 1, 200, 200 }, { 1, 300, 300 }, { 1, 400, 400 } },
@@ -141,7 +141,9 @@ namespace JeuxPlateformeBille
             ChoixBille.Visibility = Visibility.Visible;
             Canvas.SetLeft(joueur, -joueur.Width);
             Canvas.SetTop(joueur, proprietePlateformes[niveau][0, 1] - joueur.Height);
-            
+            ChoixBille.Content = billeInventaire[choixBille];
+            ChoixBilleImg.Source = imageBilles[choixBille];
+            jouer = true;
         }
 
         private void InitImage()
