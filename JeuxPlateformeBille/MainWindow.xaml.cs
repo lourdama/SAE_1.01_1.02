@@ -366,7 +366,7 @@ namespace JeuxPlateformeBille
                     niveauGagne = true;
                     FinNiveau();
                 }
-                if (aleatoire.Next(0, 9000) == 1)
+                if (aleatoire.Next(0, TAUX_APPARITION_SAC) == 1)
                 {
                     ApparitionSac();
                 }
