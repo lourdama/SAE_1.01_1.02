@@ -36,7 +36,7 @@ namespace JeuxPlateformeBille
         private static BitmapImage fond;
         private bool gauche, droite, saut, enSaut, billeBouge, pause,jouer, niveauGagne = false;
         private int vitesseJoueur = 8, gravite = 8, toleranceColision = 5, nbtouche = 0, nbStockBille = 100, choixBille ;
-        System.Drawing.Rectangle  hitBoxJoueur, hitBoxBille, hitBoxEnnemi;
+        System.Drawing.Rectangle  hitBoxJoueur, hitBoxBille, hitBoxEnnemi, hitBoxSac;
         private int animationJoueur = 1, animationSaut = 1, animationStatic = 1, timerAnimation, timerAnimationSaut, timerAnimationStatic, animationEntre = 1, timerAnimationEntree = 0;
         private static Point clickPosition;
         private static double vitesseSaut, graviteBille = 4, coefReductionDeplacementSaut;
@@ -327,6 +327,7 @@ namespace JeuxPlateformeBille
         {
             Deplacement();
             DeplacementEnnemi();
+            DeplacementSac();
             if (VerifTouche())
             {
                 niveauGagne = false;
@@ -354,7 +355,7 @@ namespace JeuxPlateformeBille
             }
             if(aleatoire.Next(0,900) == 1)
             {
-                // spawn sac de bille
+                ApparitionSac();
             }
 
 
@@ -456,6 +457,18 @@ namespace JeuxPlateformeBille
             
 
         }
+        private int CollisionPlat(Sac sacDeBille)
+        {
+            hitBoxSac = new System.Drawing.Rectangle((int)Canvas.GetLeft(sacDeBille.Texture), (int)Canvas.GetTop(sacDeBille.Texture), (int)joueur.Width, (int)joueur.Height);
+            for (int i = 0; i < plateformesEnJeu.Count; i++)
+            {
+                if (hitBoxSac.IntersectsWith(plateformesEnJeu[i].BoiteCollision))
+                {
+                    return 0;
+                }
+            }
+            return -1;
+        }
         private void SautEnCours()
         {
             if (vitesseSaut < 0)
@@ -508,8 +521,18 @@ namespace JeuxPlateformeBille
             }
             sacEnjeu.Insert(0, nouveauSac);
             canvasMainWindow.Children.Add(nouveauSac.Texture);
-            Canvas.SetTop(nouveauSac.Texture, -64);
+            Canvas.SetTop(nouveauSac.Texture, 0);
             Canvas.SetLeft(nouveauSac.Texture, aleatoire.Next(10, (int)canvasMainWindow.Width - 10));
+        }
+        private void DeplacementSac()
+        {
+            for (int i = 0; i < sacEnjeu.Count; i++)
+            {
+                if (CollisionPlat(sacEnjeu[i]) != 0)
+                {
+                    Canvas.SetTop(sacEnjeu[i].Texture, Canvas.GetTop(sacEnjeu[i].Texture) + gravite);
+                }
+            }
         }
         private bool BilleLance(Billes bille)
         {
@@ -566,7 +589,20 @@ namespace JeuxPlateformeBille
 
             }
         }
-
+        private void ColisionSac(Sac sacDeBille)
+        {
+            hitBoxJoueur = new System.Drawing.Rectangle((int)Canvas.GetLeft(joueur), (int)Canvas.GetTop(joueur), (int)joueur.Width - 2, (int)joueur.Height - 2);
+            hitBoxSac = new System.Drawing.Rectangle((int)Canvas.GetLeft(sacDeBille.Texture), (int)Canvas.GetTop(sacDeBille.Texture), (int)joueur.Width, (int)joueur.Height);
+            if (hitBoxJoueur.IntersectsWith(hitBoxSac))
+            {
+                for (int i = 0; i < sacDeBille.Contenu.Length; i++)
+                {
+                    billeInventaire[i] += sacDeBille.Contenu[i];
+                }
+                canvasMainWindow.Children.Remove(sacDeBille.Texture);
+                sacEnjeu.Remove(sacDeBille);
+            }
+        }
         private bool ColisionEnnemi(Billes bille)
         {
             if (bille.TypeBille != 1)
