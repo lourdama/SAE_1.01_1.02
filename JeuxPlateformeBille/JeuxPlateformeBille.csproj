@@ -33,16 +33,14 @@
     <None Remove="img\credits.png" />
     <None Remove="img\ennemi\ennemi1.png" />
     <None Remove="img\ennemi\ennemi2.png" />
+    <None Remove="img\ennemi\ennemi3.png" />
+    <None Remove="img\ennemi\ennemi4.png" />
     <None Remove="img\fantome.png" />
     <None Remove="img\fond_niveau\level1.jpeg" />
     <None Remove="img\fond_niveau\level2.jpeg" />
     <None Remove="img\fond_niveau\level3.jpeg" />
     <None Remove="img\fond_niveau\level4.jpeg" />
     <None Remove="img\image2.jpg" />
-    <None Remove="img\Joueur\Climb\climb1.png" />
-    <None Remove="img\Joueur\Climb\climb2.png" />
-    <None Remove="img\Joueur\Climb\climb3.png" />
-    <None Remove="img\Joueur\Climb\climb4.png" />
     <None Remove="img\Joueur\course\course1.png" />
     <None Remove="img\Joueur\course\course2.png" />
     <None Remove="img\Joueur\course\course3.png" />
@@ -102,6 +100,12 @@
     <Resource Include="img\credits.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="img\ennemi\ennemi3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\ennemi\ennemi4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="img\reglesdujeu.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -147,18 +151,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="img\Joueur\Climb\climb1.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="img\Joueur\Climb\climb2.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="img\Joueur\Climb\climb3.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="img\Joueur\Climb\climb4.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
     <Resource Include="img\Joueur\course\course1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>

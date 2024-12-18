@@ -29,7 +29,7 @@ namespace JeuxPlateformeBille
     
     public partial class MainWindow : Window
     {
-        private static readonly int TOLERANCE_COLISION = 5, GRAVITE = 8, TAUX_APPARITION_SAC = 300, NB_BILLES_DEPART = 3, TIMER_ANIMATION = 5, DEPLACEMENT_SOL = 1, GRAVITE_BILLE = 4;
+        private static readonly int TOLERANCE_COLISION = 5, GRAVITE = 8, TAUX_APPARITION_SAC = 300, NB_BILLES_DEPART = 3, TIMER_ANIMATION = 5, DEPLACEMENT_SOL = 1, GRAVITE_BILLE = 4, NB_ROCHE_BOSS=5;
         private static readonly double DEPLACEMENT_AIR = 0.6;
         private static readonly int[,] NIVEAU_BILLE = new int[,]
             { {0,0,0}, {0,0,1}, {0,2,2}, {0,1,2} };
@@ -48,7 +48,7 @@ namespace JeuxPlateformeBille
          new int[,] { { 425, 700 }, { 850, 700 }, { 1275, 700 },{ 600, 500 }, {300, 200 }, { 0, 700 }},
          new int[,] { { 0, 700 },{425 ,400 }, { 850, 400 }, { 1275, 700 }, { 850, 200 } },
          new int[,] { { 425, 700 }, { 850, 700 }, { 1275, 700 }},
-         new int[,] { { 425, 700 }, { 850, 700 }, { 1275, 700 } }
+         new int[,] { { 0, 800 }, { 425, 800 }, { 850, 800 } ,{ 1275,800}, { 75, 625 }, {1000, 625 }, { 538 , 450 } }
         };
         private static int[,] SAUT_TAILLE_ANIMATION = { { 61, 49 }, { 52, 64 }, { 50, 65 }, { 55, 57 }, { 60, 61 } }; //taille des différentes images de l'animation
         // Fin constantes, et début variables
@@ -59,9 +59,9 @@ namespace JeuxPlateformeBille
         public Key toucheDroite = Key.D;
         public Key toucheSaut = Key.Space;
         private static BitmapImage fond;
-        private bool gauche, droite, saut, enSaut, billeBouge, pause,jouer, niveauGagne, animationEntreeBool, porteFerme, mort = false, toucheG, toucheCtrl ;
+        private bool gauche, droite, saut, enSaut, billeBouge, pause,jouer, niveauGagne, animationEntreeBool, porteFerme, mort, phaseRoche = false, toucheG, toucheCtrl ;
         private int vitesseJoueur = 8, gravite = 8, nbtouche = 0, choixBille;
-        System.Drawing.Rectangle  hitBoxJoueur, hitBoxBille, hitBoxEnnemi, hitBoxSac;
+        System.Drawing.Rectangle hitBoxJoueur, hitBoxBille, hitBoxEnnemi, hitBoxEnnemi2, hitBoxSac;
         private int animationJoueur = 1, animationSaut = 1, animationStatic = 1, timerAnimation, timerAnimationSaut, timerAnimationStatic, animationEntree = 1, timerAnimationEntree = 0, timerAnimationMort, animationMort = 1;
         private static Point clickPosition;
         private static double vitesseSaut, coefReductionDeplacementSaut;
@@ -80,7 +80,6 @@ namespace JeuxPlateformeBille
         private static BitmapImage[] ennemis;
         private static MediaPlayer musique = new MediaPlayer();
 
-
         private static Random aleatoire = new Random();
 
 
@@ -98,6 +97,7 @@ namespace JeuxPlateformeBille
         }
         public void Suivant()
         {
+            phaseRoche = false;
             InitJeu();
             InitEnnemis();
             InitPlateformes();
@@ -160,6 +160,24 @@ namespace JeuxPlateformeBille
             ChoixBilleImg.Source = imageBilles[choixBille]; // affiche le type de bille selectionné
         }
 
+        private void InitRoche()
+        {
+            int nbRoche = NB_ROCHE_BOSS * difficulte;
+            for (int i = 0; i < nbRoche; i++ )
+            {
+                Ennemis ennemi = new Ennemis();
+                ennemi.Texture = new Image();
+                ennemi.Texture.Source = ennemis[3];
+                ennemi.Texture.Width = 30;
+                ennemi.Texture.Height = 22;
+                ennemi.Vitesse = 15;
+                ennemi.TypeDeplacement = 4;
+                ennemisEnJeu.Insert(0, ennemi);
+                canvasMainWindow.Children.Add(ennemisEnJeu[0].Texture);
+                Canvas.SetTop(ennemisEnJeu[0].Texture, aleatoire.Next(-100, (int)(-2*ennemi.Texture.Height)));
+                Canvas.SetLeft(ennemisEnJeu[0].Texture, aleatoire.Next((int)ennemi.Texture.Width, (int)(this.Width-ennemi.Texture.Height)));
+            }
+        }
         private void InitImage()
         {
             imageBilles = new BitmapImage[3];
@@ -198,7 +216,7 @@ namespace JeuxPlateformeBille
                 inactifAnimationTab[i] = new BitmapImage(new Uri($"pack://application:,,,/img/joueur/inactif/inactif{i + 1}.png"));
             }
 
-            ennemis = new BitmapImage[2];
+            ennemis = new BitmapImage[4];
             for (int i = 0;i < ennemis.Length; i++)
             {
                 ennemis[i] = new BitmapImage(new Uri($"pack://application:,,,/img/ennemi/ennemi{i + 1}.png"));
@@ -209,31 +227,52 @@ namespace JeuxPlateformeBille
         }
         private void InitEnnemis()
         {
-            for (int i = 0; i < NIVEAU_ENNEMIS[niveau-1].GetLength(0); i++)
+            for (int i = 0; i < NIVEAU_ENNEMIS[niveau - 1].GetLength(0); i++)
             {
                 // Initialisation ennemi , selon le tableau d'initialisation
-                int multiplicateur;
+                int multiplicationHP = 1;
+                int multiplicationTailleX = 1;
+                int multiplicationTailleY = 1;
+                int multiplicationTailleLargeurBarre = 1;
+                if (NIVEAU_ENNEMIS[niveau - 1][i, 0] == 3)
+                {
+                    multiplicationHP = 25;
+                    multiplicationTailleX = 4;
+                    multiplicationTailleY = 2;
+                    multiplicationTailleLargeurBarre = 10;
+                }
                 Ennemis ennemi = new Ennemis();
                 ennemi.Texture = new Image();
-                ennemi.Texture.Source = ennemis[NIVEAU_ENNEMIS[niveau - 1][i, 0]-1];
-                ennemi.Texture.Width = 50;
-                ennemi.Texture.Height = 100;
-                ennemi.CoordonneeX = NIVEAU_ENNEMIS[niveau-1][i,1];
-                ennemi.CoordonneeY = NIVEAU_ENNEMIS[niveau-1][i,2]; ;
-                ennemi.Vitesse = 2;
-                ennemi.TypeDeplacement = NIVEAU_ENNEMIS[niveau-1][i,0];
-                ennemi.PointDeVie = 100;
+                ennemi.Texture.Source = ennemis[NIVEAU_ENNEMIS[niveau - 1][i, 0] - 1];
+                ennemi.Texture.Width = 50 * multiplicationTailleX;
+                ennemi.Texture.Height = 100 * multiplicationTailleY;
+                ennemi.CoordonneeX = NIVEAU_ENNEMIS[niveau - 1][i, 1];
+                ennemi.CoordonneeY = NIVEAU_ENNEMIS[niveau - 1][i, 2]; ;
+                ennemi.Vitesse = 15;
+                ennemi.TypeDeplacement = NIVEAU_ENNEMIS[niveau - 1][i, 0];
+                ennemi.PointDeVie = 100 * multiplicationHP;
                 ennemi.BarreDeVie = new ProgressBar();
-                ennemi.BarreDeVie.Height = 10;
-                ennemi.BarreDeVie.Width = 75;
+                ennemi.BarreDeVie.Height = 10 * multiplicationTailleY;
+                ennemi.BarreDeVie.Width = 75 * multiplicationTailleLargeurBarre;
                 ennemi.BarreDeVie.Value = 100;
                 ennemisEnJeu.Insert(0, ennemi);
                 canvasMainWindow.Children.Add(ennemisEnJeu[0].Texture);
                 canvasMainWindow.Children.Add(ennemisEnJeu[0].BarreDeVie);
                 Canvas.SetTop(ennemisEnJeu[0].Texture, ennemisEnJeu[0].CoordonneeY);
                 Canvas.SetLeft(ennemisEnJeu[0].Texture, ennemisEnJeu[0].CoordonneeX);
-                Canvas.SetTop(ennemisEnJeu[0].BarreDeVie, ennemisEnJeu[0].CoordonneeY);
-                Canvas.SetLeft(ennemisEnJeu[0].BarreDeVie, ennemisEnJeu[0].CoordonneeX);
+                if (NIVEAU_ENNEMIS[niveau - 1][i, 0] == 3)
+                {
+                    Canvas.SetTop(ennemisEnJeu[0].BarreDeVie, 30);
+                    Canvas.SetLeft(ennemisEnJeu[0].BarreDeVie, this.Width - (ennemisEnJeu[0].BarreDeVie.Width * 1.5));
+                    InitRoche();
+                }
+                else
+                {
+                    Canvas.SetTop(ennemisEnJeu[0].BarreDeVie, ennemisEnJeu[0].CoordonneeY);
+                    Canvas.SetLeft(ennemisEnJeu[0].BarreDeVie, ennemisEnJeu[0].CoordonneeX );
+                    
+                }
+                Console.WriteLine("Ennemie apparu");
             }
         }
 
@@ -477,9 +516,8 @@ namespace JeuxPlateformeBille
                     Canvas.SetLeft(joueur, Canvas.GetLeft(joueur) - vitesseJoueur * coefReductionDeplacementSaut);
                     AnimationDeplacementJoueur(-1);
                 }
-
-
             }
+            hitBoxJoueur = new System.Drawing.Rectangle((int)Canvas.GetLeft(joueur), (int)Canvas.GetTop(joueur), (int)joueur.Width - 2, (int)joueur.Height - 2);
             if (saut && enSaut == false)
             {
                 enSaut = true;
@@ -565,6 +603,10 @@ namespace JeuxPlateformeBille
                 AnimationSaut();
                 Canvas.SetTop(joueur, Canvas.GetTop(joueur) + vitesseSaut);
                 vitesseSaut = vitesseSaut + gravite / 6;
+                if (Canvas.GetTop(joueur) - vitesseSaut < 0) 
+                {
+                    vitesseSaut = 1;
+                }
             }
             else
             {
@@ -690,15 +732,52 @@ namespace JeuxPlateformeBille
                         Canvas.SetLeft(ennemisEnJeu[i].Texture, Canvas.GetLeft(ennemisEnJeu[i].Texture) + Math.Sign(Canvas.GetLeft(joueur) - Canvas.GetLeft(ennemisEnJeu[i].Texture)) * 2 * Math.Sqrt((double)difficulte));
                         Canvas.SetLeft(ennemisEnJeu[i].BarreDeVie, Canvas.GetLeft(ennemisEnJeu[i].Texture) + Math.Sign(Canvas.GetLeft(joueur) - Canvas.GetLeft(ennemisEnJeu[i].Texture)) * 2 * Math.Sqrt((double)difficulte));
                     }
-                    
                 }
-                hitBoxEnnemi = new System.Drawing.Rectangle((int)Canvas.GetLeft(ennemisEnJeu[i].Texture), (int)Canvas.GetTop(ennemisEnJeu[i].Texture), (int)ennemisEnJeu[i].Texture.Width, (int)ennemisEnJeu[i].Texture.Height);
+                
+
+                if (ennemisEnJeu[i].TypeDeplacement ==3)
+                {
+
+                    Console.WriteLine("X : " + Canvas.GetLeft(ennemisEnJeu[i].Texture));
+                    Canvas.SetLeft(ennemisEnJeu[i].Texture, Canvas.GetLeft(ennemisEnJeu[i].Texture) + ennemisEnJeu[i].Vitesse);
+
+                    if (Canvas.GetLeft(ennemisEnJeu[i].Texture) + ennemisEnJeu[i].Texture.Width <= 0)
+                    {
+                        ennemisEnJeu[i].Vitesse = 15;
+                        Canvas.SetTop(ennemisEnJeu[i].Texture, aleatoire.Next(200, 700));
+                        Console.WriteLine("Y : " + Canvas.GetTop(ennemisEnJeu[i].Texture));
+
+                    }
+                    if (Canvas.GetLeft(ennemisEnJeu[i].Texture) > this.Width +100)
+                    {
+
+                        Canvas.SetTop(ennemisEnJeu[i].Texture, aleatoire.Next(300, 700));
+                        ennemisEnJeu[i].Vitesse = -15;
+                        Console.WriteLine("Y : " + Canvas.GetTop(ennemisEnJeu[i].Texture));
+                    }
+                    if (ennemisEnJeu[i].PointDeVie < 2500/2)
+                    {
+                        phaseRoche = true;
+                    }
+                }
+                if (phaseRoche && ennemisEnJeu[i].TypeDeplacement == 4)
+                {
+                    Canvas.SetTop(ennemisEnJeu[i].Texture, Canvas.GetTop(ennemisEnJeu[i].Texture) + ennemisEnJeu[i].Vitesse);
+                    if (Canvas.GetTop(ennemisEnJeu[i].Texture) > this.Height)
+                    {
+                        Canvas.SetTop(ennemisEnJeu[i].Texture, -ennemisEnJeu[i].Texture.Height);
+                        Canvas.SetLeft(ennemisEnJeu[0].Texture, aleatoire.Next((int)ennemisEnJeu[i].Texture.Width, (int)(this.Width - ennemisEnJeu[i].Texture.Height)));
+                    }
+                }
+
+
+                ennemisEnJeu[i].HitBox = new System.Drawing.Rectangle((int)Canvas.GetLeft(ennemisEnJeu[i].Texture), (int)(Canvas.GetTop(ennemisEnJeu[i].Texture)), (int)ennemisEnJeu[i].Texture.Width, (int)(ennemisEnJeu[i].Texture.Height));
 
             }
         }
         private void ColisionSac(Sac sacDeBille)
         {
-            hitBoxJoueur = new System.Drawing.Rectangle((int)Canvas.GetLeft(joueur), (int)Canvas.GetTop(joueur), (int)joueur.Width - 2, (int)joueur.Height - 2);
+            
             hitBoxSac = new System.Drawing.Rectangle((int)Canvas.GetLeft(sacDeBille.Texture), (int)Canvas.GetTop(sacDeBille.Texture), (int)joueur.Width, (int)joueur.Height);
             if (hitBoxJoueur.IntersectsWith(hitBoxSac))
             {
@@ -717,32 +796,66 @@ namespace JeuxPlateformeBille
             {
                 for (int i = 0; i < ennemisEnJeu.Count; i++)
                 {
-                    hitBoxEnnemi = new System.Drawing.Rectangle((int)Canvas.GetLeft(ennemisEnJeu[i].Texture), (int)Canvas.GetTop(ennemisEnJeu[i].Texture), (int)ennemisEnJeu[i].Texture.Width, (int)ennemisEnJeu[i].Texture.Height);
-                    if (hitBoxBille.IntersectsWith(hitBoxEnnemi))
+
+                    if (ennemisEnJeu[i].TypeDeplacement != 4) 
                     {
-                        ennemisEnJeu[i].PointDeVie -= bille.DegatBille;
-                        ennemisEnJeu[i].BarreDeVie.Value -= bille.DegatBille;
-                        if (ennemisEnJeu[i].PointDeVie <= 0)
+                        if (hitBoxBille.IntersectsWith(ennemisEnJeu[i].HitBox))
                         {
-                            canvasMainWindow.Children.Remove(ennemisEnJeu[i].Texture);
-                            canvasMainWindow.Children.Remove(ennemisEnJeu[i].BarreDeVie);
-                            ennemisEnJeu.Remove(ennemisEnJeu[i]);
-                            ReinitialisationSaut();
+                            ennemisEnJeu[i].PointDeVie -= bille.DegatBille;
+                            if (ennemisEnJeu[i].TypeDeplacement == 3)
+                            {
+                                ennemisEnJeu[i].BarreDeVie.Value -= (double)(bille.DegatBille) / 25;
+                            }
+                            else
+                            {
+                                ennemisEnJeu[i].BarreDeVie.Value -= bille.DegatBille;
+                            }
+
+                            if (ennemisEnJeu[i].PointDeVie <= 0)
+                            {
+
+
+                                if (ennemisEnJeu[i].TypeDeplacement == 3)
+                                {
+                                    canvasMainWindow.Children.Remove(ennemisEnJeu[i].Texture);
+                                    canvasMainWindow.Children.Remove(ennemisEnJeu[i].BarreDeVie);
+                                    ennemisEnJeu.Remove(ennemisEnJeu[i]);
+                                    DestructionRoche();
+                                }
+                                else
+                                {
+                                    canvasMainWindow.Children.Remove(ennemisEnJeu[i].Texture);
+                                    canvasMainWindow.Children.Remove(ennemisEnJeu[i].BarreDeVie);
+                                    ennemisEnJeu.Remove(ennemisEnJeu[i]);
+                                }
+                                
+                                ReinitialisationSaut();
+                                
+                            }
+                            return true;
                         }
-                        return true;
                     }
+                    
 
                 }
             }
             return false;
         }
+
+        private void DestructionRoche()
+        {
+            int nbRoche = ennemisEnJeu.Count;
+            for (int i = 0; i <  nbRoche; i++)
+            {
+                canvasMainWindow.Children.Remove(ennemisEnJeu[0].Texture);
+                ennemisEnJeu.Remove(ennemisEnJeu[0]);
+            }
+        }
         private bool VerifTouche()
         {
             for (int i = 0; i < ennemisEnJeu.Count; i++)
             {
-                    hitBoxJoueur = new System.Drawing.Rectangle((int)Canvas.GetLeft(joueur), (int)Canvas.GetTop(joueur), (int)joueur.Width - 2, (int)joueur.Height - 2);
-                    hitBoxEnnemi = new System.Drawing.Rectangle((int)Canvas.GetLeft(ennemisEnJeu[i].Texture), (int)Canvas.GetTop(ennemisEnJeu[i].Texture), (int)ennemisEnJeu[i].Texture.Width - 2, (int)ennemisEnJeu[i].Texture.Height - 2);
-                    bool ennemiTouche = hitBoxEnnemi.IntersectsWith(hitBoxJoueur);
+                    bool ennemiTouche = ennemisEnJeu[i].HitBox.IntersectsWith(hitBoxJoueur);
                     if(ennemiTouche == true)    
                         return ennemiTouche;
             }
@@ -877,6 +990,7 @@ namespace JeuxPlateformeBille
 
         private void AnimationMort()
         {
+            regard.ScaleX = 1;
             if (CollisionPlat() != 4)
             {
                 Canvas.SetTop(joueur, Canvas.GetTop(joueur) + 5);
@@ -963,16 +1077,17 @@ namespace JeuxPlateformeBille
 
 
     }
-    
 
 
-    
+
+
     public partial class Ennemis
     {
-        private int coordonneeX, coordonneeY, typeDeplacement, pointDeVie;
+        private int coordonneeX, coordonneeY, typeDeplacement;
         private Image texture;
-        private double vitesse;
+        private double vitesse, pointDeVie;
         private ProgressBar barreDeVie;
+        private System.Drawing.Rectangle hitBox, hitBox2;
 
         public Image Texture
         {
@@ -994,7 +1109,7 @@ namespace JeuxPlateformeBille
             get { return typeDeplacement; }
             set { typeDeplacement = value; }
         }
-        public int PointDeVie
+        public double PointDeVie
         {
             get { return pointDeVie; }
             set { pointDeVie = value; }
@@ -1009,7 +1124,18 @@ namespace JeuxPlateformeBille
             get { return barreDeVie; }
             set { barreDeVie = value; }
         }
+        public System.Drawing.Rectangle HitBox
+        {
+            get { return hitBox; }
+            set { hitBox = value; }
+        }
+        public System.Drawing.Rectangle HitBox2
+        {
+            get { return hitBox; }
+            set { hitBox = value; }
+        }
     }
+
     public class Billes
     {
         public Image Texture { get; set; }

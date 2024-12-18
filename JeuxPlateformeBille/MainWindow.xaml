@@ -32,7 +32,7 @@
                 Fill="Red"
                 Stroke="Red"
                 Visibility="Hidden"/>
-        
+
         <Label x:Name="ChoixBille" Content="Numéro bille : " Canvas.Left="109" Canvas.Top="46" HorizontalAlignment="Left" Height="56" VerticalAlignment="Top" Width="370" FontSize="30" Background="{x:Null}" Foreground="White" FontWeight="Bold" Visibility="Hidden"/>
 
         <Image x:Name="joueur" Height="56" Source="/img/Joueur/marche/marche1.png" Stretch="Fill" Canvas.Top="644" Width="42" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="327" Visibility="Hidden">
@@ -43,5 +43,6 @@
             </Image.RenderTransform>
         </Image>
         <Image x:Name="ChoixBilleImg" Height="64" Canvas.Left="18" Source="/img/billes/bille1.png" Stretch="Fill" Canvas.Top="42" Width="64" RenderTransformOrigin="0.502,-0.31" HorizontalAlignment="Left" VerticalAlignment="Center" Visibility="Hidden"/>
+        <Image Height="73" Canvas.Left="1075" Source="/img/plateforme.png" Stretch="Fill" Canvas.Top="768" Width="425"/>
     </Canvas>
 </Window>
