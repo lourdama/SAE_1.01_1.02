@@ -52,7 +52,7 @@ namespace JeuxPlateformeBille
         private static MediaPlayer musique;
         int[,] niveauBille = new int[,]
         { {0,0,0}, {0,0,1}, {0,2,2}, {0,1,2} };
-        int[] billeInventaire = new int[] { 0, 0, 0 };
+        int[] billeInventaire = new int[] { 100, 100, 0 };
         int[][,] niveauEnnemis = new int[][,]
         {
             new int[,] { { 1, 100, 100 }, { 1, 200, 200 }, { 1, 300, 300 }, { 1, 400, 400 } },
@@ -227,7 +227,7 @@ namespace JeuxPlateformeBille
                 {
                     choixBille = choixBille - 1;
                 }
-                ChoixBille.Content = choixBille;
+                ChoixBille.Content = billeInventaire[choixBille];
             }
 
             ChoixBilleImg.Source = imageBilles[choixBille];
@@ -449,6 +449,18 @@ namespace JeuxPlateformeBille
             
 
         }
+        private int CollisionPlat(Sac sacDeBille)
+        {
+            hitBoxSac = new System.Drawing.Rectangle((int)Canvas.GetLeft(sacDeBille.Texture), (int)Canvas.GetTop(sacDeBille.Texture), (int)joueur.Width, (int)joueur.Height);
+            for (int i = 0; i < plateformesEnJeu.Count; i++)
+            {
+                if (hitBoxSac.IntersectsWith(plateformesEnJeu[i].BoiteCollision))
+                {
+                    return 0;
+                }
+            }
+            return -1;
+        }
         private void SautEnCours()
         {
             if (vitesseSaut < 0)
@@ -465,7 +477,7 @@ namespace JeuxPlateformeBille
 
         private void Tir(MouseButtonEventArgs e)
         {
-            if (nbStockBille > 0)
+            if (billeInventaire[choixBille] > 0)
             {
                 Billes nouvelleBille = new Billes(new Image(), 0, 0, 0, 0);
                 nouvelleBille.Texture.Source = imageBilles[choixBille];
@@ -482,8 +494,8 @@ namespace JeuxPlateformeBille
                 canvasMainWindow.Children.Add(nouvelleBille.Texture);
                 Canvas.SetTop(nouvelleBille.Texture, Canvas.GetTop(joueur));
                 Canvas.SetLeft(nouvelleBille.Texture, Canvas.GetLeft(joueur));
-                nbStockBille--;
-                StockBille.Content = "Stock De Billes : " + nbStockBille;
+                billeInventaire[choixBille] --;
+                StockBille.Content = "Stock De Billes : " + billeInventaire[choixBille];
 
 
             }
@@ -491,6 +503,7 @@ namespace JeuxPlateformeBille
         private void ApparitionSac()
         {
             Sac nouveauSac = new Sac(new Image());
+            nouveauSac.Texture = new Image();
             nouveauSac.Texture.Source = new BitmapImage(new Uri("pack://application:,,,/img/billes/bille1.png"));
             nouveauSac.Texture.Width = 64;
             nouveauSac.Texture.Height = 64;
@@ -501,8 +514,19 @@ namespace JeuxPlateformeBille
             }
             sacEnjeu.Insert(0, nouveauSac);
             canvasMainWindow.Children.Add(nouveauSac.Texture);
-            Canvas.SetTop(nouveauSac.Texture, -64);
+            Canvas.SetTop(nouveauSac.Texture, 0);
             Canvas.SetLeft(nouveauSac.Texture, aleatoire.Next(10, (int)canvasMainWindow.Width - 10));
+        }
+        private void DeplacementSac()
+        {
+            for (int i = 0; i < sacEnjeu.Count; i++)
+            {
+                if (CollisionPlat(sacEnjeu[i]) != 0)
+                {
+                    Canvas.SetTop(sacEnjeu[i].Texture, Canvas.GetTop(sacEnjeu[i].Texture) + gravite);
+                }
+                ColisionSac(sacEnjeu[i]);
+            }
         }
         private bool BilleLance(Billes bille)
         {
@@ -559,7 +583,20 @@ namespace JeuxPlateformeBille
 
             }
         }
-
+        private void ColisionSac(Sac sacDeBille)
+        {
+            hitBoxJoueur = new System.Drawing.Rectangle((int)Canvas.GetLeft(joueur), (int)Canvas.GetTop(joueur), (int)joueur.Width - 2, (int)joueur.Height - 2);
+            hitBoxSac = new System.Drawing.Rectangle((int)Canvas.GetLeft(sacDeBille.Texture), (int)Canvas.GetTop(sacDeBille.Texture), (int)joueur.Width, (int)joueur.Height);
+            if (hitBoxJoueur.IntersectsWith(hitBoxSac))
+            {
+                for (int i = 0; i < sacDeBille.Contenu.Length; i++)
+                {
+                    billeInventaire[i] += sacDeBille.Contenu[i];
+                }
+                canvasMainWindow.Children.Remove(sacDeBille.Texture);
+                sacEnjeu.Remove(sacDeBille);
+            }
+        }
         private bool ColisionEnnemi(Billes bille)
         {
             if (bille.TypeBille != 1)
