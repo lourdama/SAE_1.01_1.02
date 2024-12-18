@@ -34,10 +34,10 @@ namespace JeuxPlateformeBille
         public Key toucheDroite = Key.D;
         public Key toucheSaut = Key.Space;
         private static BitmapImage fond;
-        private bool gauche, droite, saut, enSaut, billeBouge, pause,jouer, niveauGagne, animationEntreeBool, porteFerme = false;
+        private bool gauche, droite, saut, enSaut, billeBouge, pause,jouer, niveauGagne, animationEntreeBool, porteFerme, mort = false;
         private int vitesseJoueur = 8, gravite = 8, toleranceColision = 5, nbtouche = 0, nbStockBille = 100, choixBille ;
         System.Drawing.Rectangle  hitBoxJoueur, hitBoxBille, hitBoxEnnemi, hitBoxSac;
-        private int animationJoueur = 1, animationSaut = 1, animationStatic = 1, timerAnimation, timerAnimationSaut, timerAnimationStatic, animationEntree = 1, timerAnimationEntree = 0;
+        private int animationJoueur = 1, animationSaut = 1, animationStatic = 1, timerAnimation, timerAnimationSaut, timerAnimationStatic, animationEntree = 1, timerAnimationEntree = 0, timerAnimationMort, animationMort = 1;
         private static Point clickPosition;
         private static double vitesseSaut, graviteBille = 4, coefReductionDeplacementSaut;
         private static Ennemis fantome = new Ennemis();
@@ -255,11 +255,10 @@ namespace JeuxPlateformeBille
                 }
                 else if (e.Key == Key.P)
                 {
-                    if (!pause)
+                    if (jouer)
                     {
-                        pause = true;
+                        jouer = false;
                         this.ControlContent.Content = new Pause();
-                        minuterie.Start();
                     }
 
                 }
@@ -269,8 +268,7 @@ namespace JeuxPlateformeBille
 
         private void Window_KeyUp(object sender, KeyEventArgs e)
         {
-            if(jouer)
-            {
+
                 if (e.Key == toucheGauche)
                 {
                     gauche = false;
@@ -284,14 +282,14 @@ namespace JeuxPlateformeBille
                 {
                     saut = false;
                 }
-            }
+            
 
             
 
         }
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (!pause&&jouer)
+            if (jouer)
             {
                 Tir(e);
             }
@@ -304,9 +302,8 @@ namespace JeuxPlateformeBille
 
         public void Reprendre()
         {
-            pause = false;
+            jouer = true;
             this.ControlContent.Content = null;
-            minuterie.Start();
         }
         private void Jeu(object? sender, EventArgs e)
         {
@@ -316,8 +313,9 @@ namespace JeuxPlateformeBille
                 DeplacementEnnemi();
                 if (VerifTouche())
                 {
+                    jouer = false;
                     niveauGagne = false;
-                    DestructionNiveau();
+                    mort = true;
                 }
 
                 for (int i = 0; i < billesEnJeu.Count; i++)
@@ -345,9 +343,14 @@ namespace JeuxPlateformeBille
                 }
             }
 
-            else if (!jouer)
+            else if (animationEntreeBool)
             {
                 AnimationEntree();
+            }
+
+            else if (mort)
+            {
+                AnimationMort();
             }
             
 
@@ -673,17 +676,8 @@ namespace JeuxPlateformeBille
                 canvasMainWindow.Children.Remove(billesEnJeu[0].Texture);
                 billesEnJeu.Remove(billesEnJeu[0]);
             }
-
             
-            jouer = false;
-            droite = false;
-            gauche = false;
-            saut = false;
-            enSaut = true;
-            vitesseSaut = 0;
-            joueur.Visibility = Visibility.Hidden;
-            ChoixBilleImg.Visibility = Visibility.Hidden;
-            ChoixBille.Visibility = Visibility.Hidden;
+            
             ChoixNiveau choixDuNiveau = new ChoixNiveau();
             if (niveauGagne == false)   
             {
@@ -696,6 +690,7 @@ namespace JeuxPlateformeBille
                     ennemisEnJeu.Remove(ennemisEnJeu[0]);
                 }
             }
+            jouer = false;
             choixDuNiveau.ChangerCouleurEllipseNiveau(niveau);
             ImageBrush imageBrush = new ImageBrush();
             imageBrush.ImageSource = new BitmapImage(new Uri("pack://application:,,,/img/choixduniveau.jpg", UriKind.RelativeOrAbsolute));
@@ -721,9 +716,34 @@ namespace JeuxPlateformeBille
             if (animationEntree > 6)
             {
                 jouer = true;
+                animationEntreeBool = false;
                 animationEntree = 1;
             }
             
+        }
+
+        private void AnimationMort()
+        {
+            if (CollisionPlat() != 4)
+            {
+                Canvas.SetTop(joueur, Canvas.GetTop(joueur) + 5);
+            }
+            joueur.Source = new BitmapImage(new Uri($"pack://application:,,,/img/joueur/mort/mort{animationMort}.png"));
+            timerAnimationMort += 1;
+            if (timerAnimationMort == 8)
+            {
+                animationMort = animationMort + 1;
+                timerAnimationMort = 0;
+            }
+
+            if (animationMort > 10)
+            {
+                mort = false;
+                animationMort = 1;
+                timerAnimationMort = 0;
+                DestructionNiveau();
+            }
+
         }
 
         public void AnimationDeplacementJoueur(int direction)
