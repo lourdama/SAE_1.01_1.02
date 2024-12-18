@@ -880,7 +880,7 @@ namespace JeuxPlateformeBille
 
             joueur.Width = 57;
             joueur.Height = 55;
-            joueur.Source = staticAnimationTab[staticAnimationTab.Length-1];
+            joueur.Source = inactifAnimationTab[animationStatic-1];
             timerAnimationStatic += 1;
             if (timerAnimationStatic == TIMER_ANIMATION)
             {
