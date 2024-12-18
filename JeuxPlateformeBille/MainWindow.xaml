@@ -43,6 +43,5 @@
             </Image.RenderTransform>
         </Image>
         <Image x:Name="ChoixBilleImg" Height="64" Canvas.Left="18" Source="/img/billes/bille1.png" Stretch="Fill" Canvas.Top="42" Width="64" RenderTransformOrigin="0.502,-0.31" HorizontalAlignment="Left" VerticalAlignment="Center" Visibility="Hidden"/>
-        <Image Height="73" Canvas.Left="1075" Source="/img/plateforme.png" Stretch="Fill" Canvas.Top="768" Width="425"/>
     </Canvas>
 </Window>
