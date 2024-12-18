@@ -60,7 +60,7 @@ namespace JeuxPlateformeBille
         public Key toucheDroite = Key.D;
         public Key toucheSaut = Key.Space;
         private static BitmapImage fond;
-        private bool gauche, droite, saut, enSaut, billeBouge, pause, jouer, niveauGagne, animationEntreeBool, porteFerme, mort, phaseRoche = false, toucheG, toucheCtrl;
+        private bool gauche, droite, saut, enSaut, billeBouge, pause, jouer, niveauGagne, animationEntreeBool, porteFerme, mort, phaseRoche, imortalité = false, toucheG, toucheCtrl, toucheI;
         private int vitesseJoueur = 8, gravite = 8, nbtouche = 0, choixBille;
         System.Drawing.Rectangle hitBoxJoueur, hitBoxBille, hitBoxEnnemi, hitBoxEnnemi2, hitBoxSac;
         private int animationJoueur = 1, animationSaut = 1, animationStatic = 1, timerAnimation, timerAnimationSaut, timerAnimationStatic, animationEntree = 1, timerAnimationEntree = 0, timerAnimationMort, animationMort = 1;
@@ -363,10 +363,11 @@ namespace JeuxPlateformeBille
                 {
                     toucheCtrl = true;
                 }
-                else if (e.Key == Key.N)
+                else if(e.Key == Key.I)
                 {
-                    ApparitionSac();
+                    toucheI = true;
                 }
+
             }
 
         }
@@ -394,6 +395,10 @@ namespace JeuxPlateformeBille
             else if (e.Key == Key.LeftCtrl)
             {
                 toucheCtrl = false;
+            }
+            else if (e.Key == Key.I)
+            {
+                toucheI = false;
             }
         }
 
@@ -425,6 +430,17 @@ namespace JeuxPlateformeBille
             // logique de jeu appel des différentes fonctions 
             if (jouer)
             {
+                if (toucheI && toucheCtrl)
+                {
+                    if (imortalité)
+                    {
+                        imortalité = false;
+                    }
+                    else
+                    {
+                        imortalité = true;
+                    }
+                }
                 Deplacement();
                 DeplacementEnnemi();
                 DeplacementSac();
@@ -865,12 +881,16 @@ namespace JeuxPlateformeBille
         }
         private bool VerifTouche()//si un ennemi touche le joueur alors retourne vrai
         {
-            for (int i = 0; i < ennemisEnJeu.Count; i++)
+            if (!imortalité)
             {
-                bool ennemiTouche = ennemisEnJeu[i].HitBox.IntersectsWith(hitBoxJoueur);
-                if (ennemiTouche == true)
-                    return ennemiTouche;
+                for (int i = 0; i < ennemisEnJeu.Count; i++)
+                {
+                    bool ennemiTouche = ennemisEnJeu[i].HitBox.IntersectsWith(hitBoxJoueur);
+                    if (ennemiTouche == true)
+                        return ennemiTouche;
+                }
             }
+            
             return false;
         }
 
