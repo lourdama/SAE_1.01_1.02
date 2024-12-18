@@ -721,6 +721,7 @@ namespace JeuxPlateformeBille
                 billeInventaire[i] = nbBillesDepart;
             }
             jouer = false;
+            joueur.Visibility = Visibility.Hidden;
             choixDuNiveau.ChangerCouleurEllipseNiveau(niveau);
             ImageBrush imageBrush = new ImageBrush();
             imageBrush.ImageSource = new BitmapImage(new Uri("pack://application:,,,/img/choixduniveau.jpg", UriKind.RelativeOrAbsolute));
