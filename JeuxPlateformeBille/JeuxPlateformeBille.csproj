@@ -91,9 +91,16 @@
     <None Remove="img\Joueur\Saut\saut8.png" />
     <None Remove="img\Joueur\Saut\saut9.png" />
     <None Remove="img\plateforme.png" />
+    <None Remove="img\reglesdujeu.png" />
     <None Remove="img\sacBille.png" />
     <None Remove="img\victoirefond.jpg" />
     <None Remove="img\warped_pearl.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="img\reglesdujeu.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>

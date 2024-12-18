@@ -207,7 +207,7 @@ namespace JeuxPlateformeBille
             for (int i = 0; i < NIVEAU_ENNEMIS[niveau-1].GetLength(0); i++)
             {
                 // Initialisation ennemi 
-                int multiplicateur
+                int multiplicateur;
                 Ennemis ennemie = new Ennemis();
                 ennemie.Texture = new Image();
                 ennemie.Texture.Source = ennemi[NIVEAU_ENNEMIS[niveau - 1][i, 0]-1];

@@ -46,5 +46,14 @@ namespace JeuxPlateformeBille
         {
             ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).Close();
         }
+
+        private void butRegle_Click(object sender, RoutedEventArgs e)
+        {
+            ReglesDuJeu reglesdujeu = new ReglesDuJeu();
+            ImageBrush imageBrush = new ImageBrush();
+            imageBrush.ImageSource = new BitmapImage(new Uri("pack://application:,,,/img/reglesdujeu.png", UriKind.RelativeOrAbsolute));
+            ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).canvasMainWindow.Background = imageBrush;
+            ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).ControlContent.Content = reglesdujeu;
+        }
     }
 }
