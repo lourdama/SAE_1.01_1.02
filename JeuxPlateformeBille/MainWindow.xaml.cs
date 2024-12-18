@@ -722,6 +722,7 @@ namespace JeuxPlateformeBille
                 jouer = true;
                 animationEntree = 1;
             }
+            
         }
 
         public void AnimationDeplacementJoueur(int direction)

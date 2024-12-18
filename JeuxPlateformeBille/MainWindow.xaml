@@ -33,18 +33,7 @@
                 Fill="Red"
                 Stroke="Red"
                 Visibility="Hidden"/>
-        <Rectangle
-                x:Name="barreSaut"
-                Canvas.Left="0"
-                Canvas.Top="14"
-                Width="100"
-                Height="16"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                Fill="White"
-                OpacityMask="White"
-                Stroke="White"
-                Visibility="Hidden"/>
+        
         <Label x:Name="StockBille" Content="Stock De Billes : 1000" Height="51" Canvas.Left="1184" Canvas.Top="22" Width="232" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="24" Background="Transparent" Visibility="Hidden"/>
         <Label x:Name="ChoixBille" Content="Numéro bille : " Canvas.Left="50" Canvas.Top="47" HorizontalAlignment="Left" Height="55" VerticalAlignment="Top" Width="370" FontSize="30"/>
 
