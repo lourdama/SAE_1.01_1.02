@@ -499,7 +499,7 @@ namespace JeuxPlateformeBille
             {
                 if (hitBoxJoueur.IntersectsWith(plateformesEnJeu[i].BoiteCollision))
                 {
-
+                    Console.WriteLine($"Collision détectée avec la plateforme {i}");
                     if (Canvas.GetTop(joueur) + joueur.Height < Canvas.GetTop(plateformesEnJeu[i].Texture) + TOLERANCE_COLISION)
                     {
                         timerAnimationSaut = 0;
@@ -518,28 +518,26 @@ namespace JeuxPlateformeBille
                         return 2;
                     }
                     
-                    
-                    
-                    
                     else
                     {
                         vitesseSaut = 1;
                         return 4;
                     }
+                    
+
                 }
-  
+
             }
             return -1;
             
 
         }
         
-        private int CollisionPlat(Sac sacDeBille) //surcharge simplifiée pour la colision des sac des billes qui tombent sur le sol
+        private int CollisionPlat(Sac sacDeBille) //surcharge simplifiée pour la collision des sac des billes qui tombent sur le sol
         {
             hitBoxSac = new System.Drawing.Rectangle((int)Canvas.GetLeft(sacDeBille.Texture), (int)Canvas.GetTop(sacDeBille.Texture), (int)sacDeBille.Texture.Width, (int)sacDeBille.Texture.Height);
             for (int i = 0; i < plateformesEnJeu.Count; i++)
             {
-                Console.WriteLine(Canvas.GetTop(sacDeBille.Texture));
                 if (hitBoxSac.IntersectsWith(plateformesEnJeu[i].BoiteCollision))
                 {
                     Console.WriteLine("Au sol");
@@ -553,7 +551,6 @@ namespace JeuxPlateformeBille
             hitBoxSac = new System.Drawing.Rectangle((int)(Canvas.GetLeft(ennemi.Texture) + (ennemi.Texture.Width * direction ) ), (int)Canvas.GetTop(ennemi.Texture), (int)(ennemi.Texture.Width + ennemi.Texture.Width), (int)ennemi.Texture.Height);
             for (int i = 0; i < plateformesEnJeu.Count; i++)
             {
-                Console.WriteLine(Canvas.GetTop(ennemi.Texture));
                 if (hitBoxSac.IntersectsWith(plateformesEnJeu[i].BoiteCollision))
                 {
                     return 0;
@@ -568,6 +565,7 @@ namespace JeuxPlateformeBille
                 AnimationSaut();
                 Canvas.SetTop(joueur, Canvas.GetTop(joueur) + vitesseSaut);
                 vitesseSaut = vitesseSaut + gravite / 6;
+                Console.WriteLine($"Vitesse saut : {vitesseSaut}, Position : {Canvas.GetTop(joueur)}");
             }
             else
             {
@@ -597,12 +595,12 @@ namespace JeuxPlateformeBille
                 Canvas.SetLeft(nouvelleBille.Texture, Canvas.GetLeft(joueur));
                 billeInventaire[choixBille] --;
                 ChoixBille.Content = billeInventaire[choixBille];
+                Console.WriteLine($"Nouvelle bille tirée : VitesseX = {vitesseX}, VitesseY = {vitesseY}");
 
             }
         }
         private void ApparitionSac() // permet de faire apparaitre des sacs contenant des billes en dans des proportions en fonction des niveau avec un peu d'aléatoire 
         {
-            Console.WriteLine("Apparition Sac");
             Sac nouveauSac = new Sac(new Image());
             nouveauSac.Texture = new Image();
             nouveauSac.Texture.Source = new BitmapImage(new Uri("pack://application:,,,/img/sacBille.png"));
@@ -617,7 +615,8 @@ namespace JeuxPlateformeBille
             canvasMainWindow.Children.Add(sacEnjeu[0].Texture);
             Canvas.SetTop(nouveauSac.Texture, -nouveauSac.Texture.Height);
             Canvas.SetLeft(nouveauSac.Texture, aleatoire.Next(10, (int)this.Width - 10));
-            Console.WriteLine("Sac ajouté");
+            Console.WriteLine($"Sac apparu à ({Canvas.GetLeft(nouveauSac.Texture)}, {Canvas.GetTop(nouveauSac.Texture)}) avec contenu {nouveauSac.Contenu}");
+
         }
 
         private void DeplacementSac() //fait déplacer les sac soumis au vecteur gravité jusqu'à une collision avec une plateforme
@@ -699,6 +698,7 @@ namespace JeuxPlateformeBille
                     
                 }
                 hitBoxEnnemi = new System.Drawing.Rectangle((int)Canvas.GetLeft(ennemisEnJeu[i].Texture), (int)Canvas.GetTop(ennemisEnJeu[i].Texture), (int)ennemisEnJeu[i].Texture.Width, (int)ennemisEnJeu[i].Texture.Height);
+                Console.WriteLine($"Ennemi {i} position : ({Canvas.GetLeft(ennemisEnJeu[i].Texture)}, {Canvas.GetTop(ennemisEnJeu[i].Texture)})");
 
             }
         }
@@ -782,6 +782,7 @@ namespace JeuxPlateformeBille
 
             if (Canvas.GetLeft(joueur) + joueur.Width > this.Width -25 && Canvas.GetTop(joueur) > 500 && Canvas.GetTop(joueur) < 900)
             {
+                Console.WriteLine("Fin de niveau atteinte");
                 DestructionNiveau();
             }
             

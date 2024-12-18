@@ -6,11 +6,11 @@
     xmlns:local="clr-namespace:JeuxPlateformeBille"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="JEU"
-    Title="MainWindow"
+    Title="BallQuest"
     Width="1500"
     Height="900"
     WindowStartupLocation="CenterScreen"
-    mc:Ignorable="d" ResizeMode="NoResize">
+    mc:Ignorable="d" ResizeMode="NoResize" Icon="/img/logo.png">
 
 
     <Canvas x:Name="canvasMainWindow" KeyDown="Window_KeyDown" KeyUp="Window_KeyUp" MouseDown="Window_MouseDown" Focusable="True" PreviewMouseWheel="PreviewMouseWheel">

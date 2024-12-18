@@ -13,7 +13,7 @@
         <Ellipse
     x:Name="ellipseNiveau1"
     Canvas.Left="715"
-    Canvas.Top="573"
+    Canvas.Top="589"
     Width="60"
     Height="60"
     HorizontalAlignment="Center"
@@ -24,7 +24,7 @@
         <Ellipse
     x:Name="ellipseNiveau4"
     Canvas.Left="720"
-    Canvas.Top="169"
+    Canvas.Top="190"
     Width="60"
     Height="60"
     HorizontalAlignment="Center"
@@ -34,8 +34,8 @@
     Stroke="Black" MouseDown="ellipseNiveau4_MouseDown" />
         <Ellipse
     x:Name="ellipseNiveau2"
-    Canvas.Left="1105"
-    Canvas.Top="450"
+    Canvas.Left="1107"
+    Canvas.Top="468"
     Width="60"
     Height="60"
     HorizontalAlignment="Left"
@@ -46,11 +46,11 @@
         <Ellipse
     x:Name="ellipseNiveau3"
     Canvas.Left="715"
-    Canvas.Top="390"
+    Canvas.Top="408"
     Width="60"
     Height="60"
     HorizontalAlignment="Center"
-    VerticalAlignment="Center"
+    VerticalAlignment="Top"
     Fill="Red"
     Opacity="0.5"
     Stroke="Black" MouseDown="ellipseNiveau3_MouseDown" />
