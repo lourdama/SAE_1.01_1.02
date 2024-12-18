@@ -23,6 +23,7 @@ namespace JeuxPlateformeBille
         public Victoire()
         {
             InitializeComponent();
+            
         }
 
         private void butRecommencer_Click(object sender, RoutedEventArgs e)

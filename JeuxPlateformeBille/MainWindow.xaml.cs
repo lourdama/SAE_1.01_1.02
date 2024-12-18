@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Diagnostics.Metrics;
+using System.Media;
 using System.Net.Security;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -43,7 +44,6 @@ namespace JeuxPlateformeBille
 
         };
         private static readonly double[,] TAILLE_SAUT = { { 61, 49 }, { 61, 49 }, { 61, 49 }, { 61, 49 }, };//taille des différentes images de l'animation
-
         private static readonly int[][,] PROPRIETES_PLATEFORMES = new int[][,] //définition des coordonnées des plateformes
         {
          new int[,] { { 425, 700 }, { 850, 700 }, { 1275, 700 },{ 600, 500 }, {300, 200 }, { 0, 700 }},
@@ -80,7 +80,6 @@ namespace JeuxPlateformeBille
         private static BitmapImage[] inactifAnimationTab;
         private static BitmapImage[] ennemis;
         private static MediaPlayer musique = new MediaPlayer();
-
         private static Random aleatoire = new Random();
 
 
@@ -134,6 +133,7 @@ namespace JeuxPlateformeBille
             musique.MediaEnded += RelanceMusique;
             musique.Volume = volumeMusique;
             musique.Play();
+
         }
         public void StopMusique() // stop la musique
         {
@@ -237,7 +237,7 @@ namespace JeuxPlateformeBille
                 int multiplicationTailleLargeurBarre = 1;
                 if (NIVEAU_ENNEMIS[niveau - 1][i, 0] == 3)
                 {
-                    multiplicationHP = 25;
+                    multiplicationHP = 1;
                     multiplicationTailleX = 4;
                     multiplicationTailleY = 2;
                     multiplicationTailleLargeurBarre = 10;

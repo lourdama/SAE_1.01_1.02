@@ -11,7 +11,7 @@
     <Canvas>
         <Label
             Canvas.Left="476"
-            Canvas.Top="54"
+            Canvas.Top="28"
             Width="548"
             Height="118"
             HorizontalAlignment="Left"

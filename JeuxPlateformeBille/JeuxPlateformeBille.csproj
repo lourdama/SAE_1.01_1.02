@@ -95,6 +95,8 @@
     <None Remove="img\sacBille.png" />
     <None Remove="img\victoirefond.jpg" />
     <None Remove="img\warped_pearl.png" />
+    <None Remove="sons\tirtouche.mp3" />
+    <None Remove="sons\tirtouche.wav" />
   </ItemGroup>
 
   <ItemGroup>
