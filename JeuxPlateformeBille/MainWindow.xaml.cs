@@ -537,6 +537,7 @@ namespace JeuxPlateformeBille
             Canvas.SetTop(nouveauSac.Texture, 0);
             Canvas.SetLeft(nouveauSac.Texture, aleatoire.Next(10, (int)canvasMainWindow.Width - 10));
         }
+
         private void DeplacementSac()
         {
             for (int i = 0; i < sacEnjeu.Count; i++)
