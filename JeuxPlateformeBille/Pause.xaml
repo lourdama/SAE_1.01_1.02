@@ -7,8 +7,8 @@
              mc:Ignorable="d" 
              d:DesignHeight="900" d:DesignWidth="1500">
     <Canvas>
-        <Label Content="PAUSE" HorizontalAlignment="Left" FontSize="60" Canvas.Left="674" Canvas.Top="428" Foreground="#FF00FF90" />
-        <Button x:Name="Pause1" Content="REPRENDRE" Canvas.Left="60" Canvas.Top="68" Height="64" Width="198" FontSize="30" Click="Pause1_Click"/>
+        <Label Content="PAUSE" HorizontalAlignment="Left" FontSize="60" Canvas.Left="660" Canvas.Top="309" Foreground="#FF00FF90" FontWeight="Bold" />
+        <Button x:Name="Pause1" Content="REPRENDRE" Canvas.Left="660" Canvas.Top="515" Height="64" Width="198" FontSize="30" Click="Pause1_Click"/>
 
     </Canvas>
 </UserControl>
