@@ -25,8 +25,33 @@ namespace JeuxPlateformeBille
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    /// 
+    
     public partial class MainWindow : Window
     {
+        private static readonly int TOLERANCE_COLISION = 5, GRAVITE = 8, TAUX_APPARITION_SAC = 600, NB_BILLES_DEPART = 3, TIMER_ANIMATION = 5, DEPLACEMENT_SOL = 1, GRAVITE_BILLE = 4;
+        private static readonly double DEPLACEMENT_AIR = 0.6;
+        private static readonly int[,] NIVEAU_BILLE = new int[,]
+            { {0,0,0}, {0,0,1}, {0,2,2}, {0,1,2} };
+        private static readonly int[] BILLE_INVENTAIRE = new int[] { 3, 3, 3 };
+        private static readonly int[][,] NIVEAU_ENNEMIS = new int[][,]
+        {
+            new int[,] { { 1, 100, 100 }, { 1, 200, 200 }, { 1, 300, 300 }, { 1, 400, 400 } },
+            new int[,] { { 1, 100, 100 }, { 1, 200, 200 }, { 1, 300, 300 }, { 1, 400, 400 } },
+            new int[,] { { 1, 100, 100 }, { 1, 200, 200 }, { 1, 300, 300 }, { 1, 400, 400 } },
+            new int[,] { { 1, 100, 100 }, { 1, 200, 200 }, { 1, 300, 300 }, { 1, 400, 400 } }
+        };
+        private static readonly double[,] TAILLE_SAUT = { { 61, 49 }, { 61, 49 }, { 61, 49 }, { 61, 49 }, };
+
+        private static readonly int[][,] PROPRIETES_PLATEFORMES = new int[][,]
+        {
+         new int[,] { { 425, 700 }, { 850, 700 }, { 1275, 700 },{ 600, 500 }, {300, 200 }, { 0, 700 }},
+         new int[,] { { 0, 700 }, { 850, 700 }, { 1275, 700 }, { 100, 500 } },
+         new int[,] { { 425, 700 }, { 850, 700 }, { 1275, 700 }},
+         new int[,] { { 425, 700 }, { 850, 700 }, { 1275, 700 } }
+        };
+        private static int[,] SAUT_TAILLE_ANIMATION = { { 61, 49 }, { 52, 64 }, { 50, 65 }, { 55, 57 }, { 60, 61 } };
+        // Fin constantes, et début variables
         public DispatcherTimer minuterie, animationEntreeTimer;
         public int difficulte = 1, niveau = 0;
         public double volumeMusique = 1;
@@ -35,40 +60,22 @@ namespace JeuxPlateformeBille
         public Key toucheSaut = Key.Space;
         private static BitmapImage fond;
         private bool gauche, droite, saut, enSaut, billeBouge, pause,jouer, niveauGagne, animationEntreeBool, porteFerme, mort = false, toucheG, toucheCtrl ;
-        private int vitesseJoueur = 8, gravite = 8, toleranceColision = 5, nbtouche = 0, nbStockBille = 100, choixBille, nbBillesDepart = 3;
+        private int vitesseJoueur = 8, gravite = 8, nbtouche = 0, choixBille;
         System.Drawing.Rectangle  hitBoxJoueur, hitBoxBille, hitBoxEnnemi, hitBoxSac;
         private int animationJoueur = 1, animationSaut = 1, animationStatic = 1, timerAnimation, timerAnimationSaut, timerAnimationStatic, animationEntree = 1, timerAnimationEntree = 0, timerAnimationMort, animationMort = 1;
         private static Point clickPosition;
-        private static double vitesseSaut, graviteBille = 4, coefReductionDeplacementSaut;
+        private static double vitesseSaut, coefReductionDeplacementSaut;
         private static Ennemis fantome = new Ennemis();
         private static List<ProgressBar> barreDeVie = new List<ProgressBar>();
         private static List<Ennemis> ennemisEnJeu = new List<Ennemis>();
         private static List<Billes> billesEnJeu = new List<Billes>();
         private static List<Plateformes> plateformesEnJeu = new List<Plateformes>();
         private static List<Sac> sacEnjeu = new List<Sac>();
-        private static int[,] sautTailleAnimation = { { 61, 49 }, { 52, 64 }, { 50, 65 }, { 55, 57 }, { 60, 61 } };
+        
         private static BitmapImage[] imageBilles;
         BitmapImage[] marche;
         private static MediaPlayer musique = new MediaPlayer();
-        int[,] niveauBille = new int[,]
-        { {0,0,0}, {0,0,1}, {0,2,2}, {0,1,2} };
-        int[] billeInventaire = new int[] { 3, 3, 3 };
-        int[][,] niveauEnnemis = new int[][,]
-        {
-            new int[,] { { 1, 100, 100 }, { 1, 200, 200 }, { 1, 300, 300 }, { 1, 400, 400 } },
-            new int[,] { { 1, 100, 100 }, { 1, 200, 200 }, { 1, 300, 300 }, { 1, 400, 400 } },
-            new int[,] { { 1, 100, 100 }, { 1, 200, 200 }, { 1, 300, 300 }, { 1, 400, 400 } },
-            new int[,] { { 1, 100, 100 }, { 1, 200, 200 }, { 1, 300, 300 }, { 1, 400, 400 } }
-        };
-        private double[,] tailleSaut = { { 61, 49 }, { 61, 49 }, { 61, 49 }, { 61, 49 }, };
 
-        int[][,] proprietePlateformes = new int[][,]
-        {
-         new int[,] { { 425, 700 }, { 850, 700 }, { 1275, 700 },{ 600, 500 }, {300, 200 }, { 0, 700 }},
-         new int[,] { { 0, 700 }, { 850, 700 }, { 1275, 700 }, { 100, 500 } },
-         new int[,] { { 425, 700 }, { 850, 700 }, { 1275, 700 }},
-         new int[,] { { 425, 700 }, { 850, 700 }, { 1275, 700 } }
-        };
         private static Random aleatoire = new Random();
 
 
@@ -142,8 +149,8 @@ namespace JeuxPlateformeBille
             ChoixBilleImg.Visibility = Visibility.Visible;
             ChoixBille.Visibility = Visibility.Visible;
             Canvas.SetLeft(joueur, -joueur.Width);
-            Canvas.SetTop(joueur, proprietePlateformes[niveau-1][0, 1] - joueur.Height);
-            ChoixBille.Content = billeInventaire[choixBille];
+            Canvas.SetTop(joueur, PROPRIETES_PLATEFORMES[niveau-1][0, 1] - joueur.Height);
+            ChoixBille.Content = BILLE_INVENTAIRE[choixBille];
             ChoixBilleImg.Source = imageBilles[choixBille];
         }
 
@@ -164,7 +171,7 @@ namespace JeuxPlateformeBille
         }
         private void InitEnnemis()
         {
-            for (int i = 0; i < niveauEnnemis[niveau-1].GetLength(0); i++)
+            for (int i = 0; i < NIVEAU_ENNEMIS[niveau-1].GetLength(0); i++)
             {
                 // Initialisation ennemi classique
                 Ennemis fantome = new Ennemis();
@@ -172,8 +179,8 @@ namespace JeuxPlateformeBille
                 fantome.Texture.Source = new BitmapImage(new Uri("pack://application:,,,/img/fantome.png"));
                 fantome.Texture.Width = 50;
                 fantome.Texture.Height = 100;
-                fantome.CoordonneeX = niveauEnnemis[niveau-1][i,1];
-                fantome.CoordonneeY = niveauEnnemis[niveau-1][i,2]; ;
+                fantome.CoordonneeX = NIVEAU_ENNEMIS[niveau-1][i,1];
+                fantome.CoordonneeY = NIVEAU_ENNEMIS[niveau-1][i,2]; ;
                 fantome.Vitesse = 2;
                 fantome.PointDeVie = 100;
                 fantome.BarreDeVie = new ProgressBar();
@@ -202,7 +209,7 @@ namespace JeuxPlateformeBille
 
         private void InitPlateformes()
         {
-            for (int i = 0; i < proprietePlateformes[niveau-1].GetLength(0); i++)
+            for (int i = 0; i < PROPRIETES_PLATEFORMES[niveau-1].GetLength(0); i++)
             {
                 Plateformes nouvellePlateforme = new Plateformes(new Image(), new int(), new int(), new System.Drawing.Rectangle()); 
                 nouvellePlateforme.Texture.Source = new BitmapImage(new Uri("pack://application:,,,/img/plateforme.png"));
@@ -211,9 +218,9 @@ namespace JeuxPlateformeBille
                 plateformesEnJeu.Insert(0, nouvellePlateforme);
                 canvasMainWindow.Children.Add(plateformesEnJeu[0].Texture);
 
-                Canvas.SetLeft(plateformesEnJeu[0].Texture, proprietePlateformes[niveau-1][i, 0]);
-                Canvas.SetTop(plateformesEnJeu[0].Texture, proprietePlateformes[niveau-1][i, 1]);
-                plateformesEnJeu[0].BoiteCollision = new System.Drawing.Rectangle((int)Canvas.GetLeft(plateformesEnJeu[0].Texture) - toleranceColision , (int)Canvas.GetTop(plateformesEnJeu[0].Texture) - toleranceColision, (int)plateformesEnJeu[0].Texture.Width + 2* toleranceColision, (int)plateformesEnJeu[0].Texture.Height + 2*toleranceColision);
+                Canvas.SetLeft(plateformesEnJeu[0].Texture, PROPRIETES_PLATEFORMES[niveau-1][i, 0]);
+                Canvas.SetTop(plateformesEnJeu[0].Texture, PROPRIETES_PLATEFORMES[niveau-1][i, 1]);
+                plateformesEnJeu[0].BoiteCollision = new System.Drawing.Rectangle((int)Canvas.GetLeft(plateformesEnJeu[0].Texture) - TOLERANCE_COLISION , (int)Canvas.GetTop(plateformesEnJeu[0].Texture) - TOLERANCE_COLISION, (int)plateformesEnJeu[0].Texture.Width + 2* TOLERANCE_COLISION, (int)plateformesEnJeu[0].Texture.Height + 2*TOLERANCE_COLISION);
             }
         }
         private void PreviewMouseWheel(object sender, MouseWheelEventArgs e)
@@ -230,7 +237,7 @@ namespace JeuxPlateformeBille
                 {
                     choixBille = choixBille - 1;
                 }
-                ChoixBille.Content = billeInventaire[choixBille];
+                ChoixBille.Content = BILLE_INVENTAIRE[choixBille];
             }
 
             ChoixBilleImg.Source = imageBilles[choixBille];
@@ -381,7 +388,7 @@ namespace JeuxPlateformeBille
             if (CollisionPlat() == 0)
             {
                 gravite = 0;
-                coefReductionDeplacementSaut = 1;
+                coefReductionDeplacementSaut = DEPLACEMENT_SOL;
                 animationSaut = 1;
                 ReinitialisationSaut();
             }
@@ -390,7 +397,7 @@ namespace JeuxPlateformeBille
             {
 
                 gravite = 8;
-                coefReductionDeplacementSaut = 0.6;
+                coefReductionDeplacementSaut = DEPLACEMENT_AIR;
                 if (Canvas.GetTop(joueur) > this.Height)
                 {
                     Canvas.SetTop(joueur, -joueur.Height);
@@ -439,7 +446,7 @@ namespace JeuxPlateformeBille
                 if (hitBoxJoueur.IntersectsWith(plateformesEnJeu[i].BoiteCollision))
                 {
 
-                    if (Canvas.GetTop(joueur) + joueur.Height < Canvas.GetTop(plateformesEnJeu[i].Texture) + toleranceColision)
+                    if (Canvas.GetTop(joueur) + joueur.Height < Canvas.GetTop(plateformesEnJeu[i].Texture) + TOLERANCE_COLISION)
                     {
                         timerAnimationSaut = 0;
                         if (!droite && !gauche)
@@ -448,11 +455,11 @@ namespace JeuxPlateformeBille
                         }
                         return 0;
                     }
-                    else if (Canvas.GetLeft(joueur) + joueur.Width < Canvas.GetLeft(plateformesEnJeu[i].Texture) + toleranceColision)
+                    else if (Canvas.GetLeft(joueur) + joueur.Width < Canvas.GetLeft(plateformesEnJeu[i].Texture) + TOLERANCE_COLISION)
                     {
                         return 1;
                     }
-                    else if (Canvas.GetLeft(joueur) > Canvas.GetLeft(plateformesEnJeu[i].Texture) + plateformesEnJeu[i].Texture.Width - toleranceColision)
+                    else if (Canvas.GetLeft(joueur) > Canvas.GetLeft(plateformesEnJeu[i].Texture) + plateformesEnJeu[i].Texture.Width - TOLERANCE_COLISION)
                     {
                         return 2;
                     }
@@ -500,7 +507,7 @@ namespace JeuxPlateformeBille
 
         private void Tir(MouseButtonEventArgs e)
         {
-            if (billeInventaire[choixBille] > 0)
+            if (BILLE_INVENTAIRE[choixBille] > 0)
             {
                 Billes nouvelleBille = new Billes(new Image(), 0, 0, 0, 0);
                 nouvelleBille.Texture.Source = imageBilles[choixBille];
@@ -517,9 +524,9 @@ namespace JeuxPlateformeBille
                 canvasMainWindow.Children.Add(nouvelleBille.Texture);
                 Canvas.SetTop(nouvelleBille.Texture, Canvas.GetTop(joueur));
                 Canvas.SetLeft(nouvelleBille.Texture, Canvas.GetLeft(joueur));
-                billeInventaire[choixBille] --;
-                StockBille.Content = "Stock De Billes : " + billeInventaire[choixBille];
-                ChoixBille.Content = billeInventaire[choixBille];
+                BILLE_INVENTAIRE[choixBille] --;
+                StockBille.Content = "Stock De Billes : " + BILLE_INVENTAIRE[choixBille];
+                ChoixBille.Content = BILLE_INVENTAIRE[choixBille];
 
             }
         }
@@ -530,9 +537,9 @@ namespace JeuxPlateformeBille
             nouveauSac.Texture.Source = new BitmapImage(new Uri("pack://application:,,,/img/sacBille.png"));
             nouveauSac.Texture.Width = 64;
             nouveauSac.Texture.Height = 64;
-            for (int i = 0; i < niveauBille.GetLength(1); i++)
+            for (int i = 0; i < NIVEAU_BILLE.GetLength(1); i++)
             {
-                int typeBilleContenu = niveauBille[niveau-1,i];
+                int typeBilleContenu = NIVEAU_BILLE[niveau-1,i];
                 nouveauSac.Contenu[typeBilleContenu] = aleatoire.Next(3,6);
             }
             sacEnjeu.Insert(0, nouveauSac);
@@ -565,7 +572,7 @@ namespace JeuxPlateformeBille
                 Canvas.SetTop(bille.Texture, Canvas.GetTop(bille.Texture) + bille.Vitesse[1] / 25);
                 if (bille.TypeBille != 2)
                 {
-                    bille.Vitesse[1] = bille.Vitesse[1] + graviteBille;
+                    bille.Vitesse[1] = bille.Vitesse[1] + GRAVITE_BILLE;
                     bille.Vitesse[0] = bille.Vitesse[0] * 0.985;
                 }
                 hitBoxBille = new System.Drawing.Rectangle((int)Canvas.GetLeft(bille.Texture), (int)Canvas.GetTop(bille.Texture), (int)bille.Texture.Width, (int)bille.Texture.Height);
@@ -615,7 +622,7 @@ namespace JeuxPlateformeBille
             {
                 for (int i = 0; i < sacDeBille.Contenu.Length; i++)
                 {
-                    billeInventaire[i] += sacDeBille.Contenu[i];
+                    BILLE_INVENTAIRE[i] += sacDeBille.Contenu[i];
                 }
                 canvasMainWindow.Children.Remove(sacDeBille.Texture);
                 sacEnjeu.Remove(sacDeBille);
@@ -674,11 +681,11 @@ namespace JeuxPlateformeBille
         {
             if (toucheG && toucheCtrl)
             {
-                for (int i = 0; i < billeInventaire.Length; i++)
+                for (int i = 0; i < BILLE_INVENTAIRE.Length; i++)
                 {
-                    billeInventaire[i] = 4242;
+                    BILLE_INVENTAIRE[i] = 4242;
                 }
-                ChoixBille.Content = billeInventaire[choixBille];
+                ChoixBille.Content = BILLE_INVENTAIRE[choixBille];
             }
         }
         private void FinNiveau()
@@ -720,9 +727,9 @@ namespace JeuxPlateformeBille
                     ennemisEnJeu.Remove(ennemisEnJeu[0]);
                 }
             }
-            for (int i = 0; i < billeInventaire.Length; i++)
+            for (int i = 0; i < BILLE_INVENTAIRE.Length; i++)
             {
-                billeInventaire[i] = nbBillesDepart;
+                BILLE_INVENTAIRE[i] = NB_BILLES_DEPART;
             }
             jouer = false;
             joueur.Visibility = Visibility.Hidden;
@@ -811,8 +818,8 @@ namespace JeuxPlateformeBille
         
         public void AnimationSaut()
         {
-            joueur.Width = sautTailleAnimation[animationSaut - 1,0];
-            joueur.Height = sautTailleAnimation[animationSaut - 1,1]; ;
+            joueur.Width = SAUT_TAILLE_ANIMATION[animationSaut - 1,0];
+            joueur.Height = SAUT_TAILLE_ANIMATION[animationSaut - 1,1]; ;
             joueur.Source = new BitmapImage(new Uri($"pack://application:,,,/img/joueur/saut/saut{animationSaut}.png"));
             timerAnimationSaut += 1;
             if (timerAnimationSaut == 8 && animationSaut< 4)
