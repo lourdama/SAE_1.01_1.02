@@ -29,23 +29,24 @@ namespace JeuxPlateformeBille
     
     public partial class MainWindow : Window
     {
-        private static readonly int TOLERANCE_COLISION = 5, GRAVITE = 8, TAUX_APPARITION_SAC = 600, NB_BILLES_DEPART = 3, TIMER_ANIMATION = 5, DEPLACEMENT_SOL = 1, GRAVITE_BILLE = 4;
+        private static readonly int TOLERANCE_COLISION = 5, GRAVITE = 8, TAUX_APPARITION_SAC = 300, NB_BILLES_DEPART = 3, TIMER_ANIMATION = 5, DEPLACEMENT_SOL = 1, GRAVITE_BILLE = 4;
         private static readonly double DEPLACEMENT_AIR = 0.6;
         private static readonly int[,] NIVEAU_BILLE = new int[,]
             { {0,0,0}, {0,0,1}, {0,2,2}, {0,1,2} };
         private static readonly int[][,] NIVEAU_ENNEMIS = new int[][,]
         {
-            new int[,] { { 1, 100, 100 }, { 1, 200, 200 }, { 1, 300, 300 }, { 1, 400, 400 } },
-            new int[,] { { 1, 100, 100 }, { 1, 200, 200 }, { 1, 300, 300 }, { 1, 400, 400 } },
-            new int[,] { { 1, 100, 100 }, { 1, 200, 200 }, { 1, 300, 300 }, { 1, 400, 400 } },
-            new int[,] { { 1, 100, 100 }, { 1, 200, 200 }, { 1, 300, 300 }, { 1, 400, 400 } }
+            new int[,] { { 1, 1000, 700 }, { 1, 1400, 400 } },
+            new int[,] { { 1, 1000, 100 }, { 1, 1000, 700 }, { 1, 1400, 400 } },
+            new int[,] { { 1, 100, 100 }, { 1, 1000, 100 }, { 1, 1000, 700 }, { 1, 1400, 400 } },
+            new int[,] { { 1, 100, 100 }, { 1, 1000, 100 }, { 1, 1000, 700 }, { 1, 1400, 400 } }
+
         };
         private static readonly double[,] TAILLE_SAUT = { { 61, 49 }, { 61, 49 }, { 61, 49 }, { 61, 49 }, };
 
         private static readonly int[][,] PROPRIETES_PLATEFORMES = new int[][,]
         {
          new int[,] { { 425, 700 }, { 850, 700 }, { 1275, 700 },{ 600, 500 }, {300, 200 }, { 0, 700 }},
-         new int[,] { { 0, 700 }, { 850, 700 }, { 1275, 700 }, { 100, 500 } },
+         new int[,] { { 0, 700 },{425 ,400 }, { 850, 400 }, { 1275, 700 }, { 850, 200 } },
          new int[,] { { 425, 700 }, { 850, 700 }, { 1275, 700 }},
          new int[,] { { 425, 700 }, { 850, 700 }, { 1275, 700 } }
         };

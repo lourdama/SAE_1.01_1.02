@@ -10,7 +10,6 @@
     Width="1500"
     Height="900"
     WindowStartupLocation="CenterScreen"
-    WindowState="Maximized"
     mc:Ignorable="d">
 
 
