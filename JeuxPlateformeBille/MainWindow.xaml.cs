@@ -757,17 +757,9 @@ namespace JeuxPlateformeBille
             
             
             ChoixNiveau choixDuNiveau = new ChoixNiveau();
-            if (niveauGagne == false)   
-            {
-                niveau--;
-                int ennemi = ennemisEnJeu.Count;
-                for (int i = 0; i < ennemi; i++)
-                {
-                    canvasMainWindow.Children.Remove(ennemisEnJeu[0].Texture);
-                    canvasMainWindow.Children.Remove(ennemisEnJeu[0].BarreDeVie);
-                    ennemisEnJeu.Remove(ennemisEnJeu[0]);
-                }
-            }
+            Victoire victoire = new Victoire();
+            EcranMort ecranMort = new EcranMort();
+
             for (int i = 0; i < billeInventaire.Length; i++)
             {
                 billeInventaire[i] = NB_BILLES_DEPART;
@@ -779,13 +771,38 @@ namespace JeuxPlateformeBille
             ChoixBille.Visibility = Visibility.Hidden;
             ChoixBilleImg.Visibility = Visibility.Hidden;
             choixDuNiveau.ChangerCouleurEllipseNiveau(niveau);
+            String fond = String.Empty;
+            if (niveauGagne == false)
+            {
+                niveau--;
+                int ennemi = ennemisEnJeu.Count;
+                for (int i = 0; i < ennemi; i++)
+                {
+                    canvasMainWindow.Children.Remove(ennemisEnJeu[0].Texture);
+                    canvasMainWindow.Children.Remove(ennemisEnJeu[0].BarreDeVie);
+                    ennemisEnJeu.Remove(ennemisEnJeu[0]);
+                }
+                this.ControlContent.Content = ecranMort;
+                fond = $"fond_niveau/level{niveau+1}.jpeg";
+            }
+            else if (niveau == 4)
+            {
+                niveau = 0;
+                this.ControlContent.Content = victoire;
+                fond = "victoirefond.jpg";
+            }
+            else
+            {
+                this.ControlContent.Content = choixDuNiveau;
+                fond = "choixduniveau.jpg";
+            }
             ImageBrush imageBrush = new ImageBrush();
-            imageBrush.ImageSource = new BitmapImage(new Uri("pack://application:,,,/img/choixduniveau.jpg", UriKind.RelativeOrAbsolute));
+            imageBrush.ImageSource = new BitmapImage(new Uri($"pack://application:,,,/img/{fond}", UriKind.RelativeOrAbsolute));
             this.canvasMainWindow.Background = imageBrush;
-            this.ControlContent.Content = choixDuNiveau;
             minuterie.Stop();
             StopMusique();
             InitMusique(0);
+
 
 
         }

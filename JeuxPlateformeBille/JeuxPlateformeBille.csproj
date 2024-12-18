@@ -90,6 +90,7 @@
     <None Remove="img\Joueur\Saut\saut9.png" />
     <None Remove="img\plateforme.png" />
     <None Remove="img\sacBille.png" />
+    <None Remove="img\victoirefond.jpg" />
     <None Remove="img\warped_pearl.png" />
   </ItemGroup>
 
@@ -248,6 +249,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="img\sacBille.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\victoirefond.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
