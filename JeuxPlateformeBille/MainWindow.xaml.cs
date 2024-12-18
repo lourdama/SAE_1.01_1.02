@@ -75,7 +75,7 @@ namespace JeuxPlateformeBille
         public MainWindow()
         {
             InitializeComponent();
-            InitMusique();
+            InitMusique(niveau);
             joueur.Visibility = Visibility.Hidden;
             ChoixBilleImg.Visibility = Visibility.Hidden;
             ChoixBille.Visibility = Visibility.Hidden;
@@ -93,7 +93,7 @@ namespace JeuxPlateformeBille
             InitEnnemis();
             InitPlateformes();
             StopMusique();
-            InitMusique();
+            InitMusique(niveau);
             InitFond();
             animationEntreeBool = true;
             if (niveau == 1)
@@ -117,10 +117,10 @@ namespace JeuxPlateformeBille
 
 
 
-        private void InitMusique()
+        private void InitMusique(int indice)
         {
             musique = new MediaPlayer();
-            musique.Open(new Uri(AppDomain.CurrentDomain.BaseDirectory + $"/sons/musique{niveau}.mp3"));
+            musique.Open(new Uri(AppDomain.CurrentDomain.BaseDirectory + $"/sons/musique{indice}.mp3"));
             musique.MediaEnded += RelanceMusique;
             musique.Volume = volumeMusique;
             musique.Play();
@@ -753,7 +753,8 @@ namespace JeuxPlateformeBille
             this.canvasMainWindow.Background = imageBrush;
             this.ControlContent.Content = choixDuNiveau;
             minuterie.Stop();
-
+            StopMusique();
+            InitMusique(0);
 
 
         }
