@@ -72,7 +72,11 @@ namespace JeuxPlateformeBille
         private static List<Sac> sacEnjeu = new List<Sac>();
         private static  int[] billeInventaire = new int[] { 3, 3, 3 };
         private static BitmapImage[] imageBilles;
-        BitmapImage[] marche;
+        private static BitmapImage[] courseAnimationTab;
+        private static BitmapImage[] sautAnimationTab;
+        private static BitmapImage[] mortAnimationTab;
+        private static BitmapImage[] marcheAnimationTab;
+        private static BitmapImage[] inactifAnimationTab;
         private static MediaPlayer musique = new MediaPlayer();
 
         private static Random aleatoire = new Random();
@@ -157,13 +161,38 @@ namespace JeuxPlateformeBille
             {
                 imageBilles[i] = new BitmapImage(new Uri($"pack://application:,,,/img/billes/bille{i+1}.png"));
             }
-            marche = new BitmapImage[6];
-            for(int i = 0;i < marche.Length; i++)
+            
+            marcheAnimationTab = new BitmapImage[6];
+            for(int i = 0;i < marcheAnimationTab.Length; i++)
             {
-                marche[i] = new BitmapImage(new Uri($"pack://application:,,,/img/joueur/marche/marche{i + 1}.png"));
+                marcheAnimationTab[i] = new BitmapImage(new Uri($"pack://application:,,,/img/joueur/marche/marche{i + 1}.png"));
+            }
+            
+            courseAnimationTab = new BitmapImage[8];
+            for (int i = 0; i < courseAnimationTab.Length; i++)
+            {
+                courseAnimationTab[i] = new BitmapImage(new Uri($"pack://application:,,,/img/joueur/course/course{i + 1}.png"));
+            }
+            
+            sautAnimationTab = new BitmapImage[5];
+            for (int i = 0; i < sautAnimationTab.Length; i++)
+            {
+                sautAnimationTab[i] = new BitmapImage(new Uri($"pack://application:,,,/img/joueur/saut/saut{i + 1}.png"));
             }
 
-            
+            mortAnimationTab = new BitmapImage[6];
+            for (int i = 0; i < mortAnimationTab.Length; i++)
+            {
+                mortAnimationTab[i] = new BitmapImage(new Uri($"pack://application:,,,/img/joueur/mort/mort{i + 1}.png"));
+            }
+
+            inactifAnimationTab = new BitmapImage[5];
+            for (int i = 0; i < inactifAnimationTab.Length; i++)
+            {
+                inactifAnimationTab[i] = new BitmapImage(new Uri($"pack://application:,,,/img/joueur/inactif/inactif{i + 1}.png"));
+            }
+
+
         }
         private void InitEnnemis()
         {
@@ -830,8 +859,8 @@ namespace JeuxPlateformeBille
         public void AnimationSaut()
         {
             joueur.Width = SAUT_TAILLE_ANIMATION[animationSaut - 1,0];
-            joueur.Height = SAUT_TAILLE_ANIMATION[animationSaut - 1,1]; ;
-            joueur.Source = new BitmapImage(new Uri($"pack://application:,,,/img/joueur/saut/saut{animationSaut}.png"));
+            joueur.Height = SAUT_TAILLE_ANIMATION[animationSaut - 1,1]; 
+            joueur.Source = sautAnimationTab[animationSaut - 1];
             timerAnimationSaut += 1;
             if (timerAnimationSaut == TIMER_ANIMATION && animationSaut< 4)
             {
@@ -851,7 +880,7 @@ namespace JeuxPlateformeBille
 
             joueur.Width = 57;
             joueur.Height = 55;
-            joueur.Source = new BitmapImage(new Uri($"pack://application:,,,/img/joueur/inactif/inactif{animationStatic}.png"));
+            joueur.Source = staticAnimationTab[staticAnimationTab.Length-1];
             timerAnimationStatic += 1;
             if (timerAnimationStatic == TIMER_ANIMATION)
             {
