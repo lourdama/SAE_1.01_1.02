@@ -33,7 +33,6 @@ namespace JeuxPlateformeBille
         private static readonly double DEPLACEMENT_AIR = 0.6;
         private static readonly int[,] NIVEAU_BILLE = new int[,]
             { {0,0,0}, {0,0,1}, {0,2,2}, {0,1,2} };
-        private static readonly int[] BILLE_INVENTAIRE = new int[] { 3, 3, 3 };
         private static readonly int[][,] NIVEAU_ENNEMIS = new int[][,]
         {
             new int[,] { { 1, 100, 100 }, { 1, 200, 200 }, { 1, 300, 300 }, { 1, 400, 400 } },
@@ -71,7 +70,7 @@ namespace JeuxPlateformeBille
         private static List<Billes> billesEnJeu = new List<Billes>();
         private static List<Plateformes> plateformesEnJeu = new List<Plateformes>();
         private static List<Sac> sacEnjeu = new List<Sac>();
-        
+        private static  int[] billeInventaire = new int[] { 3, 3, 3 };
         private static BitmapImage[] imageBilles;
         BitmapImage[] marche;
         private static MediaPlayer musique = new MediaPlayer();
@@ -150,7 +149,7 @@ namespace JeuxPlateformeBille
             ChoixBille.Visibility = Visibility.Visible;
             Canvas.SetLeft(joueur, -joueur.Width);
             Canvas.SetTop(joueur, PROPRIETES_PLATEFORMES[niveau-1][0, 1] - joueur.Height);
-            ChoixBille.Content = BILLE_INVENTAIRE[choixBille];
+            ChoixBille.Content = billeInventaire[choixBille];
             ChoixBilleImg.Source = imageBilles[choixBille];
         }
 
@@ -237,7 +236,7 @@ namespace JeuxPlateformeBille
                 {
                     choixBille = choixBille - 1;
                 }
-                ChoixBille.Content = BILLE_INVENTAIRE[choixBille];
+                ChoixBille.Content = billeInventaire[choixBille];
             }
 
             ChoixBilleImg.Source = imageBilles[choixBille];
@@ -513,7 +512,7 @@ namespace JeuxPlateformeBille
 
         private void Tir(MouseButtonEventArgs e)
         {
-            if (BILLE_INVENTAIRE[choixBille] > 0)
+            if (billeInventaire[choixBille] > 0)
             {
                 Billes nouvelleBille = new Billes(new Image(), 0, 0, 0, 0);
                 nouvelleBille.Texture.Source = imageBilles[choixBille];
@@ -530,9 +529,9 @@ namespace JeuxPlateformeBille
                 canvasMainWindow.Children.Add(nouvelleBille.Texture);
                 Canvas.SetTop(nouvelleBille.Texture, Canvas.GetTop(joueur));
                 Canvas.SetLeft(nouvelleBille.Texture, Canvas.GetLeft(joueur));
-                BILLE_INVENTAIRE[choixBille] --;
-                StockBille.Content = "Stock De Billes : " + BILLE_INVENTAIRE[choixBille];
-                ChoixBille.Content = BILLE_INVENTAIRE[choixBille];
+                billeInventaire[choixBille] --;
+                StockBille.Content = "Stock De Billes : " + billeInventaire[choixBille];
+                ChoixBille.Content = billeInventaire[choixBille];
 
             }
         }
@@ -631,7 +630,7 @@ namespace JeuxPlateformeBille
             {
                 for (int i = 0; i < sacDeBille.Contenu.Length; i++)
                 {
-                    BILLE_INVENTAIRE[i] += sacDeBille.Contenu[i];
+                    billeInventaire[i] += sacDeBille.Contenu[i];
                 }
                 canvasMainWindow.Children.Remove(sacDeBille.Texture);
                 sacEnjeu.Remove(sacDeBille);
@@ -692,11 +691,11 @@ namespace JeuxPlateformeBille
         {
             if (toucheG && toucheCtrl)
             {
-                for (int i = 0; i < BILLE_INVENTAIRE.Length; i++)
+                for (int i = 0; i < billeInventaire.Length; i++)
                 {
-                    BILLE_INVENTAIRE[i] = 4242;
+                    billeInventaire[i] = 4242;
                 }
-                ChoixBille.Content = BILLE_INVENTAIRE[choixBille];
+                ChoixBille.Content = billeInventaire[choixBille];
             }
         }
         private void FinNiveau()
@@ -744,9 +743,9 @@ namespace JeuxPlateformeBille
                     ennemisEnJeu.Remove(ennemisEnJeu[0]);
                 }
             }
-            for (int i = 0; i < BILLE_INVENTAIRE.Length; i++)
+            for (int i = 0; i < billeInventaire.Length; i++)
             {
-                BILLE_INVENTAIRE[i] = NB_BILLES_DEPART;
+                billeInventaire[i] = NB_BILLES_DEPART;
             }
             jouer = false;
             joueur.Visibility = Visibility.Hidden;
