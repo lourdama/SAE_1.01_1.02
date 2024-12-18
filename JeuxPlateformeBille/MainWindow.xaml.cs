@@ -35,10 +35,10 @@ namespace JeuxPlateformeBille
             { {0,0,0}, {0,0,1}, {0,2,2}, {0,1,2} };
         private static readonly int[][,] NIVEAU_ENNEMIS = new int[][,]
         {
-            new int[,] { { 1, 1000, 700 }, { 1, 1400, 400 } },
-            new int[,] { { 1, 1000, 100 }, { 1, 1000, 700 }, { 1, 1400, 400 } },
+            new int[,] { {2, 800, 440}, {2, 500, 140}, {2, 900, 640} },
+            new int[,] { { 1, 1000, 100 }, { 1, 1000, 700 }, { 1, 1400, 400 }, {2, 500, 340}, {2, 1400, 640}, {2, 1200, 140} },
             new int[,] { { 1, 100, 100 }, { 1, 1000, 100 }, { 1, 1000, 700 }, { 1, 1400, 400 } },
-            new int[,] { { 1, 100, 100 }, { 1, 1000, 100 }, { 1, 1000, 700 }, { 1, 1400, 400 } }
+            new int[,] {{ 3, 450, 900} }
 
         };
         private static readonly double[,] TAILLE_SAUT = { { 61, 49 }, { 61, 49 }, { 61, 49 }, { 61, 49 }, };
@@ -65,7 +65,6 @@ namespace JeuxPlateformeBille
         private int animationJoueur = 1, animationSaut = 1, animationStatic = 1, timerAnimation, timerAnimationSaut, timerAnimationStatic, animationEntree = 1, timerAnimationEntree = 0, timerAnimationMort, animationMort = 1;
         private static Point clickPosition;
         private static double vitesseSaut, coefReductionDeplacementSaut;
-        private static Ennemis fantome = new Ennemis();
         private static List<ProgressBar> barreDeVie = new List<ProgressBar>();
         private static List<Ennemis> ennemisEnJeu = new List<Ennemis>();
         private static List<Billes> billesEnJeu = new List<Billes>();
@@ -78,6 +77,7 @@ namespace JeuxPlateformeBille
         private static BitmapImage[] mortAnimationTab;
         private static BitmapImage[] marcheAnimationTab;
         private static BitmapImage[] inactifAnimationTab;
+        private static BitmapImage[] ennemi;
         private static MediaPlayer musique = new MediaPlayer();
 
         private static Random aleatoire = new Random();
@@ -125,7 +125,7 @@ namespace JeuxPlateformeBille
 
 
 
-        private void InitMusique(int indice)
+        public void InitMusique(int indice)
         {
             musique = new MediaPlayer();
             musique.Open(new Uri(AppDomain.CurrentDomain.BaseDirectory + $"/sons/musique{indice}.mp3"));
@@ -133,7 +133,7 @@ namespace JeuxPlateformeBille
             musique.Volume = volumeMusique;
             musique.Play();
         }
-        private void StopMusique()
+        public void StopMusique()
         {
             musique.Stop();
         }
@@ -193,27 +193,36 @@ namespace JeuxPlateformeBille
                 inactifAnimationTab[i] = new BitmapImage(new Uri($"pack://application:,,,/img/joueur/inactif/inactif{i + 1}.png"));
             }
 
+            ennemi = new BitmapImage[2];
+            for (int i = 0;i < ennemi.Length; i++)
+            {
+                ennemi[i] = new BitmapImage(new Uri($"pack://application:,,,/img/ennemi/ennemi{i + 1}.png"));
+            }
+
+
 
         }
         private void InitEnnemis()
         {
             for (int i = 0; i < NIVEAU_ENNEMIS[niveau-1].GetLength(0); i++)
             {
-                // Initialisation ennemi classique
-                Ennemis fantome = new Ennemis();
-                fantome.Texture = new Image();
-                fantome.Texture.Source = new BitmapImage(new Uri("pack://application:,,,/img/fantome.png"));
-                fantome.Texture.Width = 50;
-                fantome.Texture.Height = 100;
-                fantome.CoordonneeX = NIVEAU_ENNEMIS[niveau-1][i,1];
-                fantome.CoordonneeY = NIVEAU_ENNEMIS[niveau-1][i,2]; ;
-                fantome.Vitesse = 2;
-                fantome.PointDeVie = 100;
-                fantome.BarreDeVie = new ProgressBar();
-                fantome.BarreDeVie.Height = 10;
-                fantome.BarreDeVie.Width = 75;
-                fantome.BarreDeVie.Value = 100;
-                ennemisEnJeu.Insert(0, fantome);
+                // Initialisation ennemi 
+                int multiplicateur
+                Ennemis ennemie = new Ennemis();
+                ennemie.Texture = new Image();
+                ennemie.Texture.Source = ennemi[NIVEAU_ENNEMIS[niveau - 1][i, 0]-1];
+                ennemie.Texture.Width = 50;
+                ennemie.Texture.Height = 100;
+                ennemie.CoordonneeX = NIVEAU_ENNEMIS[niveau-1][i,1];
+                ennemie.CoordonneeY = NIVEAU_ENNEMIS[niveau-1][i,2]; ;
+                ennemie.Vitesse = 2;
+                ennemie.TypeDeplacement = NIVEAU_ENNEMIS[niveau-1][i,0];
+                ennemie.PointDeVie = 100;
+                ennemie.BarreDeVie = new ProgressBar();
+                ennemie.BarreDeVie.Height = 10;
+                ennemie.BarreDeVie.Width = 75;
+                ennemie.BarreDeVie.Value = 100;
+                ennemisEnJeu.Insert(0, ennemie);
                 canvasMainWindow.Children.Add(ennemisEnJeu[0].Texture);
                 canvasMainWindow.Children.Add(ennemisEnJeu[0].BarreDeVie);
                 Canvas.SetTop(ennemisEnJeu[0].Texture, ennemisEnJeu[0].CoordonneeY);
@@ -511,13 +520,26 @@ namespace JeuxPlateformeBille
         }
         private int CollisionPlat(Sac sacDeBille)
         {
-            hitBoxSac = new System.Drawing.Rectangle((int)Canvas.GetLeft(sacDeBille.Texture), (int)Canvas.GetTop(sacDeBille.Texture), (int)joueur.Width, (int)joueur.Height);
+            hitBoxSac = new System.Drawing.Rectangle((int)Canvas.GetLeft(sacDeBille.Texture), (int)Canvas.GetTop(sacDeBille.Texture), (int)sacDeBille.Texture.Width, (int)sacDeBille.Texture.Height);
             for (int i = 0; i < plateformesEnJeu.Count; i++)
             {
                 Console.WriteLine(Canvas.GetTop(sacDeBille.Texture));
                 if (hitBoxSac.IntersectsWith(plateformesEnJeu[i].BoiteCollision))
                 {
                     Console.WriteLine("Au sol");
+                    return 0;
+                }
+            }
+            return -1;
+        }
+        private int CollisionPlat(Ennemis ennemi, double direction)
+        {
+            hitBoxSac = new System.Drawing.Rectangle((int)(Canvas.GetLeft(ennemi.Texture) + (ennemi.Texture.Width * direction ) ), (int)Canvas.GetTop(ennemi.Texture), (int)(ennemi.Texture.Width + ennemi.Texture.Width), (int)ennemi.Texture.Height);
+            for (int i = 0; i < plateformesEnJeu.Count; i++)
+            {
+                Console.WriteLine(Canvas.GetTop(ennemi.Texture));
+                if (hitBoxSac.IntersectsWith(plateformesEnJeu[i].BoiteCollision))
+                {
                     return 0;
                 }
             }
@@ -567,8 +589,8 @@ namespace JeuxPlateformeBille
             Sac nouveauSac = new Sac(new Image());
             nouveauSac.Texture = new Image();
             nouveauSac.Texture.Source = new BitmapImage(new Uri("pack://application:,,,/img/sacBille.png"));
-            nouveauSac.Texture.Width = 64;
-            nouveauSac.Texture.Height = 64;
+            nouveauSac.Texture.Width = 32;
+            nouveauSac.Texture.Height = 32;
             for (int i = 0; i < NIVEAU_BILLE.GetLength(1); i++)
             {
                 int typeBilleContenu = NIVEAU_BILLE[niveau-1,i];
@@ -640,10 +662,23 @@ namespace JeuxPlateformeBille
         {
             for (int i = 0;i < ennemisEnJeu.Count; i++)
             {
-                Canvas.SetLeft(ennemisEnJeu[i].Texture, Canvas.GetLeft(ennemisEnJeu[i].Texture) + Math.Sign(Canvas.GetLeft(joueur) - Canvas.GetLeft(ennemisEnJeu[i].Texture)) * 2 * Math.Sqrt((double)difficulte));
-                Canvas.SetTop(ennemisEnJeu[i].Texture, Canvas.GetTop(ennemisEnJeu[i].Texture) + Math.Sign(Canvas.GetTop(joueur) - Canvas.GetTop(ennemisEnJeu[i].Texture)));
-                Canvas.SetLeft(ennemisEnJeu[i].BarreDeVie, Canvas.GetLeft(ennemisEnJeu[i].Texture) + Math.Sign(Canvas.GetLeft(joueur) - Canvas.GetLeft(ennemisEnJeu[i].Texture)) * 2 * Math.Sqrt((double)difficulte));
-                Canvas.SetTop(ennemisEnJeu[i].BarreDeVie, Canvas.GetTop(ennemisEnJeu[i].Texture) + Math.Sign(Canvas.GetTop(joueur) - Canvas.GetTop(ennemisEnJeu[i].Texture)));
+                if (ennemisEnJeu[i].TypeDeplacement == 1)
+                {
+                    Canvas.SetLeft(ennemisEnJeu[i].Texture, Canvas.GetLeft(ennemisEnJeu[i].Texture) + Math.Sign(Canvas.GetLeft(joueur) - Canvas.GetLeft(ennemisEnJeu[i].Texture)) * 2 * Math.Sqrt((double)difficulte));
+                    Canvas.SetTop(ennemisEnJeu[i].Texture, Canvas.GetTop(ennemisEnJeu[i].Texture) + Math.Sign(Canvas.GetTop(joueur) - Canvas.GetTop(ennemisEnJeu[i].Texture)));
+                    Canvas.SetLeft(ennemisEnJeu[i].BarreDeVie, Canvas.GetLeft(ennemisEnJeu[i].Texture) + Math.Sign(Canvas.GetLeft(joueur) - Canvas.GetLeft(ennemisEnJeu[i].Texture)) * 2 * Math.Sqrt((double)difficulte));
+                    Canvas.SetTop(ennemisEnJeu[i].BarreDeVie, Canvas.GetTop(ennemisEnJeu[i].Texture) + Math.Sign(Canvas.GetTop(joueur) - Canvas.GetTop(ennemisEnJeu[i].Texture)));
+                }
+                else if (ennemisEnJeu[i].TypeDeplacement == 2)
+                {
+                    if ((Canvas.GetLeft(joueur) > Canvas.GetLeft(ennemisEnJeu[i].Texture) && CollisionPlat(ennemisEnJeu[i], 1) == 0 )
+                        || Canvas.GetLeft(joueur) < Canvas.GetLeft(ennemisEnJeu[i].Texture) && CollisionPlat(ennemisEnJeu[i], -2) == 0 )
+                    {
+                        Canvas.SetLeft(ennemisEnJeu[i].Texture, Canvas.GetLeft(ennemisEnJeu[i].Texture) + Math.Sign(Canvas.GetLeft(joueur) - Canvas.GetLeft(ennemisEnJeu[i].Texture)) * 2 * Math.Sqrt((double)difficulte));
+                        Canvas.SetLeft(ennemisEnJeu[i].BarreDeVie, Canvas.GetLeft(ennemisEnJeu[i].Texture) + Math.Sign(Canvas.GetLeft(joueur) - Canvas.GetLeft(ennemisEnJeu[i].Texture)) * 2 * Math.Sqrt((double)difficulte));
+                    }
+                    
+                }
                 hitBoxEnnemi = new System.Drawing.Rectangle((int)Canvas.GetLeft(ennemisEnJeu[i].Texture), (int)Canvas.GetTop(ennemisEnJeu[i].Texture), (int)ennemisEnJeu[i].Texture.Width, (int)ennemisEnJeu[i].Texture.Height);
 
             }
@@ -816,7 +851,7 @@ namespace JeuxPlateformeBille
             {
                 Canvas.SetTop(joueur, Canvas.GetTop(joueur) + 5);
             }
-            joueur.Source = new BitmapImage(new Uri($"pack://application:,,,/img/joueur/mort/mort{animationMort}.png"));
+            joueur.Source = mortAnimationTab[animationMort - 1];
             timerAnimationMort += 1;
             if (timerAnimationMort == TIMER_ANIMATION)
             {
@@ -824,7 +859,7 @@ namespace JeuxPlateformeBille
                 timerAnimationMort = 0;
             }
 
-            if (animationMort > 10)
+            if (animationMort > mortAnimationTab.Length)
             {
                 mort = false;
                 animationMort = 1;
@@ -841,7 +876,7 @@ namespace JeuxPlateformeBille
             regard.ScaleX = direction;
             if (gravite == 0)
             {
-                joueur.Source = new BitmapImage(new Uri($"pack://application:,,,/img/joueur/course/course{animationJoueur}.png"));
+                joueur.Source = courseAnimationTab[animationJoueur - 1];
                 timerAnimation += 1;
                 if (timerAnimation == TIMER_ANIMATION )
                 {
@@ -849,7 +884,7 @@ namespace JeuxPlateformeBille
                     timerAnimation = 0;
                 }
                     
-                if (animationJoueur > 8)
+                if (animationJoueur > courseAnimationTab.Length)
                 {
                     animationJoueur = 1;
                 }
@@ -889,7 +924,7 @@ namespace JeuxPlateformeBille
                 timerAnimationStatic = 0;
             }
 
-            if (animationStatic > 5)
+            if (animationStatic > inactifAnimationTab.Length)
             {
                 animationStatic = 1;
             }

@@ -30,6 +30,8 @@
     <None Remove="img\bille_simple.png" />
     <None Remove="img\castle.jpg" />
     <None Remove="img\ChoixDuNiveau.jpg" />
+    <None Remove="img\ennemi\ennemi1.png" />
+    <None Remove="img\ennemi\ennemi2.png" />
     <None Remove="img\fantome.png" />
     <None Remove="img\fond_niveau\level1.jpeg" />
     <None Remove="img\fond_niveau\level2.jpeg" />
@@ -109,7 +111,10 @@
     <Resource Include="img\choixduniveau.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="img\fantome.png">
+    <Resource Include="img\ennemi\ennemi1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\ennemi\ennemi2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="img\fond_niveau\level1.jpeg">

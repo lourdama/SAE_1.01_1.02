@@ -31,7 +31,7 @@
     x:Name="slideBarMusique"
     Width="236"
     HorizontalAlignment="Left"
-    VerticalAlignment="Top" Canvas.Left="632" Canvas.Top="255" ValueChanged="slideBarMusique_ValueChanged" Maximum="2" />
+    VerticalAlignment="Top" Canvas.Left="632" Canvas.Top="255" ValueChanged="slideBarMusique_ValueChanged" Maximum="1" />
         <Button x:Name="retour" Content="Retour" HorizontalAlignment="Center" Height="54" VerticalAlignment="Top" Width="172" FontSize="24" Click="retour_Click" Canvas.Left="664" Canvas.Top="567"/>
         <Label
             HorizontalAlignment="Center"

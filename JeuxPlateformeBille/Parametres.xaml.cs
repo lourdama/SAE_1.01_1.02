@@ -75,6 +75,8 @@ namespace JeuxPlateformeBille
             ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).toucheGauche = toucheGaucheUC;
             ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).toucheSaut = toucheSautUC;
             ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).volumeMusique = volumeUC;
+            ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).StopMusique();
+            ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).InitMusique(0);
             ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).ControlContent.Content = new Accueil();
         }
 
