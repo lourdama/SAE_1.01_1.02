@@ -771,7 +771,7 @@ namespace JeuxPlateformeBille
             Canvas.SetLeft(joueur, Canvas.GetLeft(joueur) + 5);
             joueur.Source = new BitmapImage(new Uri($"pack://application:,,,/img/joueur/marche/marche{animationEntree}.png"));
             timerAnimationEntree += 1;
-            if (timerAnimationEntree == 5)
+            if (timerAnimationEntree == TIMER_ANIMATION)
             {
                 animationEntree = animationEntree + 1;
                 timerAnimationEntree = 0;
@@ -794,7 +794,7 @@ namespace JeuxPlateformeBille
             }
             joueur.Source = new BitmapImage(new Uri($"pack://application:,,,/img/joueur/mort/mort{animationMort}.png"));
             timerAnimationMort += 1;
-            if (timerAnimationMort == 5)
+            if (timerAnimationMort == TIMER_ANIMATION)
             {
                 animationMort = animationMort + 1;
                 timerAnimationMort = 0;
@@ -819,7 +819,7 @@ namespace JeuxPlateformeBille
             {
                 joueur.Source = new BitmapImage(new Uri($"pack://application:,,,/img/joueur/course/course{animationJoueur}.png"));
                 timerAnimation += 1;
-                if (timerAnimation == 5 )
+                if (timerAnimation == TIMER_ANIMATION )
                 {
                     animationJoueur = animationJoueur + 1;
                     timerAnimation = 0;
@@ -839,7 +839,7 @@ namespace JeuxPlateformeBille
             joueur.Height = SAUT_TAILLE_ANIMATION[animationSaut - 1,1]; ;
             joueur.Source = new BitmapImage(new Uri($"pack://application:,,,/img/joueur/saut/saut{animationSaut}.png"));
             timerAnimationSaut += 1;
-            if (timerAnimationSaut == 5 && animationSaut< 4)
+            if (timerAnimationSaut == TIMER_ANIMATION && animationSaut< 4)
             {
                 animationSaut = animationSaut + 1;
                 timerAnimationSaut = 0;
@@ -859,7 +859,7 @@ namespace JeuxPlateformeBille
             joueur.Height = 55;
             joueur.Source = new BitmapImage(new Uri($"pack://application:,,,/img/joueur/inactif/inactif{animationStatic}.png"));
             timerAnimationStatic += 1;
-            if (timerAnimationStatic == 6)
+            if (timerAnimationStatic == TIMER_ANIMATION)
             {
                 animationStatic = animationStatic + 1;
                 timerAnimationStatic = 0;
