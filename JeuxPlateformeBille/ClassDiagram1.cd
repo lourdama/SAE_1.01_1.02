@@ -1,106 +1,100 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
   <Class Name="JeuxPlateformeBille.MainWindow" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="9.75" Y="4" Width="3" />
+    <Position X="15.5" Y="3" Width="3" />
+    <NestedTypes>
+      <Class Name="JeuxPlateformeBille.MainWindow.Ennemis" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>MainWindow.xaml.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="JeuxPlateformeBille.MainWindow.Billes" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>MainWindow.xaml.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="JeuxPlateformeBille.MainWindow.Sac" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>MainWindow.xaml.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="JeuxPlateformeBille.MainWindow.Plateformes" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>MainWindow.xaml.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
     <TypeIdentifier>
-      <HashCode>orUCEtAadBaM5BIoMuKIEEMvQPgbE6dJBkSxZBhgMaM=</HashCode>
+      <HashCode>orUCEtAadBaM5BIoMuKIEEMvQfgbE6dJBkSxZBhgMaM=</HashCode>
       <FileName>MainWindow.xaml.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="JeuxPlateformeBille.Ennemis" Collapsed="true">
-    <Position X="10.25" Y="1.25" Width="2" />
-    <TypeIdentifier>
-      <HashCode>EAAAIAAAAAAAAgAAAAMAAAABBAAIAgQACAIAABAAACA=</HashCode>
-      <FileName>MainWindow.xaml.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="JeuxPlateformeBille.Billes" Collapsed="true">
-    <Position X="10.5" Y="3" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAABAAAAAAAAAAAAAAAAABAAAAAAAAAIAAAAAABA=</HashCode>
-      <FileName>MainWindow.xaml.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="JeuxPlateformeBille.Sac" Collapsed="true">
-    <Position X="10.5" Y="2" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAA=</HashCode>
-      <FileName>MainWindow.xaml.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="JeuxPlateformeBille.Plateformes" Collapsed="true">
-    <Position X="7.75" Y="1.25" Width="2" />
-    <TypeIdentifier>
-      <HashCode>EAAAAAAAAAAAAAAAAAIAAAAAAAAAAAEAAAIAAAAAAAA=</HashCode>
-      <FileName>MainWindow.xaml.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="JeuxPlateformeBille.Accueil" Collapsed="true">
-    <Position X="5.75" Y="1.25" Width="1.5" />
+  <Class Name="JeuxPlateformeBille.Accueil">
+    <Position X="3" Y="1" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAABAAAQAAAAIAAAAAAAAAAAAAAAAAAAQBAAAAAA=</HashCode>
       <FileName>Accueil.xaml.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="JeuxPlateformeBille.App" Collapsed="true">
-    <Position X="7.75" Y="2.25" Width="1.5" />
+  <Class Name="JeuxPlateformeBille.App">
+    <Position X="14.75" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>App.xaml.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="JeuxPlateformeBille.ChoixNiveau" Collapsed="true">
-    <Position X="5.75" Y="2.25" Width="1.5" />
+  <Class Name="JeuxPlateformeBille.ChoixNiveau">
+    <Position X="1.25" Y="1" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAEAAAAICAAAAAAAAAAAAAACBAACAAAAA=</HashCode>
       <FileName>choixNiveau.xaml.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="JeuxPlateformeBille.Credits" Collapsed="true">
-    <Position X="5.75" Y="3.25" Width="1.5" />
+  <Class Name="JeuxPlateformeBille.Credits">
+    <Position X="1.25" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Credits.xaml.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="JeuxPlateformeBille.EcranMort" Collapsed="true">
-    <Position X="7.75" Y="3.25" Width="1.5" />
+  <Class Name="JeuxPlateformeBille.EcranMort">
+    <Position X="6.5" Y="1" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAA=</HashCode>
       <FileName>EcranMort.xaml.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="JeuxPlateformeBille.Parametres" Collapsed="true">
-    <Position X="7.75" Y="4.25" Width="1.5" />
+  <Class Name="JeuxPlateformeBille.Parametres">
+    <Position X="8.25" Y="1.25" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAAIAABAAABAAAAQAACAAAAAADQAAAAAAIgAAIAAAgA=</HashCode>
       <FileName>Parametres.xaml.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="JeuxPlateformeBille.Pause" Collapsed="true">
-    <Position X="5.75" Y="4.25" Width="1.5" />
+  <Class Name="JeuxPlateformeBille.Pause">
+    <Position X="3.75" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Pause.xaml.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="JeuxPlateformeBille.ReglesDuJeu" Collapsed="true">
-    <Position X="7.75" Y="5.25" Width="1.5" />
+  <Class Name="JeuxPlateformeBille.ReglesDuJeu">
+    <Position X="6" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ReglesDuJeu.xaml.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="JeuxPlateformeBille.Victoire" Collapsed="true">
-    <Position X="5.75" Y="5.25" Width="1.5" />
+  <Class Name="JeuxPlateformeBille.Victoire">
+    <Position X="4.75" Y="1" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Victoire.xaml.cs</FileName>
