@@ -279,6 +279,10 @@ namespace JeuxPlateformeBille
                 {
                     toucheCtrl = true;
                 }
+                else if (e.Key == Key.N)
+                {
+                    ApparitionSac();
+                }
             }
             
         }
@@ -363,7 +367,7 @@ namespace JeuxPlateformeBille
                     niveauGagne = true;
                     FinNiveau();
                 }
-                if (aleatoire.Next(0, 900) == 1)
+                if (aleatoire.Next(0, 9000) == 1)
                 {
                     ApparitionSac();
                 }
@@ -484,8 +488,10 @@ namespace JeuxPlateformeBille
             hitBoxSac = new System.Drawing.Rectangle((int)Canvas.GetLeft(sacDeBille.Texture), (int)Canvas.GetTop(sacDeBille.Texture), (int)joueur.Width, (int)joueur.Height);
             for (int i = 0; i < plateformesEnJeu.Count; i++)
             {
+                Console.WriteLine(Canvas.GetTop(sacDeBille.Texture));
                 if (hitBoxSac.IntersectsWith(plateformesEnJeu[i].BoiteCollision))
                 {
+                    Console.WriteLine("Au sol");
                     return 0;
                 }
             }
@@ -532,6 +538,7 @@ namespace JeuxPlateformeBille
         }
         private void ApparitionSac()
         {
+            Console.WriteLine("Apparition Sac");
             Sac nouveauSac = new Sac(new Image());
             nouveauSac.Texture = new Image();
             nouveauSac.Texture.Source = new BitmapImage(new Uri("pack://application:,,,/img/sacBille.png"));
@@ -543,18 +550,20 @@ namespace JeuxPlateformeBille
                 nouveauSac.Contenu[typeBilleContenu] = aleatoire.Next(3,6);
             }
             sacEnjeu.Insert(0, nouveauSac);
-            canvasMainWindow.Children.Add(nouveauSac.Texture);
-            Canvas.SetTop(nouveauSac.Texture, 0);
-            Canvas.SetLeft(nouveauSac.Texture, aleatoire.Next(10, (int)canvasMainWindow.Width - 10));
+            canvasMainWindow.Children.Add(sacEnjeu[0].Texture);
+            Canvas.SetTop(nouveauSac.Texture, -nouveauSac.Texture.Height);
+            Canvas.SetLeft(nouveauSac.Texture, aleatoire.Next(10, (int)this.Width - 10));
+            Console.WriteLine("Sac ajouté");
         }
 
         private void DeplacementSac()
         {
             for (int i = 0; i < sacEnjeu.Count; i++)
             {
+                
                 if (CollisionPlat(sacEnjeu[i]) != 0)
                 {
-                    Canvas.SetTop(sacEnjeu[i].Texture, Canvas.GetTop(sacEnjeu[i].Texture) + gravite);
+                    Canvas.SetTop(sacEnjeu[i].Texture, Canvas.GetTop(sacEnjeu[i].Texture) + 8);
                 }
                 ColisionSac(sacEnjeu[i]);
             }
@@ -626,6 +635,8 @@ namespace JeuxPlateformeBille
                 }
                 canvasMainWindow.Children.Remove(sacDeBille.Texture);
                 sacEnjeu.Remove(sacDeBille);
+                StockBille.Content = "Stock De Billes : " + billeInventaire[choixBille];
+                ChoixBille.Content = billeInventaire[choixBille];
             }
         }
         private bool ColisionEnnemi(Billes bille)
@@ -703,6 +714,7 @@ namespace JeuxPlateformeBille
         {
             int plat = plateformesEnJeu.Count;
             int bille = billesEnJeu.Count;
+            int sac = sacEnjeu.Count;
             for(int i = 0; i < plat; i++)
             {
                 canvasMainWindow.Children.Remove(plateformesEnJeu[0].Texture);
@@ -712,6 +724,11 @@ namespace JeuxPlateformeBille
             {
                 canvasMainWindow.Children.Remove(billesEnJeu[0].Texture);
                 billesEnJeu.Remove(billesEnJeu[0]);
+            }
+            for(int i = 0; i < sac; i++)
+            {
+                canvasMainWindow.Children.Remove(sacEnjeu[0].Texture);
+                sacEnjeu.Remove(sacEnjeu[0]);
             }
             
             
@@ -777,7 +794,7 @@ namespace JeuxPlateformeBille
             }
             joueur.Source = new BitmapImage(new Uri($"pack://application:,,,/img/joueur/mort/mort{animationMort}.png"));
             timerAnimationMort += 1;
-            if (timerAnimationMort == 8)
+            if (timerAnimationMort == 5)
             {
                 animationMort = animationMort + 1;
                 timerAnimationMort = 0;
@@ -802,7 +819,7 @@ namespace JeuxPlateformeBille
             {
                 joueur.Source = new BitmapImage(new Uri($"pack://application:,,,/img/joueur/course/course{animationJoueur}.png"));
                 timerAnimation += 1;
-                if (timerAnimation == 3 )
+                if (timerAnimation == 5 )
                 {
                     animationJoueur = animationJoueur + 1;
                     timerAnimation = 0;
@@ -822,7 +839,7 @@ namespace JeuxPlateformeBille
             joueur.Height = SAUT_TAILLE_ANIMATION[animationSaut - 1,1]; ;
             joueur.Source = new BitmapImage(new Uri($"pack://application:,,,/img/joueur/saut/saut{animationSaut}.png"));
             timerAnimationSaut += 1;
-            if (timerAnimationSaut == 8 && animationSaut< 4)
+            if (timerAnimationSaut == 5 && animationSaut< 4)
             {
                 animationSaut = animationSaut + 1;
                 timerAnimationSaut = 0;
