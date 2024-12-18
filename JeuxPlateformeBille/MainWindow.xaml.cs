@@ -317,6 +317,8 @@ namespace JeuxPlateformeBille
         {
             jouer = true;
             this.ControlContent.Content = null;
+            canvasMainWindow.Focus();
+
         }
         private void Jeu(object? sender, EventArgs e)
         {
