@@ -64,6 +64,7 @@ namespace JeuxPlateformeBille
                 ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).niveau = 4;
                 ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).Suivant();
                 ((MainWindow)((Canvas)((ContentControl)this.Parent).Parent).Parent).ControlContent.Content = null;
+
             }
         }
 
