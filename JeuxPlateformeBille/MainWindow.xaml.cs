@@ -511,6 +511,7 @@ namespace JeuxPlateformeBille
         private void ApparitionSac()
         {
             Sac nouveauSac = new Sac(new Image());
+            nouveauSac.Texture = new Image();
             nouveauSac.Texture.Source = new BitmapImage(new Uri("pack://application:,,,/img/billes/bille1.png"));
             nouveauSac.Texture.Width = 64;
             nouveauSac.Texture.Height = 64;
@@ -532,6 +533,7 @@ namespace JeuxPlateformeBille
                 {
                     Canvas.SetTop(sacEnjeu[i].Texture, Canvas.GetTop(sacEnjeu[i].Texture) + gravite);
                 }
+                ColisionSac(sacEnjeu[i]);
             }
         }
         private bool BilleLance(Billes bille)
