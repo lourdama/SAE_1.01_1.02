@@ -237,7 +237,7 @@ namespace JeuxPlateformeBille
                 int multiplicationTailleLargeurBarre = 1;
                 if (NIVEAU_ENNEMIS[niveau - 1][i, 0] == 3)
                 {
-                    multiplicationHP = 1;
+                    multiplicationHP = 25;
                     multiplicationTailleX = 4;
                     multiplicationTailleY = 2;
                     multiplicationTailleLargeurBarre = 10;
