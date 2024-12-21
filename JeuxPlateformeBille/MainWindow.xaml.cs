@@ -310,15 +310,31 @@ namespace JeuxPlateformeBille
             //quand il y un roulement de la molette de la souris, la bille selectionnée change
             if (jouer)
             {
-                if (e.Delta > 0 && choixBille < 2)
+                if (e.Delta > 0 )
                 {
-                    choixBille = choixBille + 1;
+                    if (choixBille >= 2)
+                    {
+                        choixBille = 0;
+                    }
+                    else
+                    {
+                        choixBille = choixBille + 1;
+                    }
+                    
                 }
 
 
-                else if (e.Delta < 0 && choixBille > 0)
+                else if (e.Delta < 0)
                 {
-                    choixBille = choixBille - 1;
+                    if (choixBille <= 0)
+                    {
+                            choixBille = 2;
+                    }
+                    else
+                    {
+                        choixBille = choixBille - 1;
+                    }
+                    
                 }
                 ChoixBille.Content = billeInventaire[choixBille];
             }
