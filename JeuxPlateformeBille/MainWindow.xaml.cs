@@ -32,7 +32,7 @@ namespace JeuxPlateformeBille
 
     public partial class MainWindow : Window
     {
-        private static readonly int TOLERANCE_COLISION = 5, GRAVITE = 8, TAUX_APPARITION_SAC = 300, NB_BILLES_DEPART = 3, TIMER_ANIMATION = 5, DEPLACEMENT_SOL = 1, GRAVITE_BILLE = 4, NB_ROCHE_BOSS = 5, DEGATSFEU = 10;
+        private static readonly int TOLERANCE_COLISION = 8, GRAVITE = 8, TAUX_APPARITION_SAC = 300, NB_BILLES_DEPART = 3, TIMER_ANIMATION = 5, DEPLACEMENT_SOL = 1, GRAVITE_BILLE = 4, NB_ROCHE_BOSS = 5, DEGATSFEU = 10;
         private static readonly double DEPLACEMENT_AIR = 0.6;
         private static readonly int[,] NIVEAU_BILLE = new int[,]
             { {0,0,0}, {0,0,1}, {0,2,2}, {0,1,2} };
@@ -466,6 +466,7 @@ namespace JeuxPlateformeBille
                         imortalité = true;
                     }
                 }
+                
                 Deplacement();
                 DeplacementEnnemi();
                 DeplacementSac();
@@ -524,6 +525,10 @@ namespace JeuxPlateformeBille
                 coefReductionDeplacementSaut = DEPLACEMENT_SOL;
                 animationSaut = 1;
                 ReinitialisationSaut();
+                if (!droite && !gauche)
+                {
+                    AnimationStatic();
+                }
             }
             //sinon appliquer le vecteur de gravité en mettant un coefficient de réduction de déplacement dans les airs
             else
@@ -567,7 +572,10 @@ namespace JeuxPlateformeBille
             {
                 enSaut = true;
             }
-
+            if (gravite == 8 && !enSaut)
+            {
+                AnimationChute();
+            }
         }
 
 
@@ -584,10 +592,6 @@ namespace JeuxPlateformeBille
                     if (Canvas.GetTop(joueur) + joueur.Height < Canvas.GetTop(plateformesEnJeu[i].Texture) + TOLERANCE_COLISION)
                     {
                         timerAnimationSaut = 0;
-                        if (!droite && !gauche)
-                        {
-                            AnimationStatic();
-                        }
                         return 0;
                     }
                     else if (Canvas.GetLeft(joueur) + joueur.Width < Canvas.GetLeft(plateformesEnJeu[i].Texture) + TOLERANCE_COLISION)
@@ -962,8 +966,6 @@ namespace JeuxPlateformeBille
         {
             enSaut = false;
             vitesseSaut = -35;
-
-
         }
         private void FinJeu() // arrete la minuterie
         {
@@ -1127,6 +1129,7 @@ namespace JeuxPlateformeBille
                     animationJoueur = 1;
                 }
             }
+            Console.WriteLine("Animation deplacement : " + animationJoueur);
 
         }
 
@@ -1141,6 +1144,7 @@ namespace JeuxPlateformeBille
                 animationSaut = animationSaut + 1;
                 timerAnimationSaut = 0;
             }
+            Console.WriteLine("Animation saut : "+ animationSaut);
         }
         private void AnimationChute()
         {
@@ -1166,6 +1170,8 @@ namespace JeuxPlateformeBille
             {
                 animationStatic = 1;
             }
+            Console.WriteLine("Animation static : " + animationStatic);
+
 
         }
 
