@@ -27,6 +27,8 @@
     <None Remove="img\billes\bille1.png" />
     <None Remove="img\billes\bille2.png" />
     <None Remove="img\billes\bille3.png" />
+    <None Remove="img\billes\bille4.png" />
+    <None Remove="img\billes\bille5.png" />
     <None Remove="img\bille_simple.png" />
     <None Remove="img\castle.jpg" />
     <None Remove="img\ChoixDuNiveau.jpg" />
@@ -100,6 +102,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="img\billes\bille4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\billes\bille5.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="img\credits.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
